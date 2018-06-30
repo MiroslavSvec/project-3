@@ -1,0 +1,59 @@
+/* Will overwrite the BS css later on instead */
+
+.form-control,
+.card, 
+.card_login {
+	background-color: transparent;
+	border: none;
+	color: #ffffff;
+
+
+}
+.card {
+	height: 100%;
+}
+hr {
+	margin-top: 0;
+    margin-bottom: 50px;
+    width: 100%;
+    height: 1px;
+    background-color: #ffffff;
+    border: 0;
+}
+
+/* Login */
+
+.index_background,
+.btn,
+.form-control:focus,
+.btn-primary,
+.btn-success {
+	/* padding: 0;
+    background: url("../images/main-background.jpg") no-repeat center;
+    background-attachment: scroll;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+	background-size: cover; */
+	background-color: #343a40;
+}
+
+.card_login {
+	position: relative;
+}
+#create_profile_overlay {
+	position: absolute;
+	display: none;
+	padding: 0;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	width: 100% !important;
+	height: 15%;
+	width: 100px;
+}
+#create_profile_overlay .card {
+	background-color: #000000;
+}

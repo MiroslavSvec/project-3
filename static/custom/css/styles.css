@@ -1,0 +1,29 @@
+/*
+General
+*/
+
+a {
+	color: #ffffff;
+	text-decoration: none;
+}
+
+a:hover {
+	opacity: 0.7;
+}
+
+h4,
+h5 {
+	color: #ffffff;
+	margin-bottom: 25px;
+	margin-left: 10px;
+}
+
+
+
+/*
+Riddle Game
+*/
+
+#riddle-game {
+	display: none;
+}

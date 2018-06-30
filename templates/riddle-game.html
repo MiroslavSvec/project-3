@@ -1,0 +1,241 @@
+ {% extends "base.html" %} 
+ {% block navbar %} 
+ {% block riddle_g_nav %}
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
+	<a class="navbar-brand" href="/{{user_name}}">{{user_name}}</a>
+	<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+	 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+		<ul>
+			
+		</ul>
+		<ul class="navbar-nav sidenav-toggler">
+			<li class="nav-item">
+				<a class="nav-link text-center" id="sidenavToggler">
+					<i class="fa fa-fw fa-angle-left"></i>
+				</a>
+			</li>
+		</ul>
+		<ul class="navbar-nav navbar-sidenav" id="exampleAccordion">
+			<h4 class="text-center">Statistics</h4>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components"><h5 id="right-answers"></h5>
+				
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages"><h5 id="wrong-answers"></h5>
+				
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels"><h5 id="skipped-questions"></h5>
+				
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+				
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+				
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+				
+			</li>
+			<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+				
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<li class="nav-item dropdown">
+					<ul class="navbar-nav " id="exampleAccordion">
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+							<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseComponents" data-parent="#exampleAccordion">
+								<i class="fa fa-fw fa-user"></i>
+							</a>
+							<ul class="sidenav-second-level collapse" id="collapseComponents">
+								{% for profile in profiles %}
+								<li>
+									<a href="/user/{{profile}}">
+										<i class="fa fa-fw fa-address-card"></i> {{profile}}</a>
+								</li>
+								{% endfor %}
+							</ul>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+							<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseExamplePages" data-parent="#exampleAccordion">
+								<i class="fa fa-fw fa-users"></i>
+							</a>
+							<ul class="sidenav-second-level collapse" id="collapseExamplePages">
+								<li>
+									<a href="login.html">Login Page</a>
+								</li>
+								<li>
+									<a href="register.html">Registration Page</a>
+								</li>
+								<li>
+									<a href="forgot-password.html">Forgot Password Page</a>
+								</li>
+								<li>
+									<a href="blank.html">Blank Page</a>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+							<a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti" data-parent="#exampleAccordion">
+								<i class="fa fa-fw fa-gamepad"></i>
+							</a>
+							<ul class="sidenav-second-level collapse" id="collapseMulti">
+								<li>
+									<a href="{{user_name}}/riddle-g-setting">Riddles</a>
+								</li>
+								<li>
+									<a href="#">Second Level Item</a>
+								</li>
+								<li>
+									<a href="#">Second Level Item</a>
+								</li>
+								<li>
+									<a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Third Level</a>
+									<ul class="sidenav-third-level collapse" id="collapseMulti2">
+										<li>
+											<a href="#">Third Level Item</a>
+										</li>
+										<li>
+											<a href="#">Third Level Item</a>
+										</li>
+										<li>
+											<a href="#">Third Level Item</a>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+							<a class="nav-link" href="index.html">
+								<i class="fa fa-fw fa-dashboard"></i>
+							</a>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+							<a class="nav-link" href="charts.html">
+								<i class="fa fa-fw fa-area-chart"></i>
+							</a>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+							<a class="nav-link" href="tables.html">
+								<i class="fa fa-fw fa-table"></i>
+							</a>
+						</li>
+						<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+							<a class="nav-link" href="#">
+								<i class="fa fa-fw fa-link"></i>
+							</a>
+						</li>
+					</ul>
+				</li>
+			</li>
+		</ul>
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle mr-lg-2" id="messagesDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-fw fa-envelope"></i>
+					<span class="d-lg-none">Messages
+						<span class="badge badge-pill badge-primary">12 New</span>
+					</span>
+					<span class="indicator text-primary d-none d-lg-block">
+						<i class="fa fa-fw fa-circle"></i>
+					</span>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="messagesDropdown">
+					<h6 class="dropdown-header">New Messages:</h6>
+					<div class="dropdown-divider"></div>
+					<!-- Chat Window-->
+					<iframe id="chat-window" src="/chat" height="100%" width="100%"></iframe>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item small" href="#">View all messages</a>
+				</div>
+			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fa fa-fw fa-bell"></i>
+					<span class="d-lg-none">Alerts
+						<span class="badge badge-pill badge-warning">6 New</span>
+					</span>
+					<span class="indicator text-warning d-none d-lg-block">
+						<i class="fa fa-fw fa-circle"></i>
+					</span>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="alertsDropdown">
+					<h6 class="dropdown-header">New Alerts:</h6>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">
+						<span class="text-success">
+							<strong>
+								<i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+						</span>
+						<span class="small float-right text-muted">11:21 AM</span>
+						<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+					</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">
+						<span class="text-danger">
+							<strong>
+								<i class="fa fa-long-arrow-down fa-fw"></i>Status Update</strong>
+						</span>
+						<span class="small float-right text-muted">11:21 AM</span>
+						<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+					</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item" href="#">
+						<span class="text-success">
+							<strong>
+								<i class="fa fa-long-arrow-up fa-fw"></i>Status Update</strong>
+						</span>
+						<span class="small float-right text-muted">11:21 AM</span>
+						<div class="dropdown-message small">This is an automated server response message. All systems are online.</div>
+					</a>
+					<div class="dropdown-divider"></div>
+					<a class="dropdown-item small" href="#">View all alerts</a>
+				</div>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" data-toggle="modal" data-target="#exampleModal">
+					<i class="fa fa-fw fa-sign-out"></i>Logout</a>
+			</li>
+		</ul>
+	</div>
+</nav>
+{% endblock riddle_g_nav %} 
+{% endblock navbar %} 
+
+{% block main_content %}
+
+
+<div id="riddle-game" class="card mt-1 text-center">
+	<div class="card-header mb-3">Riddle game</div>
+	<div class="card-deck">
+		<div class="card">
+			<div class="card-header">
+				<h3 id="question">Q:</h3>
+			</div>
+			<form onsubmit="return riddle_game_answer(this)">
+				<div class="form-group-sm">
+					<label for="answer">Enter your answer please</label>
+					<input name="answer" type="text" class="form-control" placeholder="Your answer?" required>					
+				</div>
+				<button type="submit" class="btn btn-default">Submit</button>
+				<button type="submit" onclick="skip_question()" class="btn btn-warning">Skip Question</button>
+			</form>
+		</div>
+		<div id="riddle-game-result" class="card">
+			<h3 id="result"></h3>
+		</div>
+	</div>
+		<div class="card-footer mt-3"></div>
+</div>
+
+{% endblock main_content %}
+{% block scripts %}
+<script>
+	$(document).ready(function () {
+		show_riddle_game();
+	})
+</script>
+{% endblock scripts %}
