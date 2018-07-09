@@ -20,7 +20,14 @@ app = Flask(__name__)
 
 @app.route('/<user_name>/data', methods=["GET"])
 def get(user_name):
-	return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
+	profiles = helper.read_txt("data/profiles/all-profiles.txt")
+	profile = user_name + "\n"
+	print(profile, user_name)
+	if profile in profiles:
+		return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
+	else:
+		return jsonify("no profile")
+	
 
 
 @app.route('/<user_name>/data', methods=["POST"])
@@ -70,16 +77,9 @@ def profile_page(user_name):
 
 
 """ Riddles Game  Setting """
-@app.route('/user/<user_name>/riddle-g-setting')
+@app.route('/<user_name>/riddle-g-setting')
 def riddle_setting(user_name):
-	## If game profile already exist redirect user to the game
-	riddle_profiles = helper.read_txt("data/riddle-game/all-players.txt")
-	profile = user_name + "\n"
-	print(profile, user_name)
-	if profile in riddle_profiles:
-		return redirect(f"/user/{user_name}/riddle-game")
-	else:
-		return riddle.riddle_g_setting(user_name)
+	return riddle.riddle_g_setting(user_name)
 	
 
 ## JSON requests to create save

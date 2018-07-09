@@ -41,7 +41,7 @@
 							<a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Riddles</a>
 							<ul class="sidenav-third-level collapse" id="collapseMulti2">
 								<li>
-									<a href="{{user_name}}/riddle-g-setting">
+									<a href="/{{user_name}}/riddle-g-setting">
 										<i class="fa fa-fw fa-plus"></i> New Game</a>
 								</li>
 								 {% for riddle_profile in riddle_profile %}
@@ -94,7 +94,23 @@
 				</li>
 			</ul>
 		</div>
+
+		<!-- Alerts Box  -->
+		
+		
+		<div id="alerts" class="container-fluid text-center">
+			<header class="row">
+				<div class="text-left">
+				</div>
+			</header>
+			<div class="row">
+				<div class="col-xs-12">
+					<p id="message-box"></p>
+				</div>
+			</div>
+		</div>
 	</nav>
+
 	{% endblock navbar %}
 
 	<!--Main Content-->

@@ -23,6 +23,10 @@ hr {
 
 /* Login */
 
+.navbar-brand p {
+	color: #ffffff;
+}
+
 .index_background,
 .btn,
 .form-control:focus,
@@ -38,22 +42,3 @@ hr {
 	background-color: #343a40;
 }
 
-.card_login {
-	position: relative;
-}
-#create_profile_overlay {
-	position: absolute;
-	display: none;
-	padding: 0;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	z-index: 2;
-	width: 100% !important;
-	height: 15%;
-	width: 100px;
-}
-#create_profile_overlay .card {
-	background-color: #000000;
-}

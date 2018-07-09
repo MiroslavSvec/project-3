@@ -22,47 +22,52 @@
 
 <body class="index_background">
 	
-		<nav class="nav nav-wrapper">
-			<div class="navbar-brand">
-				<i class="fa fa-fw fa-users"></i>
-				<a href="/">{{members}}</a>
+	<nav class="nav nav-wrapper">
+		<div class="navbar-brand">			
+			<p>So far {{members}} profiles created for testing.</p>
+		</div>
+		<!-- Alerts Box  -->		
+		<div id="alerts" class="container-fluid text-center">
+			<header class="row">
+				<div class="text-left">
+				</div>
+			</header>
+			<div class="row">
+				<div class="col-xs-12">
+					<p id="message-box"></p>
+				</div>
 			</div>
-		</nav>
-		<div class="container">
-			<div class="card card-login mx-auto mt-5">
-				<div class="card-header">Create Account / Login</div>
-					<div class="card">
-					<div id="create_profile_overlay" class="card-body">
-						<div class="card">
-							<h3 id="message"></h3>
+		</div>
+	</nav>
+	<div class="container">		
+		<div class="card card-login mx-auto mt-5">
+			<div class="card-header">Create Account / Login</div>
+			<div class="card">
+				<div class="card-body">
+					<form>
+						<div class="form-group">
+							<label for="username">Enter your user name please</label>
+							<input name="username" type="text" class="form-control" placeholder="User name" required>
 						</div>
-					</div>
-					<div class="card-body">
-						<form onsubmit="return create_profile()">
-							<div class="form-group">
-								<label for="username">Enter your user name please</label>
-								<input name="username" type="text" class="form-control" placeholder="User name" required>
-							</div>
-							<hr>
-							<div class="form-group">
-								<label for="user_password">Password</label>
-								<input class="form-control" name="user_password" type="password" placeholder="Password">
-							</div>
-							<hr>
-							<div class="form-group">
+						<hr>
+						<div class="form-group">
+							<label for="user_password">Password</label>
+							<input class="form-control" name="user_password" type="password" placeholder="Password" required>
+						</div>
+						<hr>
+						<!-- <div class="form-group">
 								<div class="form-check">
 									<label class="form-check-label">
 										<input class="form-check-input" type="checkbox"> Remember Password</label>
 								</div>
-							</div>
-							<button type="submit" class="btn btn-primary btn-block">Create account</button>
-							<button onclick="return check_login_details();" class="btn btn-success btn-block">Login</button>
-						</form>
-					</div>
+							</div> -->
+						<button onclick="return create_profile()" class="btn btn-primary btn-block">Create account</button>
+						<button onclick="return check_login_details();" class="btn btn-success btn-block">Login</button>
+					</form>
 				</div>
 			</div>
-		
 		</div>
+	</div>
 	<!-- Bootstrap core JavaScript-->
 	<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
