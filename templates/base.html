@@ -44,10 +44,10 @@
 									<a href="/{{user_name}}/riddle-g-setting">
 										<i class="fa fa-fw fa-plus"></i> New Game</a>
 								</li>
-								 {% for riddle_profile in riddle_profile %}
+								 {% for profile in riddle_profiles %}
 								<li>
-									<a href="/user/{{profile}}">
-										<i class="fa fa-fw fa-address-card"></i> {{riddle_profile}}</a>
+									<a href="/{{user_name}}/{{profile}}/riddle-game">
+										<i class="fa fa-fw fa-address-card"></i> {{profile}}</a>
 								</li>
 								{% endfor %}
 							</ul>

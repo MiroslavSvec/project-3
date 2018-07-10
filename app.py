@@ -27,8 +27,6 @@ def get(user_name):
 		return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
 	else:
 		return jsonify("no profile")
-	
-
 
 @app.route('/<user_name>/data', methods=["POST"])
 def post(user_name):
@@ -63,53 +61,58 @@ def chat():
 
 """ Profile page """
 
-@app.route('/user/<user_name>')
+@app.route('/<user_name>')
 def profile_page(user_name):
-	## Get profile data
-	profiles_data = helper.read_txt("data/profiles/all-profiles.txt")
-	## Check if there is more then one profile
-	if len(profiles_data) > 0:
-		return render_template("profile.html",
-                         user_name=user_name, page_title=f"{user_name}" + " profile", profiles=profiles_data)
+	riddle_profiles = helper.read_txt(f'data/profiles/{user_name}/riddle_game/riddle_profiles.txt')
 	## Render default template
 	return render_template("profile.html",
-                        user_name=user_name, page_title=f"{user_name}" + " profile")
+                        user_name=user_name, riddle_profiles=riddle_profiles, page_title=f"{user_name}" + " profile")
 
 
 """ Riddles Game  Setting """
+
+
 @app.route('/<user_name>/riddle-g-setting')
 def riddle_setting(user_name):
-	return riddle.riddle_g_setting(user_name)
+	riddle_profiles = helper.read_txt(
+		f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+	return render_template("riddle-g-setting.html",
+                        user_name=user_name, riddle_profiles=riddle_profiles, page_title="Riddle Game Setting")
 	
 
 ## JSON requests to create save
-@app.route('/postjson/<user_name>/riddle_g_setting', methods=["POST", "GET"])
+
+@app.route('/postjson/<user_name>/riddle-g-setting', methods=["POST"])
 def parse_setting(user_name):
 	# Create new game
-	if request.method == "POST":
-		data = request.get_json(force=True)
-		riddle.create_riddle_game(data)
-		return jsonify(data)
-	data = helper.read_json(helper.profile(user_name))
+	data = request.get_json(force=True)
+	riddle.create_riddle_game(data)
 	return jsonify(data)
-	
+
 
 """ Riddles Game """
 
-@app.route('/user/<user_name>/riddle-game', methods=["GET"])
-def get_results(user_name):
+
+@app.route('/<user_name>/<riddle_profile>/riddle-game', methods=["GET"])
+def get_results(user_name, riddle_profile):
+	profile = helper.read_json(helper.profile(user_name, riddle_profile))
+	profile = profile["game"][0]
 	## Render riddle-game template by default
 	return render_template("riddle-game.html",
-                        user_name=user_name, page_title="Riddle Game")
+                        user_name=user_name, 
+                        riddle_profile=riddle_profile,
+						page_title="Riddle Game")
 
 ## JSON POST to play the game
-@app.route('/postjson/<user_name>/riddle-game', methods=["POST", "GET"])
-def parse_answer(user_name):
+
+
+@app.route('/postjson/<user_name>/<riddle_profile>/riddle-game', methods=["POST", "GET"])
+def parse_answer(user_name, riddle_profile):
 	## Main POST request for riddle-game
 	if request.method == "POST":
-		data = riddle.riddle_game(user_name)		
+		data = riddle.riddle_game(user_name, riddle_profile)
 		return jsonify(data)
-	data = helper.read_json(helper.profile(user_name))
+	data = helper.read_json(helper.profile(user_name, riddle_profile))
 	return jsonify(data)
 
 

@@ -29,14 +29,14 @@ def read_json(filename):
 
 
 ## Questions json for riddle game
-def questions(user_name):
-	questions = f"data/profiles/{user_name}/riddle_game/questions.json"
+def questions(user_name, riddle_profile_name):
+	questions = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/questions.json"
 	return questions
 
 
 ## Profile json
-def profile(user_name):
-	profile = f"data/profiles/{user_name}/riddle_game/player_{user_name}.json"
+def profile(user_name, riddle_profile_name):
+	profile = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/player_{riddle_profile_name}.json"
 	return profile
 
 
@@ -72,6 +72,9 @@ def create_profile_data(user_name):
 		members_count = app_data['1.1'][0]["members"]
 		app_data['1.1'][0]["members"] = members_count + 1
 		write_to_json("data/system/app_data.json", "w", app_data)
+		## Create game folder
+		os.makedirs(f"data/profiles/{user_name}/riddle_game")
+		write_to_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", "")
 
 		return jsonify({'status': "success"}, {'profile': f"{user_name}"})
 

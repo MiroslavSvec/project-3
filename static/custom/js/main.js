@@ -13,7 +13,6 @@ function get_comon_data() {
 	return comon_data;
 }
 
-
 /*
 Alert modal
 */
@@ -57,11 +56,8 @@ function create_profile() {
 					" already exist Please try to log in instead.";
 				alerts_box(message);
 			} else if (data[0].status == status) {
-				localStorage.setItem(
-					"user_comon_data",
-					JSON.stringify(`${data[1].profile}`)
-				);
-				window.location.replace(`/user/${data[1].profile}`);
+				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
+				window.location.replace(`/${user_name}`);
 			} else {
 				let message = "Sorry. There seems to be a problem ...";
 				alerts_box(message);
@@ -87,7 +83,7 @@ function check_login_details() {
 				alerts_box(message);
 			} else {
 				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
-				window.location.replace(`/user/${user_name}`);
+				window.location.replace(`/${user_name}`);
 			}
 		}).fail(function(xhr, status, error) {
 			console.log(xhr);
@@ -103,30 +99,26 @@ Create Game (riddle.hmtl)
 */
 
 function create_riddle_game(form_data) {
-	let user = get_comon_data();
-	const riddle_game_data = new Game(
-		form_data.categories.value,
-		form_data.mods.value,
-		form_data.tries.value,
-		user
-	);
-
-	function Game(categories, mods, tries, user) {
-		this.id = user;
-		this.categories = categories;
-		this.mods = mods;
-		this.tries = tries;
+	let user_name = get_comon_data();
+	const riddle_game_data = new Game(user_name, form_data);
+ 
+	function Game(user_name, form_data) {
+		this.id = user_name;
+		this.riddle_profile_name = form_data.riddle_profile.value;
+		this.categories = form_data.categories.value;
+		this.mods = form_data.mods.value;
+		this.tries = form_data.tries.value;
 	}
-
+	console.log(riddle_game_data);
 	$.post(
-		`/postjson/${user}/riddle_g_setting`,
+		`/postjson/${user_name}/riddle-g-setting`,
 		JSON.stringify({ riddle_game_data: riddle_game_data }),
 		function(data, status) {
 			console.log(status);
 			console.log(data);
-			window.location.replace(`/user/${user}/riddle-game`);
+			window.location.replace(`/${user_name}/${form_data.riddle_profile.value}/riddle-game`);
 		}
-	).fail(function (xhr, status, error) {
+	).fail(function(xhr, status, error) {
 		console.log(xhr);
 		console.log(status);
 		console.log(error);
@@ -138,11 +130,15 @@ function create_riddle_game(form_data) {
 // Riddle Game
 
 function show_riddle_game() {
-	let user = get_comon_data();
-	$.get(`/postjson/${user}/riddle_g_setting`, function(data) {
+	let user = $("#user_name").text();
+	let riddle_profile = $("#riddle_profile").text();
+
+	$.get(`/postjson/${user}/${riddle_profile}/riddle-game`, function(
+		data
+	) {
 		console.log(data);
 		let riddle_game_data = data.game[0];
-		$("#question").html("Q: " + riddle_game_data.question);
+		$("#question").html(riddle_game_data.question);
 		$("#right-answers").html(
 			"Correct answers: " + riddle_game_data.right_answers
 		);
@@ -154,7 +150,7 @@ function show_riddle_game() {
 		);
 
 		console.log(riddle_game_data);
-	}).fail(function (xhr, status, error) {
+	}).fail(function(xhr, status, error) {
 		console.log(xhr);
 		console.log(status);
 		console.log(error);
@@ -163,11 +159,12 @@ function show_riddle_game() {
 }
 
 function riddle_game_answer(form) {
-	let user = get_comon_data();
+	let user = $("#user_name").text();
+	let riddle_profile = $("#riddle_profile").text();
 	let answer = form.answer.value;
 	console.log(answer);
 	$.post(
-		`/postjson/${user}/riddle-game`,
+		`/postjson/${user}/${riddle_profile}/riddle-game`,
 		JSON.stringify({ answer: answer }),
 		function(data) {
 			let riddle_game_data = data.game[0];
@@ -186,7 +183,7 @@ function riddle_game_answer(form) {
 				"Skipped questions: " + riddle_game_data.skipped_questions
 			);
 		}
-	).fail(function (xhr, status, error) {
+	).fail(function(xhr, status, error) {
 		console.log(xhr);
 		console.log(status);
 		console.log(error);
