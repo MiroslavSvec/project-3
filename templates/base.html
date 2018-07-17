@@ -17,6 +17,9 @@
 	<!-- Styles-->
 	<link href="{{ url_for('static', filename='custom/css/styles.css') }}" rel="stylesheet"/>
 	<link href="{{ url_for('static', filename='custom/css/screens.css') }}" rel="stylesheet"/>
+	{% block css %}
+	
+	{% endblock css %}
 
 </head>
 
@@ -25,7 +28,7 @@
 	{% block navbar %}
 	<nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" id="mainNav">
 		{% block navbar_brand %}
-		<a class="navbar-brand" href="/{{user_name}}">{{user_name}}</a>
+		<a class="navbar-brand" href="/{{user_name}}"><span id="user_name">{{user_name}}</span></a>
 		{% endblock navbar_brand %}
 		<button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive"
 		 aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
@@ -40,7 +43,7 @@
 					</a>
 					<ul class="sidenav-second-level collapse" id="collapseMulti">
 						<li>
-							<a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2">Riddles</a>
+							<a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2"><i class="fa fa-fw fa-question-circle"></i> Riddles</a>
 							<ul class="sidenav-third-level collapse" id="collapseMulti2">
 								<li>
 									<a href="/{{user_name}}/riddle-g-setting">
@@ -49,7 +52,7 @@
 								 {% for profile in riddle_profiles %}
 								<li>
 									<a href="/{{user_name}}/{{profile}}/riddle-game">
-										<i class="fa fa-fw fa-address-card"></i> {{profile}}</a>
+										<i class="fa fa-fw fa-user"></i> {{profile}}</a>
 								</li>
 								{% endfor %}
 							</ul>
@@ -91,21 +94,6 @@
 						<i class="fa fa-fw fa-sign-out"></i>Logout</a>
 				</li>
 			</ul>
-		</div>
-
-		<!-- Alerts Box  -->
-		
-		
-		<div id="alerts" class="container-fluid text-center">
-			<header class="row">
-				<div class="text-left">
-				</div>
-			</header>
-			<div class="row">
-				<div class="col-xs-12">
-					<p id="message-box"></p>
-				</div>
-			</div>
 		</div>
 	</nav>
 

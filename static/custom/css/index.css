@@ -6,6 +6,7 @@
 	background-color: transparent;
 	border: none;
 	color: #ffffff;
+	
 
 
 }
@@ -32,13 +33,12 @@ hr {
 .form-control:focus,
 .btn-primary,
 .btn-success {
-	/* padding: 0;
-    background: url("../images/main-background.jpg") no-repeat center;
-    background-attachment: scroll;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-	background-size: cover; */
 	background-color: #343a40;
 }
 
+
+lol {
+	background-image: url("../files/images/1.jpg") ;
+	height: 500px;
+	
+}

@@ -95,11 +95,14 @@ def parse_setting(user_name):
 
 @app.route('/<user_name>/<riddle_profile>/riddle-game', methods=["GET"])
 def get_results(user_name, riddle_profile):
+	riddle_profiles = helper.read_txt(
+		f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
 	profile = helper.read_json(helper.profile(user_name, riddle_profile))
 	profile = profile["game"][0]
 	## Render riddle-game template by default
 	return render_template("riddle-game.html",
                         user_name=user_name, 
+                        riddle_profiles=riddle_profiles,
                         riddle_profile=riddle_profile,
 						page_title="Riddle Game")
 
@@ -110,8 +113,15 @@ def get_results(user_name, riddle_profile):
 def parse_answer(user_name, riddle_profile):
 	## Main POST request for riddle-game
 	if request.method == "POST":
-		data = riddle.riddle_game(user_name, riddle_profile)
-		return jsonify(data)
+		post_data = request.get_json(force=True)
+		if post_data["id"] == "answer":
+			data = riddle.riddle_game(user_name, riddle_profile, post_data)
+			return jsonify(data)
+		elif post_data["id"] == "skip_question":
+			data = riddle.skip_question(user_name, riddle_profile)
+			return jsonify(data)
+		else:
+			pass
 	data = helper.read_json(helper.profile(user_name, riddle_profile))
 	return jsonify(data)
 
@@ -128,14 +138,12 @@ if __name__ == '__main__':
             debug=True)
 
 """ Create 404 page and 500 error """
-""" Create members page """
-""" Categories for questions """
 """ Score """
+""" Stats """
+""" Add confirmation messages when clicking / submiting in the game """
+""" Hide skip question button if it is the last question """
 """ Come up with some sort of search engine to get more questions injected from web """
 """ Limit wrong answers """
-""" Add multiple saves """
-""" Add riddle """
-""" Passwords """
 """ View Friends """
 """ Chat / Password / Send Invitaiton / """
 """ Inject graphs to mini statistcs in riddle-game.html """

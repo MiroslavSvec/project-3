@@ -96,8 +96,7 @@ def create_questions_file(game_profile, user_name, riddle_profile_name):
                  helper.questions(user_name, riddle_profile_name))
 
 	## To shuffle the questions that every game is different
-    questions = helper.read_json(
-        helper.questions(user_name, riddle_profile_name))
+    questions = helper.read_json(helper.questions(user_name, riddle_profile_name))
     random.shuffle(questions["questions"])
 	# Pick question from the database
     game_profile["game"][0]["question"] = pick_question(questions)
@@ -112,12 +111,12 @@ def pick_question(questions):
 	return question
 
 
-def riddle_game(user_name, riddle_profile_name):
+def riddle_game(user_name, riddle_profile_name, data):
 	questions = helper.read_json(helper.questions(user_name, riddle_profile_name))
 	profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
-	data = request.get_json(force=True)
+	
 	## Format both user as well as correct answer
-	user_answer = string_format(data["answer"])
+	user_answer = string_format(data["data"])
 	correct_answer = string_format(questions["questions"][0]["answer"])
 	
 	if user_answer == correct_answer:
@@ -132,13 +131,26 @@ def riddle_game(user_name, riddle_profile_name):
 		helper.write_to_json(helper.profile(
 		    user_name, riddle_profile_name), "w", profile)
 		return profile
-	print(correct_answer)
-	print(user_answer)
-	print(profile)
 
 
-	return correct_answer
-
+def skip_question(user_name, riddle_profile_name):
+    questions = helper.read_json(
+        helper.questions(user_name, riddle_profile_name))
+    skipped_question = questions["questions"].pop(0)
+    questions["questions"].append(skipped_question)
+    profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
+    profile["game"][0]["question"] = pick_question(questions)
+    profile["game"][0]["skipped_questions"] += 1
+    helper.write_to_json(helper.profile(
+        user_name, riddle_profile_name), "w", profile)
+    helper.write_to_json(helper.questions(
+        user_name, riddle_profile_name), "w", questions)
+    return profile
+	
+	
+	
+	
+	
 
 def string_format(string):	
 	string = string.lower()
