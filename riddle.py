@@ -5,40 +5,24 @@ import json
 import random
 from datetime import datetime
 from shutil import copyfile
-from flask import Flask, redirect, request, render_template, jsonify
-
+from flask import jsonify
 ## Custom .py
 import helper
 
 
-app = Flask(__name__)
+## Questions json for riddle game
+def questions(user_name, riddle_profile_name):
+	questions = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/questions.json"
+	return questions
 
 
-""" Data Sample """
-
-## {"riddle_game_data":{"id":"test","categories":"all","mods":"none","tries":"1"}}
-## {answer: "test answer"}
-
-## {
-##	"game": [
-##		{
-##			"id": "test",
-##			"player_name": "test",
-##			"game_started": "00:43:17",
-##			"categories": "all",
-##			"mods": "none",
-##			"tries": "1",
-##			"result": "",
-##			"right_answers": 0,
-##			"wrong_answers": 0,
-##			"skipped_questions": 0
-##		}
-##	]
-##}
-
-
+## Profile json
+def profile(user_name, riddle_profile_name):
+	profile = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/player_{riddle_profile_name}.json"
+	return profile
 
 """ Riddles Game Setting"""
+
 
 def create_riddle_game(data):
     user_name = data["riddle_game_data"]["id"]
@@ -46,7 +30,10 @@ def create_riddle_game(data):
     game_profile = create_game_profile(data, user_name, riddle_profile_name)
     questions = create_questions_file(
         game_profile, user_name, riddle_profile_name)
-	# Write data
+    game_profile["game"][0]["questions_in_total"] = len(
+        questions["questions"])
+    game_profile["game"][0]["remaining_questions"] = game_profile["game"][0]["questions_in_total"]
+    # Write data
     helper.write_to_txt(f"data/riddle-game/all-players.txt",
                         "a", f"{riddle_profile_name}" + '\n')
     helper.write_to_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt",
@@ -59,7 +46,7 @@ def create_riddle_game(data):
 
 
 def create_game_profile(data, user_name, riddle_profile_name):
-	# Profile data
+        # Profile data
     game_created = datetime.now().strftime("%H:%M:%S")
     riddle_game_data = {}
     riddle_game_data["game"] = []
@@ -74,20 +61,24 @@ def create_game_profile(data, user_name, riddle_profile_name):
          'answer': [],
          'result': "",
          'score': 0,
+         'questions_in_total': 0,
+         'remaining_questions': 0,
          'right_answers': 0,
          'wrong_answers': 0,
          'skipped_questions': 0,
+         'deleted_questions': 0,
          })
-	# Create Game folder
+    # Create Game folder
     os.makedirs(f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}")
     return riddle_game_data
 
 
 def create_questions_file(game_profile, user_name, riddle_profile_name):
-	# Copy question file to work with fresh file
+        # Copy question file to work with fresh file
     if game_profile["game"][0]["categories"] == "all":
-        copyfile("data/riddle-game/all.json", helper.questions(user_name, riddle_profile_name))
-		
+        copyfile("data/riddle-game/all.json",
+                 helper.questions(user_name, riddle_profile_name))
+
     elif game_profile["game"][0]["categories"] == "general":
         copyfile("data/riddle-game/general.json",
                  helper.questions(user_name, riddle_profile_name))
@@ -95,10 +86,11 @@ def create_questions_file(game_profile, user_name, riddle_profile_name):
         copyfile("data/riddle-game/mixed.json",
                  helper.questions(user_name, riddle_profile_name))
 
-	## To shuffle the questions that every game is different
-    questions = helper.read_json(helper.questions(user_name, riddle_profile_name))
+        # To shuffle the questions that every game is different
+    questions = helper.read_json(
+        helper.questions(user_name, riddle_profile_name))
     random.shuffle(questions["questions"])
-	# Pick question from the database
+    # Pick question from the database
     game_profile["game"][0]["question"] = pick_question(questions)
     return questions
 
@@ -107,38 +99,48 @@ def create_questions_file(game_profile, user_name, riddle_profile_name):
 
 
 def pick_question(questions):
-	question = questions["questions"][0]["riddle"]	
-	return question
+    question = questions["questions"][0]["riddle"]
+    return question
 
 
 def riddle_game(user_name, riddle_profile_name, data):
-	questions = helper.read_json(helper.questions(user_name, riddle_profile_name))
-	profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
-	
-	## Format both user as well as correct answer
-	user_answer = string_format(data["data"])
-	correct_answer = string_format(questions["questions"][0]["answer"])
-	
-	if user_answer == correct_answer:
-		profile["game"][0]["right_answers"] += 1
-		profile["game"][0]["result"] = "Correct"
-		helper.write_to_json(helper.profile(
-		    user_name, riddle_profile_name), "w", profile)
-		return profile
-	else:
-		profile["game"][0]["wrong_answers"] += 1
-		profile["game"][0]["result"] = "Wrong"
-		helper.write_to_json(helper.profile(
-		    user_name, riddle_profile_name), "w", profile)
-		return profile
+    questions = helper.read_json(
+        helper.questions(user_name, riddle_profile_name))
+    profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
+
+    # Format both user as well as correct answer
+    user_answer = string_format(data["data"])
+    correct_answer = string_format(questions["questions"][0]["answer"])
+
+    if user_answer == correct_answer:
+        profile["game"][0]["right_answers"] += 1
+        profile["game"][0]["remaining_questions"] -= 1
+        profile["game"][0]["result"] = "Correct"
+        questions["questions"].pop(0)
+        helper.write_to_json(helper.questions(
+            user_name, riddle_profile_name), "w", questions)
+        profile["game"][0]["question"] = pick_question(questions)
+        helper.write_to_json(helper.profile(
+            user_name, riddle_profile_name), "w", profile)
+        return profile
+    else:
+        profile["game"][0]["wrong_answers"] += 1
+        profile["game"][0]["result"] = "Wrong"
+        helper.write_to_json(helper.profile(
+            user_name, riddle_profile_name), "w", profile)
+        return profile
 
 
 def skip_question(user_name, riddle_profile_name):
     questions = helper.read_json(
         helper.questions(user_name, riddle_profile_name))
+    profile = helper.read_json(
+        helper.profile(user_name, riddle_profile_name))
+    if len(questions["questions"]) == 1:
+        return profile
     skipped_question = questions["questions"].pop(0)
     questions["questions"].append(skipped_question)
-    profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
+
     profile["game"][0]["question"] = pick_question(questions)
     profile["game"][0]["skipped_questions"] += 1
     helper.write_to_json(helper.profile(
@@ -146,13 +148,27 @@ def skip_question(user_name, riddle_profile_name):
     helper.write_to_json(helper.questions(
         user_name, riddle_profile_name), "w", questions)
     return profile
-	
-	
-	
-	
-	
 
-def string_format(string):	
-	string = string.lower()
-	string = "".join(string.split())
-	return string
+
+def delete_question(user_name, riddle_profile_name):
+    questions = helper.read_json(
+        helper.questions(user_name, riddle_profile_name))
+    profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
+    questions["questions"].pop(0)
+
+    if len(questions["questions"]) > 0:
+        profile["game"][0]["question"] = pick_question(questions)
+
+    profile["game"][0]["deleted_questions"] += 1
+    profile["game"][0]["remaining_questions"] = len(questions["questions"])
+    helper.write_to_json(helper.profile(
+        user_name, riddle_profile_name), "w", profile)
+    helper.write_to_json(helper.questions(
+        user_name, riddle_profile_name), "w", questions)
+    return profile
+
+
+def string_format(string):
+    string = string.lower()
+    string = "".join(string.split())
+    return string

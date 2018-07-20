@@ -143,6 +143,9 @@ function show_riddle_game() {
 		console.log(data);
 		let riddle_game_data = data.game[0];
 		$("#question").html(riddle_game_data.question);
+		$("#remaining-questions").html(
+			"Questions left: " + riddle_game_data.remaining_questions
+		);
 		$("#right-answers").html(
 			"Correct answers: " + riddle_game_data.right_answers
 		);
@@ -151,6 +154,9 @@ function show_riddle_game() {
 		);
 		$("#skipped-questions").html(
 			"Skipped questions: " + riddle_game_data.skipped_questions
+		);
+		$("#deleted-questions").html(
+			"Deleted questions: " + riddle_game_data.deleted_questions
 		);
 
 		console.log(riddle_game_data);
@@ -165,11 +171,11 @@ function show_riddle_game() {
 function riddle_game_answer(form) {
 	let user = $("#user_name").text();
 	let riddle_profile = $("#riddle_profile").text();
-	let answer = new Data("answer", form.answer.value)
+	let answer = new Data("answer", form.answer.value);
 	console.log(answer);
-	
+
 	$("#alerts").slideDown(500);
-	setTimeout(function () {
+	setTimeout(function() {
 		$(form).trigger("reset");
 	}, 500);
 
@@ -179,19 +185,27 @@ function riddle_game_answer(form) {
 		function(data) {
 			let riddle_game_data = data.game[0];
 			if (riddle_game_data.result == "Correct") {
-				riddle_messages(answer.data, "Correct","text-green", "Next question?", "next_question", "Next question");
+				riddle_messages(
+					answer.data,
+					"Correct",
+					"text-green",
+					"Next question?",
+					"hide_alerts",
+					"Next question"
+				);
 			} else {
-				riddle_messages(answer.data, "Wrong", "text-red", "Would you like to try again?", "hide_alerts", "Try again");
+				riddle_messages(
+					answer.data,
+					"Wrong",
+					"text-red",
+					"Would you like to try again?",
+					"hide_alerts",
+					"Try again"
+				);
 			}
-			$("#right-answers").html(
-				"Correct answers: " + riddle_game_data.right_answers
-			);
-			$("#wrong-answers").html(
-				"Wrong answers: " + riddle_game_data.wrong_answers
-			);
-			$("#skipped-questions").html(
-				"Skipped questions: " + riddle_game_data.skipped_questions
-			);
+			setTimeout(function() {
+				show_riddle_game();
+			}, 500);
 		}
 	).fail(function(xhr, status, error) {
 		console.log(xhr);
@@ -200,7 +214,78 @@ function riddle_game_answer(form) {
 	});
 	return false;
 }
-function riddle_messages(answer, results, css_class, message, btn_function, button_name) {
+
+function hide_alerts() {
+	$("#alerts").slideUp(500);
+}
+function skip_question() {
+	let user = $("#user_name").text();
+	let riddle_profile = $("#riddle_profile").text();
+	let post_data = new Data("skip_question", "");
+	$.post(
+		`/postjson/${user}/${riddle_profile}/riddle-game`,
+		JSON.stringify(post_data),
+		function(data) {
+			let riddle_game_data = data.game[0];
+			console.log(riddle_game_data);
+			show_riddle_game();
+			setTimeout(function() {
+				$("#alerts").slideUp(500);
+			}, 500);
+		}
+	).fail(function(xhr, status, error) {
+		console.log(xhr);
+		console.log(status);
+		console.log(error);
+	});
+}
+function delete_question() {
+	let user = $("#user_name").text();
+	let riddle_profile = $("#riddle_profile").text();
+	let post_data = new Data("delete_question", "");
+	$.post(
+		`/postjson/${user}/${riddle_profile}/riddle-game`,
+		JSON.stringify(post_data),
+		function(data) {
+			let riddle_game_data = data.game[0];
+			console.log(riddle_game_data);
+			if (riddle_game_data.remaining_questions == 0) {
+				console.log("Yes")
+			}
+			show_riddle_game();
+			setTimeout(function() {
+				$("#alerts").slideUp(500);
+			}, 500);
+		}
+	).fail(function(xhr, status, error) {
+		console.log(xhr);
+		console.log(status);
+		console.log(error);
+	});
+}
+/*
+Templates
+*/
+function confirm_messages(css_class, action, btn_function, color) {
+	$("#result").html(`
+		<div class="card-body">
+			<h3 class="card-title">The question will be</h3>
+			<h3 class="${css_class}">${action} all questions</h3>
+			<p class="card-text">Are you sure?</p>
+			<button type="submit" onclick="${btn_function}()" class="btn btn-success">Yes</button>
+			<button type="submit" onclick="hide_alerts()" class="btn btn-${color}">No</button>
+			<br>
+		</div>`);
+	$("#alerts").slideDown(500);
+}
+function riddle_messages(
+	answer,
+	results,
+	css_class,
+	message,
+	btn_function,
+	button_name
+) {
 	$("#result").html(`
 		<div class="card-body">
 			<h3 class="card-title">Your answer: ${answer}</h3>
@@ -212,30 +297,18 @@ function riddle_messages(answer, results, css_class, message, btn_function, butt
 		</div>`);
 	if (results == "Wrong") {
 		$("#result .card-body").append(`
-		<a onclick="skip_question()" class="btn btn-warning">Skip question</a>
-		<a onclick="pass_question(this)" class="btn btn-danger">Pass Question</a>`);
+			<a onclick="confirm_messages('text-yellow', 'appended to end of ', 'skip_question', 'warning')" class="btn btn-warning">Skip Question</a>
+			<a onclick="confirm_messages('text-red', ' removed from ', 'delete_question', 'danger')" class="btn btn-danger">Delete Question</a>`);
 	}
 }
-function hide_alerts() {
-	$("#alerts").slideUp(500);
-
+function riddle_end() {
+	$("#result").html(`
+		<div class="card-body">
+			<h3 class="text-green">Congratulation</h3>
+			<h6>your score is</h6>
+			<h3>${results}</h3>
+			
+			<button type="submit" onclick="${btn_function}()" class="btn btn-success">${button_name}</button>
+			<br>
+		</div>`);
 }
-function skip_question() {
-	let user = $("#user_name").text();
-	let riddle_profile = $("#riddle_profile").text();
-	let post_data = new Data("skip_question", "")
-	$.post(
-		`/postjson/${user}/${riddle_profile}/riddle-game`,
-		JSON.stringify(post_data),
-		function (data) {
-			let riddle_game_data = data.game[0];
-			console.log(riddle_game_data);
-		}
-	).fail(function (xhr, status, error) {
-		console.log(xhr);
-		console.log(status);
-		console.log(error);
-	});
-}
-
-

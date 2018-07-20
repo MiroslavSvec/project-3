@@ -14,6 +14,10 @@
 	{% endblock navbar_brand %} 
 	{% block riddle_g_nav %}
 	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+		<h5 id="remaining-questions"></h5>
+	
+	</li>
+	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
 		<h5 id="right-answers"></h5>
 	
 	</li>
@@ -26,6 +30,7 @@
 	
 	</li>
 	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+		<h5 id="deleted-questions"></h5>
 	
 	</li>
 	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
@@ -42,14 +47,14 @@
 
 
 	<div id="riddle-game" class="card mt-1 text-center">
-		<div class="card-header mb-3">Riddle game</div>
+		<div class="card-header mb-3"><h2>Riddle game</h2></div>
 		<div class="card-deck">
 			<div class="card">
 				<div id="alerts" class=" card text-center">
 							<div id="result"></div>
 				</div>
 				<div class="card-header">
-					<h3 id="question">{{question}}</h3>
+					<p id="question">{{question}}</p>
 				</div>
 				<form onsubmit="return riddle_game_answer(this)">
 					<div class="form-group-sm">
@@ -57,8 +62,8 @@
 					</div>
 					<button type="submit" class="btn btn-success">Submit Answer</button>
 					<br>
-					<a onclick="skip_question()" class="btn btn-warning">Skip Question</a>
-					<a onclick="pass_question(this)" class="btn btn-danger">Pass Question</a>
+					<a onclick="confirm_messages('text-yellow', 'appended to end of ', 'skip_question', 'warning')" class="btn btn-warning">Skip Question</a>
+					<a onclick="confirm_messages('text-red', ' removed from ', 'delete_question', 'danger')" class="btn btn-danger">Delete Question</a>
 				</form>
 			</div>
 			<div class="card text-center">

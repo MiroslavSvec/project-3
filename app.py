@@ -121,7 +121,8 @@ def parse_answer(user_name, riddle_profile):
 			data = riddle.skip_question(user_name, riddle_profile)
 			return jsonify(data)
 		else:
-			pass
+			data = riddle.delete_question(user_name, riddle_profile)
+			return jsonify(data)
 	data = helper.read_json(helper.profile(user_name, riddle_profile))
 	return jsonify(data)
 

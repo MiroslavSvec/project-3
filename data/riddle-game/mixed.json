@@ -37,9 +37,7 @@
     {
       "riddle": "The more you have of it, the less you see. What is it?",
       "answer": "darkness"
-    }
-  ],
-  "dailyRiddles": [
+    },
     {
       "riddle": "You start in the top left corner of a 6x6 grid, your goal is to get to the bottom right corner. You can only move to the right or down. You can't move diagonally and you can't move backwards.\nHow many different ways are there to get from the start to the finish?",
       "answer": "252"

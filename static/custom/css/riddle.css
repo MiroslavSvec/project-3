@@ -3,9 +3,15 @@
 	right: -15px;
 	background-color: #343a40;
 }
+.card {
+	padding-bottom: 100px;
+}
 .text-red {
 	color: red;
 }
 .text-green {
 	color: green;
+}
+.text-yellow{
+	color: #ffc107;
 }
