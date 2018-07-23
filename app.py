@@ -22,7 +22,6 @@ app = Flask(__name__)
 def get(user_name):
 	profiles = helper.read_txt("data/profiles/all-profiles.txt")
 	profile = user_name + "\n"
-	print(profile, user_name)
 	if profile in profiles:
 		return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
 	else:
@@ -127,7 +126,13 @@ def parse_answer(user_name, riddle_profile):
 	return jsonify(data)
 
 
+## Statistics for Ridddle game
 
+@app.route('/<user_name>/statistics', methods=["GET"])
+def show_statistics(user_name):
+	return render_template("riddle-game.html",
+                        user_name=user_name,
+                        page_title="Statistics")
 
 
 

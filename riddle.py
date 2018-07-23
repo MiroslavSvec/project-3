@@ -10,6 +10,8 @@ from flask import jsonify
 import helper
 
 
+
+
 ## Questions json for riddle game
 def questions(user_name, riddle_profile_name):
 	questions = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/questions.json"
@@ -67,6 +69,7 @@ def create_game_profile(data, user_name, riddle_profile_name):
          'wrong_answers': 0,
          'skipped_questions': 0,
          'deleted_questions': 0,
+         'finished_riddle_games': [],
          })
     # Create Game folder
     os.makedirs(f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}")
@@ -117,9 +120,10 @@ def riddle_game(user_name, riddle_profile_name, data):
         profile["game"][0]["remaining_questions"] -= 1
         profile["game"][0]["result"] = "Correct"
         questions["questions"].pop(0)
+        if len(questions["questions"]) > 0:
+        	profile["game"][0]["question"] = pick_question(questions)
         helper.write_to_json(helper.questions(
             user_name, riddle_profile_name), "w", questions)
-        profile["game"][0]["question"] = pick_question(questions)
         helper.write_to_json(helper.profile(
             user_name, riddle_profile_name), "w", profile)
         return profile

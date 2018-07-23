@@ -10,8 +10,11 @@
 	color: red;
 }
 .text-green {
-	color: green;
+	color: #12ce12;
 }
-.text-yellow{
+.text-yellow {
 	color: #ffc107;
+}
+.btn-default{
+	border: 2px solid #ffffff;
 }

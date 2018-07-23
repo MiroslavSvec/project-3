@@ -1,87 +1,80 @@
- {% extends "base.html" %}
-	 
-	 {% block css %}
-	 
-	<link href="{{ url_for('static', filename='custom/css/riddle.css') }}" rel="stylesheet">
+ {% extends "base.html" %} {% block css %}
 
-	 {% endblock css %}
+<link href="{{ url_for('static', filename='custom/css/riddle.css') }}" rel="stylesheet"> {% endblock css %} {% block navbar_brand %}
+<a class="navbar-brand" href="/{{user_name}}">
+	<span id="user_name">{{user_name}}</span> :
+	<span id="riddle_profile">{{riddle_profile}}</span>
+</a>
+{% endblock navbar_brand %} {% block riddle_g_nav %}
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+	<h5 id="remaining-questions"></h5>
 
-	 {% block navbar_brand %}
-	<a class="navbar-brand" href="/{{user_name}}">
-		<span id="user_name">{{user_name}}</span> :
-		<span id="riddle_profile">{{riddle_profile}}</span>
-	</a>
-	{% endblock navbar_brand %} 
-	{% block riddle_g_nav %}
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-		<h5 id="remaining-questions"></h5>
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-		<h5 id="right-answers"></h5>
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-		<h5 id="wrong-answers"></h5>
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-		<h5 id="skipped-questions"></h5>
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-		<h5 id="deleted-questions"></h5>
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-	
-	</li>
-	<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-	
-	</li>
-	{% endblock riddle_g_nav %}
-	{% block main_content %}
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+	<h5 id="right-answers"></h5>
+
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
+	<h5 id="wrong-answers"></h5>
+
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
+	<h5 id="skipped-questions"></h5>
+
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+	<h5 id="deleted-questions"></h5>
+
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
+
+</li>
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
+
+</li>
+{% endblock riddle_g_nav %} {% block main_content %}
 
 
-	<div id="riddle-game" class="card mt-1 text-center">
-		<div class="card-header mb-3"><h2>Riddle game</h2></div>
-		<div class="card-deck">
-			<div class="card">
-				<div id="alerts" class=" card text-center">
-							<div id="result"></div>
-				</div>
-				<div class="card-header">
-					<p id="question">{{question}}</p>
-				</div>
-				<form onsubmit="return riddle_game_answer(this)">
-					<div class="form-group-sm">
-						<input name="answer" type="text" class="form-control text-center" placeholder="Your answer?" required>
-					</div>
-					<button type="submit" class="btn btn-success">Submit Answer</button>
-					<br>
-					<a onclick="confirm_messages('text-yellow', 'appended to end of ', 'skip_question', 'warning')" class="btn btn-warning">Skip Question</a>
-					<a onclick="confirm_messages('text-red', ' removed from ', 'delete_question', 'danger')" class="btn btn-danger">Delete Question</a>
-				</form>
-			</div>
-			<div class="card text-center">
-				<div class="card-header">
-					
-				</div>
-				<div id="question_stats"></div>
-			</div>
-		</div>
-		<div class="card-footer mt-3"></div>
+<div id="riddle-game" class="card mt-1 text-center">
+	<div class="card-header mb-3">
+		<h2>Riddle game</h2>
 	</div>
+	<div class="card-deck">
+		<div class="card">
+			<div id="alerts" class=" card text-center">
+				<div id="result"></div>
+			</div>
+			<div class="card-header">
+				<p id="question">{{question}}</p>
+			</div>
+			<form onsubmit="return riddle_game_answer(this)">
+				<div class="form-group-sm">
+					<input name="answer" type="text" class="form-control text-center" placeholder="Your answer?" required>
+				</div>
+				<button type="submit" class="btn btn-success">Submit Answer</button>
+				<br>
+				<a onclick="confirm_messages('This question will be', 'text-yellow', 'appended to end of all questions', 'skip_question', 'warning','Are you sure?')"
+				 class="btn btn-warning">Skip Question</a>
+				<a onclick="confirm_messages('This question will be', 'text-red', ' removed from the game', 'delete_question', 'danger', 'Are you sure?')"
+				 class="btn btn-danger">Delete Question</a>
+			</form>
+		</div>
+		<div class="card text-center">
+			<div class="card-header">
 
-	{% endblock main_content %} {% block scripts %}
-	<script>
-		$(document).ready(function () {
-			show_riddle_game();
-		})
-	</script> {% endblock scripts %}
+			</div>
+			<div id="question_stats"></div>
+		</div>
+	</div>
+	<div class="card-footer mt-3"></div>
+</div>
 
-
-	
+{% endblock main_content %} {% block scripts %}
+<script>
+	$(document).ready(function () {
+		show_riddle_game();
+	})
+</script> {% endblock scripts %}
