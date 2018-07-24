@@ -1,6 +1,5 @@
 // Need to separate it to diferent files
 
-
 /*
 Alert modal
 */
@@ -42,7 +41,10 @@ function create_profile() {
 		let user_name = $("[name=username]").val();
 		$.post(`${user_name}/data`, function(data, status) {
 			if (data == user_name) {
-				let message = "Profile " + `<span class="text-red">${data}</span>` + " already exist...<br>Please try to log in instead.";
+				let message =
+					"Profile " +
+					`<span class="text-red">${data}</span>` +
+					" already exist...<br>Please try to log in instead.";
 				alerts_box(message, 10000);
 			} else if (data[0].status == status) {
 				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
@@ -65,7 +67,10 @@ function check_login_details() {
 		let user_name = $("[name=username]").val();
 		$.get(`${user_name}/data`, function(data) {
 			if (data == "no profile") {
-				let message = "Profile " + `<span class="text-red">${user_name}</span>` + " does not exist...<br> Create new profile instead";
+				let message =
+					"Profile " +
+					`<span class="text-red">${user_name}</span>` +
+					" does not exist...<br> Create new profile instead";
 				alerts_box(message, 10000);
 			} else {
 				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
@@ -97,20 +102,29 @@ function create_riddle_game(form_data) {
 	}
 	console.log(riddle_game_data);
 	if (riddle_game_data.mods == "limited" && riddle_game_data.tries == 0) {
-		alerts_box("You must selecet how many tries you whish to have with this mode!", 5000);
-		return false
+		alerts_box(
+			"You must selecet how many tries you whish to have with this mode!",
+			5000
+		);
+		return false;
 	} else {
 		$.post(
 			`/postjson/${user_name}/riddle-g-setting`,
 			JSON.stringify({ riddle_game_data: riddle_game_data }),
 			function(data) {
-				if (data == riddle_game_data.riddle_profile_name + '\n') {
-					alerts_box("Profile " + `<span class="text-red">${data}</span>` + " already exist...<br>Please choose unique name", 5000);
+				if (data == riddle_game_data.riddle_profile_name + "\n") {
+					alerts_box(
+						"Profile " +
+							`<span class="text-red">${data}</span>` +
+							" already exist...<br>Please choose unique name",
+						5000
+					);
 				} else {
 					window.location.replace(
 						`/${user_name}/${form_data.riddle_profile.value}/riddle-game`
-					);				}
+					);
 				}
+			}
 		).fail(function(xhr, status, error) {
 			console.log(xhr);
 			console.log(status);
@@ -139,11 +153,21 @@ function show_riddle_game() {
 			riddle_score(riddle_game_data);
 		} else {
 			$("#question").html(riddle_game_data.question);
-			$("#remaining-questions").html("Questions left: " + riddle_game_data.remaining_questions);
-			$("#right-answers").html("Correct answers: " + riddle_game_data.right_answers);
-			$("#wrong-answers").html("Wrong answers: " + riddle_game_data.wrong_answers);
-			$("#skipped-questions").html("Skipped questions: " + riddle_game_data.skipped_questions);
-			$("#deleted-questions").html("Deleted questions: " + riddle_game_data.deleted_questions);
+			$("#remaining-questions").html(
+				"Questions left: " + riddle_game_data.remaining_questions
+			);
+			$("#right-answers").html(
+				"Correct answers: " + riddle_game_data.right_answers
+			);
+			$("#wrong-answers").html(
+				"Wrong answers: " + riddle_game_data.wrong_answers
+			);
+			$("#skipped-questions").html(
+				"Skipped questions: " + riddle_game_data.skipped_questions
+			);
+			$("#deleted-questions").html(
+				"Deleted questions: " + riddle_game_data.deleted_questions
+			);
 			if (riddle_game_data.tries > 0) {
 				$("#tries").html("Tries left: " + riddle_game_data.tries);
 			}
@@ -187,7 +211,12 @@ function riddle_game_answer(form) {
 						"Next question"
 					);
 				}
-			} else {
+			} else if (
+				riddle_game_data.mods == "limited" &&
+				riddle_game_data.tries == 0
+			) {
+				riddle_score(riddle_game_data);
+			}else {
 				riddle_messages(
 					answer.data,
 					"Wrong",
@@ -209,7 +238,6 @@ function riddle_game_answer(form) {
 	return false;
 }
 
-
 function skip_question() {
 	let user = $("#user_name").text();
 	let riddle_profile = $("#riddle_profile").text();
@@ -220,14 +248,21 @@ function skip_question() {
 		function(data) {
 			let riddle_game_data = data.game[0];
 			if (riddle_game_data.remaining_questions == 1) {
-				confirm_messages("This is the last question <br> therefore you can not skip it!", "text-red", "Delete the question if you can not find the answer", "delete_question", "danger", "Delete Question?");
+				confirm_messages(
+					"This is the last question <br> therefore you can not skip it!",
+					"text-red",
+					"Delete the question if you can not find the answer",
+					"delete_question",
+					"danger",
+					"Delete Question?"
+				);
 			} else {
 				show_riddle_game();
-				setTimeout(function () {
+				setTimeout(function() {
 					$("#alerts").slideUp(500);
 				}, 500);
 			}
-			console.log(riddle_game_data);			
+			console.log(riddle_game_data);
 		}
 	).fail(function(xhr, status, error) {
 		console.log(xhr);
@@ -248,7 +283,7 @@ function delete_question() {
 			if (riddle_game_data.remaining_questions == 0) {
 				riddle_score(riddle_game_data);
 				show_riddle_game();
-				return
+				return;
 			}
 			show_riddle_game();
 			setTimeout(function() {
@@ -268,17 +303,16 @@ function riddle_score(data) {
 	if (score == questions_in_total) {
 		riddle_end_message("text-green", score, "Amazing :)");
 		$("#alerts").slideDown(500);
-
-	} else if (score > (questions_in_total / 2)) {
+	} else if (score > questions_in_total / 2) {
 		riddle_end_message("text-green", score, "Great :) ");
 		$("#alerts").slideDown(500);
-	} else if (score == (questions_in_total / 2)) {
+	} else if (score == questions_in_total / 2) {
 		riddle_end_message("text-yellow", score, "Good :)");
 		$("#alerts").slideDown(500);
-	} else if (score > (questions_in_total / 2) / 2) {
+	} else if (score > questions_in_total / 2 / 2) {
 		riddle_end_message("text-yellow", score, "So so :P");
 		$("#alerts").slideDown(500);
-	}else {
+	} else {
 		riddle_end_message("text-red", score, "Bad :P");
 		$("#alerts").slideDown(500);
 	}
@@ -287,7 +321,14 @@ function riddle_score(data) {
 Templates
 */
 
-function confirm_messages(first_message, css_class, action, btn_function, color, last_message) {
+function confirm_messages(
+	first_message,
+	css_class,
+	action,
+	btn_function,
+	color,
+	last_message
+) {
 	$("#result").html(`
 		<div class="card-body">
 			<h3>${first_message}</h3>

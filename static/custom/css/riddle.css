@@ -1,8 +1,12 @@
 #alerts {
 	height: 100%;
+
 	background-color: #343a40;
 }
 
+.card {
+	padding-bottom: 90px;
+}
 .btn-default {
 	border: 2px solid #ffffff;
 }

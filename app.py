@@ -145,8 +145,10 @@ def parse_answer(user_name, riddle_profile):
 
 @app.route('/<user_name>/statistics', methods=["GET"])
 def show_statistics(user_name):
-    return render_template("riddle-game.html",
+	riddle_profiles = helper.read_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+	return render_template("statistics.html",
                            user_name=user_name,
+                           riddle_profiles=riddle_profiles,
                            page_title="Statistics")
 
 
@@ -164,4 +166,4 @@ if __name__ == '__main__':
 """ Limit wrong answers """
 """ View Friends """
 """ Chat / Password / Send Invitaiton / """
-""" Inject graphs to mini statistcs in riddle-game.html """
+""" Inject graphs to mini statistics in riddle-game.html """
