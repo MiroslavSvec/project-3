@@ -144,6 +144,9 @@ function show_riddle_game() {
 			$("#wrong-answers").html("Wrong answers: " + riddle_game_data.wrong_answers);
 			$("#skipped-questions").html("Skipped questions: " + riddle_game_data.skipped_questions);
 			$("#deleted-questions").html("Deleted questions: " + riddle_game_data.deleted_questions);
+			if (riddle_game_data.tries > 0) {
+				$("#tries").html("Tries left: " + riddle_game_data.tries);
+			}
 		}
 
 		console.log(riddle_game_data);

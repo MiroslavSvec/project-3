@@ -26,15 +26,12 @@
 	<h5 id="deleted-questions"></h5>
 
 </li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Charts">
+{% if tries > 0 %}
+<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
+	<h5 id="tries"></h5>
 
 </li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Tables">
-
-</li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Link">
-
-</li>
+{% endif %}
 {% endblock riddle_g_nav %} {% block main_content %}
 
 
@@ -61,12 +58,16 @@
 				<a onclick="confirm_messages('This question will be', 'text-red', ' removed from the game', 'delete_question', 'danger', 'Are you sure?')"
 				 class="btn btn-danger">Delete Question</a>
 			</form>
+			<div class="card-footer mt-3"></div>
+
 		</div>
 		<div class="card text-center">
 			<div class="card-header">
 
 			</div>
-			<div id="question_stats"></div>
+			<div id=""></div>
+			<div class="card-footer mt-3"></div>
+
 		</div>
 	</div>
 	<div class="card-footer mt-3"></div>

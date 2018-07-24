@@ -10,17 +10,18 @@ from flask import jsonify
 import helper
 
 
-# Questions json for riddle game
+
+
+## Questions json for riddle game
 def questions(user_name, riddle_profile_name):
-    questions = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/questions.json"
-    return questions
+	questions = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/questions.json"
+	return questions
 
 
-# Profile json
+## Profile json
 def profile(user_name, riddle_profile_name):
-    profile = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/player_{riddle_profile_name}.json"
-    return profile
-
+	profile = f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}/player_{riddle_profile_name}.json"
+	return profile
 
 """ Riddles Game Setting"""
 
@@ -47,7 +48,7 @@ def create_riddle_game(data):
 
 
 def create_game_profile(data, user_name, riddle_profile_name):
-    # Profile data
+        # Profile data
     game_created = datetime.now().strftime("%H:%M:%S")
     riddle_game_data = {}
     riddle_game_data["game"] = []
@@ -76,7 +77,7 @@ def create_game_profile(data, user_name, riddle_profile_name):
 
 
 def create_questions_file(game_profile, user_name, riddle_profile_name):
-    # Copy question file to work with fresh file
+        # Copy question file to work with fresh file
     if game_profile["game"][0]["categories"] == "all":
         copyfile("data/riddle-game/all.json",
                  helper.questions(user_name, riddle_profile_name))
@@ -120,7 +121,7 @@ def riddle_game(user_name, riddle_profile_name, data):
         profile["game"][0]["result"] = "Correct"
         questions["questions"].pop(0)
         if len(questions["questions"]) > 0:
-            profile["game"][0]["question"] = pick_question(questions)
+        	profile["game"][0]["question"] = pick_question(questions)
         helper.write_to_json(helper.questions(
             user_name, riddle_profile_name), "w", questions)
         helper.write_to_json(helper.profile(
@@ -128,8 +129,8 @@ def riddle_game(user_name, riddle_profile_name, data):
         return profile
     else:
         profile["game"][0]["wrong_answers"] += 1
-        if profile["game"][0]["tries"] > 0 and profile["game"][0]["mods"] == "limited":
-            profile["game"][0]["tries"] -= 1
+        if profile["game"][0]["tries"] > 0 and profile["game"]:
+			pass
         profile["game"][0]["result"] = "Wrong"
         helper.write_to_json(helper.profile(
             user_name, riddle_profile_name), "w", profile)

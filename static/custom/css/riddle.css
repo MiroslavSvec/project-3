@@ -1,12 +1,14 @@
 #alerts {
 	height: 100%;
-	right: -15px;
 	background-color: #343a40;
 }
-.card {
-	padding-bottom: 100px;
+
+.btn-default {
+	border: 2px solid #ffffff;
 }
 
-.btn-default{
-	border: 2px solid #ffffff;
+@media (min-width: 768px) {
+	#alerts {
+		right: -15px;
+	}
 }
