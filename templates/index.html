@@ -26,18 +26,6 @@
 		<div class="navbar-brand">			
 			<p>So far {{members}} profiles created for testing.</p>
 		</div>
-		<!-- Alerts Box  -->		
-		<div id="alerts" class="container-fluid text-center">
-			<header class="row">
-				<div class="text-left">
-				</div>
-			</header>
-			<div class="row">
-				<div class="col-xs-12">
-					<p id="message-box"></p>
-				</div>
-			</div>
-		</div>
 	</nav>
 	<div class="container">		
 		<div class="card card-login mx-auto mt-5">
@@ -67,6 +55,16 @@
 				</div>
 			</div>
 		</div>
+	<!-- Alerts Box  -->
+	<div id="alerts" class="card text-center">
+		<header class="card-header">
+			<div class="text-left">
+			</div>
+		</header>
+		<div class="card-body">
+				<p id="message-box"></p>
+		</div>
+	</div>
 	</div>
 	<!-- Bootstrap core JavaScript-->
 	<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>

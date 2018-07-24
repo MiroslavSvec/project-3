@@ -83,8 +83,13 @@ def riddle_setting(user_name):
 
 @app.route('/postjson/<user_name>/riddle-g-setting', methods=["POST"])
 def parse_setting(user_name):
-	# Create new game
 	data = request.get_json(force=True)
+	profiles = helper.read_txt(
+		f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+	profile = data["riddle_game_data"]["riddle_profile_name"] + "\n"
+	if profile in profiles:
+		return jsonify(profile)
+	# Create new game
 	riddle.create_riddle_game(data)
 	return jsonify(data)
 
@@ -144,9 +149,9 @@ if __name__ == '__main__':
             debug=True)
 
 """ Create 404 page and 500 error """
-""" Score """
 """ Stats """
 """ Add confirmation messages when clicking / submiting in the game """
+""" Hide number of tries when endless mode is selected"""
 """ Hide skip question button if it is the last question """
 """ Come up with some sort of search engine to get more questions injected from web """
 """ Limit wrong answers """

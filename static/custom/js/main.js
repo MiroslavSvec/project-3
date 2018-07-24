@@ -42,10 +42,7 @@ function create_profile() {
 		let user_name = $("[name=username]").val();
 		$.post(`${user_name}/data`, function(data, status) {
 			if (data == user_name) {
-				let message =
-					"Profile " +
-					`${data}` +
-					" already exist Please try to log in instead.";
+				let message = "Profile " + `<span class="text-red">${data}</span>` + " already exist...<br>Please try to log in instead.";
 				alerts_box(message, 10000);
 			} else if (data[0].status == status) {
 				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
@@ -68,10 +65,7 @@ function check_login_details() {
 		let user_name = $("[name=username]").val();
 		$.get(`${user_name}/data`, function(data) {
 			if (data == "no profile") {
-				let message =
-					"Profile " +
-					`${user_name}` +
-					" does not exist. Create new profile instead";
+				let message = "Profile " + `<span class="text-red">${user_name}</span>` + " does not exist...<br> Create new profile instead";
 				alerts_box(message, 10000);
 			} else {
 				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
@@ -102,21 +96,27 @@ function create_riddle_game(form_data) {
 		this.tries = form_data.tries.value;
 	}
 	console.log(riddle_game_data);
-	$.post(
-		`/postjson/${user_name}/riddle-g-setting`,
-		JSON.stringify({ riddle_game_data: riddle_game_data }),
-		function(data, status) {
+	if (riddle_game_data.mods == "limited" && riddle_game_data.tries == 0) {
+		alerts_box("You must selecet how many tries you whish to have with this mode!", 5000);
+		return false
+	} else {
+		$.post(
+			`/postjson/${user_name}/riddle-g-setting`,
+			JSON.stringify({ riddle_game_data: riddle_game_data }),
+			function(data) {
+				if (data == riddle_game_data.riddle_profile_name + '\n') {
+					alerts_box("Profile " + `<span class="text-red">${data}</span>` + " already exist...<br>Please choose unique name", 5000);
+				} else {
+					window.location.replace(
+						`/${user_name}/${form_data.riddle_profile.value}/riddle-game`
+					);				}
+				}
+		).fail(function(xhr, status, error) {
+			console.log(xhr);
 			console.log(status);
-			console.log(data);
-			window.location.replace(
-				`/${user_name}/${form_data.riddle_profile.value}/riddle-game`
-			);
-		}
-	).fail(function(xhr, status, error) {
-		console.log(xhr);
-		console.log(status);
-		console.log(error);
-	});
+			console.log(error);
+		});
+	}
 
 	return false;
 }

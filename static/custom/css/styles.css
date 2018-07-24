@@ -2,6 +2,16 @@
 General
 */
 
+.text-red {
+	color: red;
+}
+.text-green {
+	color: #12ce12;
+}
+.text-yellow {
+	color: #ffc107;
+}
+
 a:not([href]):not([tabindex]):focus,
 a:not([href]):not([tabindex]):hover {
     color: #ffffff;
@@ -51,6 +61,7 @@ form a,
 #message-box {
     font-size: 0.85em;
 }
+
 
 /*
 Riddle Game

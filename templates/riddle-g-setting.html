@@ -3,18 +3,59 @@
 
 
 <div class="container">
-	<h2 class="text-center">Setting</h2>
 	<div class="card-deck">
+		<div class="card mt-5">
+			<div class="card-header text-center font-weight-bold">Info</div>
+			<div class="card-body">
+				<ul>
+					<li>
+						<p class="font-weight-bold"> Please name your profile first</p>
+						<p>(you can have as many game profiles as you whish)</p>
+					</li>
+					<li>
+						<p class="font-weight-bold"> Then please select question category</p>
+					</li>
+					<li>
+						<ul>
+							<p class="font-weight-bold"> Modes</p>
+							<li>With
+								<span class="text-green font-weight-bold">Endless</span> mode you can answer wrongly as many times as you whish, however your wrong answers will be recorded!</li>
+							<li>On other hand you can choose to play with limited tries. Select
+								<span class="text-red font-weight-bold">Limited tries</span> if you want to get more stressed
+								<i class="text-green font-weight-bold fa fa-smile-o"></i>
+				
+								<ul>
+									<li class="font-weight-bold">You must selecet how many tries you whish to have with this mode!</li>
+								</ul>
+							</li>
+						</ul>
+					</li>
+					<br>
+					<li>
+						<ul>
+							<p class="font-weight-bold">Aditional info</p>
+							<li>You can
+								<span class="text-yellow font-weight-bold">Skip</span> question as many times as you whish, which will not effect your owerall score, however
+								<span class="text-yellow font-weight-bold">Skiped</span> questions are recorded!
+							</li>
+							<li>You can also
+								<span class="text-red font-weight-bold">Delete</span> question from the game, however this will effect your owerall score!
+							</li>
+				
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="card-footer"></div>
+		</div>
 		<div class="card card-login mt-5">
 			<div class="card-header text-center font-weight-bold">Please choose how to play</div>
-			<div class="card-body">
+			<div class="card-body d-flex align-items-center justify-content-center">
 				<form onsubmit="return create_riddle_game(this)">
 					<div class="form-group">
-						<label for="riddle_profile">Name your profile:</label>
 						<input name="riddle_profile" type="text" class="form-control" placeholder="Profile name" required>
 					</div>
 					<div class="form-group">
-						<label for="categories">Category:</label>
 						<select name="categories">
 							<option value="all">All questions</option>
 							<option value="general">General</option>
@@ -22,41 +63,27 @@
 						</select>
 					</div>
 					<div class="form-group">
-						<label for="categories">Mods</label>
 						<select name="mods">
-							<option value="none">None</option>
 							<option value="edless">Endless</option>
-							<!-- <option value="Something">Something</option>
-							<option value="Something">Something</option>
-						</select> -->
+							<option value="limited">Limited answers</option>
+						</select>
 					</div>
 					<div class="form-group">
-						<input name="tries" type="number" class="form-control" value="1" min="1">
+						<input name="tries" type="number" class="form-control" value="0" min="0">
 					</div>
 					<button type="submit" class="btn btn-primary btn-block">Start Game</button>
 				</form>
 			</div>
 		</div>
-		<div class="card mt-5">
-			<div class="card-header text-center font-weight-bold">Info</div>
+		<div id="alerts" class="card text-center">
+			<header class="card-header">
+				<div class="text-left">
+				</div>
+			</header>
 			<div class="card-body">
-				<ul>
-					<li>
-						<p class="font-weight-bold"> Please choose category first</p>
-					</li>
-					<li>
-						<ul> <p class="font-weight-bold"> Modes</p>
-							<li>If you do not select "Endless" mode you can answer question wrong as many times as you want<br>
-							However your wrong answerrs will be still added to your final statistics</li>
-							<li>With Endless mode you play till your tries last<br>
-							By default 1 try</li>
-						</ul>
-					</li>
-				</ul>
+				<p id="message-box"></p>
 			</div>
-			<div class="card-footer"></div>
 		</div>
 	</div>
 </div>
-
 {% endblock main_content %}
