@@ -151,26 +151,12 @@ function show_riddle_game() {
 		let riddle_game_data = data.game[0];
 		if (riddle_game_data.remaining_questions == 0) {
 			riddle_score(riddle_game_data);
+			riddle_nav(riddle_game_data)
+			setTimeout(function() {
+				riddle_end();
+			}, 10000)
 		} else {
-			$("#question").html(riddle_game_data.question);
-			$("#remaining-questions").html(
-				"Questions left: " + riddle_game_data.remaining_questions
-			);
-			$("#right-answers").html(
-				"Correct answers: " + riddle_game_data.right_answers
-			);
-			$("#wrong-answers").html(
-				"Wrong answers: " + riddle_game_data.wrong_answers
-			);
-			$("#skipped-questions").html(
-				"Skipped questions: " + riddle_game_data.skipped_questions
-			);
-			$("#deleted-questions").html(
-				"Deleted questions: " + riddle_game_data.deleted_questions
-			);
-			if (riddle_game_data.tries > 0) {
-				$("#tries").html("Tries left: " + riddle_game_data.tries);
-			}
+			riddle_nav(riddle_game_data)
 		}
 
 		console.log(riddle_game_data);
@@ -297,25 +283,10 @@ function delete_question() {
 	});
 }
 
-function riddle_score(data) {
-	let questions_in_total = data.questions_in_total - data.deleted_questions;
-	let score = data.right_answers;
-	if (score == questions_in_total) {
-		riddle_end_message("text-green", score, "Amazing :)");
-		$("#alerts").slideDown(500);
-	} else if (score > questions_in_total / 2) {
-		riddle_end_message("text-green", score, "Great :) ");
-		$("#alerts").slideDown(500);
-	} else if (score == questions_in_total / 2) {
-		riddle_end_message("text-yellow", score, "Good :)");
-		$("#alerts").slideDown(500);
-	} else if (score > questions_in_total / 2 / 2) {
-		riddle_end_message("text-yellow", score, "So so :P");
-		$("#alerts").slideDown(500);
-	} else {
-		riddle_end_message("text-red", score, "Bad :P");
-		$("#alerts").slideDown(500);
-	}
+
+function riddle_end() {
+	let user = $("#user_name").text();
+	window.location.replace(`/${user}/statistics`);
 }
 /*
 Templates
@@ -339,6 +310,28 @@ function confirm_messages(
 			<br>
 		</div>`);
 	$("#alerts").slideDown(500);
+}
+
+function riddle_nav(d) {
+	$("#question").html(d.question);
+	$("#remaining-questions").html(
+		"Questions left: " + d.remaining_questions
+	);
+	$("#right-answers").html(
+		"Correct answers: " + d.right_answers
+	);
+	$("#wrong-answers").html(
+		"Wrong answers: " + d.wrong_answers
+	);
+	$("#skipped-questions").html(
+		"Skipped questions: " + d.skipped_questions
+	);
+	$("#deleted-questions").html(
+		"Deleted questions: " + d.deleted_questions
+	);
+	if (d.tries > 0) {
+		$("#tries").html("Tries left: " + d.tries);
+	}
 }
 function riddle_messages(
 	answer,
@@ -366,6 +359,24 @@ function riddle_messages(
 	}
 }
 
+function riddle_score(data) {
+	let questions_in_total = data.questions_in_total - data.deleted_questions;
+	let score = data.right_answers;
+	/* bug with deleted_questions when total questions = 0 */
+	if (score == questions_in_total) {
+		riddle_end_message("text-green", score, "Amazing :)");
+	} else if (score > questions_in_total / 2) {
+		riddle_end_message("text-green", score, "Great :) ");
+	} else if (score == questions_in_total / 2) {
+		riddle_end_message("text-yellow", score, "Good :)");
+	} else if (score > questions_in_total / 2 / 2) {
+		riddle_end_message("text-yellow", score, "So so :P");
+	} else {
+		riddle_end_message("text-red", score, "Bad :P");
+	}
+	$("#alerts").slideDown(500);
+}
+
 function riddle_end_message(css_class, score, message) {
 	$("#result").html(`
 		<div class="card-body">
@@ -378,7 +389,5 @@ function riddle_end_message(css_class, score, message) {
 		</div>`);
 }
 
-function riddle_end() {
-	let user = $("#user_name").text();
-	window.location.replace(`/${user}/statistics`);
-}
+
+

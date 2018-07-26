@@ -75,6 +75,7 @@ def create_profile_data(user_name):
 		## Create game folder
 		os.makedirs(f"data/profiles/{user_name}/riddle_game")
 		write_to_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", "")
+		write_to_txt(f"data/profiles/{user_name}/riddle_game/finished_riddles.txt", "w", "")
 
 		return jsonify({'status': "success"}, {'profile': f"{user_name}"})
 

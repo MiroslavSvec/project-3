@@ -6,7 +6,7 @@ import random
 from datetime import datetime
 from shutil import copyfile
 from flask import jsonify
-## Custom .py
+# Custom .py
 import helper
 
 
@@ -51,6 +51,7 @@ def create_game_profile(data, user_name, riddle_profile_name):
     game_created = datetime.now().strftime("%H:%M:%S")
     riddle_game_data = {}
     riddle_game_data["game"] = []
+    riddle_game_data["finished_riddles"] = []
     riddle_game_data["game"].append(
         {'id': f'{user_name}',
          'player_name': f'{riddle_profile_name}',
@@ -68,7 +69,6 @@ def create_game_profile(data, user_name, riddle_profile_name):
          'wrong_answers': 0,
          'skipped_questions': 0,
          'deleted_questions': 0,
-         'finished_riddle_games': [],
          })
     # Create Game folder
     os.makedirs(f"data/profiles/{user_name}/riddle_game/{riddle_profile_name}")
@@ -163,6 +163,9 @@ def delete_question(user_name, riddle_profile_name):
 
     if len(questions["questions"]) > 0:
         profile["game"][0]["question"] = pick_question(questions)
+    else:
+        end_game(user_name, riddle_profile_name, profile)
+        return profile
 
     profile["game"][0]["deleted_questions"] += 1
     profile["game"][0]["remaining_questions"] = len(questions["questions"])
@@ -171,6 +174,28 @@ def delete_question(user_name, riddle_profile_name):
     helper.write_to_json(helper.questions(
         user_name, riddle_profile_name), "w", questions)
     return profile
+
+
+def end_game(user_name, riddle_profile_name, profile):
+    profile["game"][0]["question"] = ""
+    profile["finished_riddles"].append(profile["game"][0])
+    new_profiles = []
+    profiles = helper.read_txt(
+        f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+    riddle_profile_name = riddle_profile_name + "\n"
+    for riddle_profile in profiles:
+        if riddle_profile_name == riddle_profile:
+            helper.write_to_txt(
+                f"data/profiles/{user_name}/riddle_game/finished_riddles.txt", "a", riddle_profile_name)
+        else:
+            new_profiles.append(riddle_profile)
+    if len(new_profiles) == 0:
+        helper.write_to_txt(
+                f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", "")
+    else:
+        helper.write_to_txt(
+            f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", new_profiles)
+    print(new_profiles)
 
 
 def string_format(string):

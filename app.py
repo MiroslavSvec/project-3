@@ -11,9 +11,6 @@ import riddle
 app = Flask(__name__)
 
 
-""" Data Sample """
-
-## {"test": [{"name": "test", "login": "true", "created": "00:40:13"}]}
 
 """ Rest API """
 
@@ -146,9 +143,12 @@ def parse_answer(user_name, riddle_profile):
 @app.route('/<user_name>/statistics', methods=["GET"])
 def show_statistics(user_name):
 	riddle_profiles = helper.read_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+	finished_games = helper.read_txt(
+	    f"data/profiles/{user_name}/riddle_game/finished_riddles.txt")
 	return render_template("statistics.html",
                            user_name=user_name,
                            riddle_profiles=riddle_profiles,
+                           finished_games=finished_games,
                            page_title="Statistics")
 
 
@@ -166,4 +166,5 @@ if __name__ == '__main__':
 """ Limit wrong answers """
 """ View Friends """
 """ Chat / Password / Send Invitaiton / """
+""" Clear chat history """
 """ Inject graphs to mini statistics in riddle-game.html """
