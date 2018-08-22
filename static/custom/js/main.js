@@ -47,8 +47,9 @@ function create_profile() {
 					" already exist...<br>Please try to log in instead.";
 				alerts_box(message, 10000);
 			} else if (data[0].status == status) {
-				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
-				window.location.replace(`/${user_name}`);
+				/* NOT IN USE */
+				/* window.location.replace(`/${user_name}`); */
+				window.location.replace(`/${user_name}/riddle-g-setting`);
 			} else {
 				let message = "Sorry. There seems to be a problem ...";
 				alerts_box(message, 10000);
@@ -73,8 +74,7 @@ function check_login_details() {
 					" does not exist...<br> Create new profile instead";
 				alerts_box(message, 10000);
 			} else {
-				localStorage.setItem("user_comon_data", JSON.stringify(user_name));
-				window.location.replace(`/${user_name}`);
+				window.location.replace(`/${user_name}/riddle-g-setting`);
 			}
 		}).fail(function(xhr, status, error) {
 			console.log(xhr);
@@ -83,7 +83,9 @@ function check_login_details() {
 		});
 		return false;
 	}
-}
+}	
+
+
 
 /*
 Create Game (riddle.hmtl) 
@@ -202,6 +204,9 @@ function riddle_game_answer(form) {
 				riddle_game_data.tries == 0
 			) {
 				riddle_score(riddle_game_data);
+				setTimeout(function () {
+					riddle_end()
+				}, 10000)
 			}else {
 				riddle_messages(
 					answer.data,
@@ -363,7 +368,9 @@ function riddle_score(data) {
 	let questions_in_total = data.questions_in_total - data.deleted_questions;
 	let score = data.right_answers;
 	/* bug with deleted_questions when total questions = 0 */
-	if (score == questions_in_total) {
+	if (questions_in_total == 0) {
+		riddle_end_message("text-red", score, "Bad :P");
+	} else if (score == questions_in_total) {
 		riddle_end_message("text-green", score, "Amazing :)");
 	} else if (score > questions_in_total / 2) {
 		riddle_end_message("text-green", score, "Great :) ");

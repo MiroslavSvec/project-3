@@ -1,0 +1,22 @@
+{
+	"game": [
+		{
+			"id": "test",
+			"player_name": "dad",
+			"game_started": "22:56:50",
+			"categories": "general",
+			"mods": "limited",
+			"tries": 1,
+			"question": "",
+			"answer": [],
+			"result": "",
+			"score": 0,
+			"questions_in_total": 7,
+			"remaining_questions": 0,
+			"right_answers": 0,
+			"wrong_answers": 0,
+			"skipped_questions": 0,
+			"deleted_questions": 7
+		}
+	]
+}

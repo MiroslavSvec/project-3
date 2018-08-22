@@ -24,7 +24,6 @@ def profile(user_name, riddle_profile_name):
 
 """ Riddles Game Setting"""
 
-
 def create_riddle_game(data):
     user_name = data["riddle_game_data"]["id"]
     riddle_profile_name = data["riddle_game_data"]["riddle_profile_name"]
@@ -51,7 +50,6 @@ def create_game_profile(data, user_name, riddle_profile_name):
     game_created = datetime.now().strftime("%H:%M:%S")
     riddle_game_data = {}
     riddle_game_data["game"] = []
-    riddle_game_data["finished_riddles"] = []
     riddle_game_data["game"].append(
         {'id': f'{user_name}',
          'player_name': f'{riddle_profile_name}',
@@ -89,8 +87,7 @@ def create_questions_file(game_profile, user_name, riddle_profile_name):
                  helper.questions(user_name, riddle_profile_name))
 
         # To shuffle the questions that every game is different
-    questions = helper.read_json(
-        helper.questions(user_name, riddle_profile_name))
+    questions = helper.read_json(helper.questions(user_name, riddle_profile_name))
     random.shuffle(questions["questions"])
     # Pick question from the database
     game_profile["game"][0]["question"] = pick_question(questions)
@@ -121,16 +118,21 @@ def riddle_game(user_name, riddle_profile_name, data):
         questions["questions"].pop(0)
         if len(questions["questions"]) > 0:
             profile["game"][0]["question"] = pick_question(questions)
+        else:
+            profile = end_game(user_name, riddle_profile_name, profile)
         helper.write_to_json(helper.questions(
             user_name, riddle_profile_name), "w", questions)
         helper.write_to_json(helper.profile(
             user_name, riddle_profile_name), "w", profile)
         return profile
     else:
+        profile["game"][0]["result"] = "Wrong"
         profile["game"][0]["wrong_answers"] += 1
         if profile["game"][0]["tries"] > 0 and profile["game"][0]["mods"] == "limited":
             profile["game"][0]["tries"] -= 1
-        profile["game"][0]["result"] = "Wrong"
+        if profile["game"][0]["tries"] == 0:
+            profile = end_game(user_name, riddle_profile_name, profile)
+
         helper.write_to_json(helper.profile(
             user_name, riddle_profile_name), "w", profile)
         return profile
@@ -159,26 +161,30 @@ def delete_question(user_name, riddle_profile_name):
     questions = helper.read_json(
         helper.questions(user_name, riddle_profile_name))
     profile = helper.read_json(helper.profile(user_name, riddle_profile_name))
+    profile["game"][0]["deleted_questions"] += 1
     questions["questions"].pop(0)
+    profile["game"][0]["remaining_questions"] = len(questions["questions"])
 
     if len(questions["questions"]) > 0:
         profile["game"][0]["question"] = pick_question(questions)
     else:
-        end_game(user_name, riddle_profile_name, profile)
-        return profile
+        profile = end_game(user_name, riddle_profile_name, profile)
 
-    profile["game"][0]["deleted_questions"] += 1
-    profile["game"][0]["remaining_questions"] = len(questions["questions"])
     helper.write_to_json(helper.profile(
-        user_name, riddle_profile_name), "w", profile)
+            user_name, riddle_profile_name), "w", profile)
     helper.write_to_json(helper.questions(
         user_name, riddle_profile_name), "w", questions)
     return profile
 
 
 def end_game(user_name, riddle_profile_name, profile):
+    user_profile = helper.read_json(
+        f"data/profiles/{user_name}/{user_name}.json")
     profile["game"][0]["question"] = ""
-    profile["finished_riddles"].append(profile["game"][0])
+    user_profile[f"{user_name}"][0]["finished_riddles"].append(
+        profile["game"][0])
+    helper.write_to_json(
+        f"data/profiles/{user_name}/{user_name}.json", "w", user_profile)
     new_profiles = []
     profiles = helper.read_txt(
         f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
@@ -191,11 +197,11 @@ def end_game(user_name, riddle_profile_name, profile):
             new_profiles.append(riddle_profile)
     if len(new_profiles) == 0:
         helper.write_to_txt(
-                f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", "")
+            f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", "")
     else:
         helper.write_to_txt(
             f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", new_profiles)
-    print(new_profiles)
+    return profile
 
 
 def string_format(string):

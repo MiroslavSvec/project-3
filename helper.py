@@ -59,8 +59,8 @@ def create_profile_data(user_name):
 		profiles[f'{user_name}'] = []
 		profiles[f'{user_name}'].append(
                     {'name': f'{user_name}',
-                     'login': "true",
                      'created': f'{profile_created}',
+					'finished_riddles': [],
                      })		
 		## Write data
 		os.makedirs(f"data/profiles/{user_name}")
