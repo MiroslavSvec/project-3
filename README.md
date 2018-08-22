@@ -44,6 +44,8 @@ Fix Chat window working in profile page only --- Fixed
 
 Fix bug with game profiles not showing while playing the game --- Fixed
 
+Fix "index out of range" while loading statistics without finished game --- Fixed (removed last index call which was misleading )
+
 ### Tools used for testing
 
 Visual Studio Python debuger

@@ -149,6 +149,7 @@ def show_statistics(user_name):
     user_profile = user_profile[f"{user_name}"][0]["finished_riddles"][0]
     finished_games = helper.read_txt(
         f"data/profiles/{user_name}/riddle_game/finished_riddles.txt")
+    print(finished_games)
     return render_template("statistics.html",
                            user_name=user_name,
                            user_profile=user_profile,
