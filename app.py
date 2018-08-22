@@ -146,7 +146,7 @@ def show_statistics(user_name):
         f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
     user_profile = helper.read_json(
         f"data/profiles/{user_name}/{user_name}.json")
-    user_profile = user_profile[f"{user_name}"][0]["finished_riddles"][0]
+    user_profile = user_profile[f"{user_name}"][0]["finished_riddles"]
     finished_games = helper.read_txt(
         f"data/profiles/{user_name}/riddle_game/finished_riddles.txt")
     print(finished_games)
