@@ -24,7 +24,7 @@ hr {
 
 /* Login */
 
-.index_background {
+.bg-dark {
 	background: url('/static/custom/images/main-background.jpg') no-repeat center;	
     -webkit-background-size: cover;
     -moz-background-size: cover;

@@ -2,40 +2,15 @@ import os
 import json
 from datetime import datetime
 from random import shuffle
-from flask import Flask, redirect, request, render_template, jsonify
+from flask import Flask, session, redirect, url_for, request, render_template, jsonify
 
-## Custom .py
+# Custom .py
 import helper
 import riddle
 
 app = Flask(__name__)
 
-
-""" Rest API """
-
-
-@app.route('/<user_name>/data', methods=["GET"])
-def get(user_name):
-    profiles = helper.read_txt("data/profiles/all-profiles.txt")
-    profile = user_name + "\n"
-    if profile in profiles:
-        return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
-    else:
-        return jsonify("no profile")
-
-
-@app.route('/<user_name>/data', methods=["POST"])
-def post(user_name):
-    return helper.create_profile_data(user_name)
-
-
-@app.route('/app_data')
-def get_app_data():
-    app_data = helper.read_json('data/app_data.json')
-    return jsonify(app_data)
-
-
-""" Create profile page """
+app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 
 
 @app.route('/')
@@ -46,26 +21,31 @@ def index():
     return render_template("index.html", members=app_data)
 
 
-""" Chat in separate page """
+""" Create profile """
+
+@app.route('/<user_name>/create_profile', methods=["POST"])
+def create_profile(user_name):
+	return helper.create_profile_data(user_name)
+
+""" Log in """
 
 
-@app.route('/chat')
-def chat():
-    return render_template("chat.html")
+@app.route('/<user_name>/log_in', methods=["GET"])
+def log_in(user_name):
+    profiles = helper.read_txt("data/profiles/all-profiles.txt")
+    profile = user_name + "\n"
+    if profile in profiles:
+        session['user'] = {'user_name': user_name}
+        return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
+    else:
+        return jsonify("no profile")
 
+""" Log out """
 
-""" Profile page """
-# NOT IN USE
-
-
-@app.route('/<user_name>')
-def profile_page(user_name):
-    riddle_profiles = helper.read_txt(
-        f'data/profiles/{user_name}/riddle_game/riddle_profiles.txt')
-    # Render default template
-    return render_template("profile.html",
-                           user_name=user_name, riddle_profiles=riddle_profiles, page_title=f"{user_name}" + " profile")
-
+@app.route('/logout')
+def logout():
+    session.pop('user')
+    return redirect(url_for('index'))
 
 """ Riddles Game  Setting """
 
@@ -156,6 +136,15 @@ def show_statistics(user_name):
                            riddle_profiles=riddle_profiles,
                            finished_games=finished_games,
                            page_title="Statistics")
+
+
+""" App data """
+
+
+@app.route('/app_data')
+def get_app_data():
+    app_data = helper.read_json('data/app_data.json')
+    return jsonify(app_data)
 
 
 if __name__ == '__main__':

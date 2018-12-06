@@ -1,7 +1,7 @@
 import os
 import json
 from datetime import datetime
-from flask import Flask, redirect, request, render_template, jsonify
+from flask import Flask, session, redirect, request, render_template, jsonify
 
 
 """ Helper functions """
@@ -53,7 +53,7 @@ def get_profile_data(user_name):
 
 def create_profile_data(user_name):
 	profile = get_profile_data(user_name)
-	# CHeck if profile already exist
+	# Check if profile already exist
 	if profile:
 		return jsonify(user_name)
 	else:
@@ -70,7 +70,7 @@ def create_profile_data(user_name):
 		os.makedirs(f"data/profiles/{user_name}")
 		write_to_json(f"data/profiles/{user_name}/{user_name}.json", "w", profiles)
 		write_to_txt(f"data/profiles/all-profiles.txt",
-                    "a", f"{user_name}" + '\n')
+                    "a", f"{user_name}" + '\n')		
 		## App data
 		app_data = read_json('data/system/app_data.json')
 		members_count = app_data['1.1'][0]["members"]
@@ -80,6 +80,9 @@ def create_profile_data(user_name):
 		os.makedirs(f"data/profiles/{user_name}/riddle_game")
 		write_to_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", "")
 		write_to_txt(f"data/profiles/{user_name}/riddle_game/finished_riddles.txt", "w", "")
+
+		# Add user to session
+		session['user'] = {'user_name': user_name}
 
 		return jsonify({'status': "success"}, {'profile': f"{user_name}"})
 

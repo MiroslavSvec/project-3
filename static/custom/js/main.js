@@ -39,16 +39,11 @@ Profile (index.hmtl) form requests
 function create_profile() {
 	if (valid_form()) {
 		let user_name = $("[name=username]").val();
-		$.post(`${user_name}/data`, function(data, status) {
+		$.post(`${user_name}/create_profile`, function(data, status) {
 			if (data == user_name) {
-				let message =
-					"Profile " +
-					`<span class="text-red">${data}</span>` +
-					" already exist...<br>Please try to log in instead.";
+				let message = "Profile " + `<span class="text-red">${data}</span>` + " already exist...<br>Please try to log in instead.";
 				alerts_box(message, 10000);
 			} else if (data[0].status == status) {
-				/* NOT IN USE */
-				/* window.location.replace(`/${user_name}`); */
 				window.location.replace(`/${user_name}/riddle-g-setting`);
 			} else {
 				let message = "Sorry. There seems to be a problem ...";
@@ -66,12 +61,9 @@ function create_profile() {
 function check_login_details() {
 	if (valid_form()) {
 		let user_name = $("[name=username]").val();
-		$.get(`${user_name}/data`, function(data) {
+		$.get(`${user_name}/log_in`, function(data) {
 			if (data == "no profile") {
-				let message =
-					"Profile " +
-					`<span class="text-red">${user_name}</span>` +
-					" does not exist...<br> Create new profile instead";
+				let message = "Profile " + `<span class="text-red">${user_name}</span>` + " does not exist...<br> Create new profile instead";
 				alerts_box(message, 10000);
 			} else {
 				window.location.replace(`/${user_name}/riddle-g-setting`);

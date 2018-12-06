@@ -59,8 +59,12 @@ Scraped redirection to login page as I do not think that is good user experience
 If user enters user name wich already exist (as he does not have to know about it)
 will use JS to handle the form check and and then redirect via Python
 
-Created rest API for profile data
+#### v1.0
 
-v 1.0 : Finished general idea for profiles and API
-v 1.1 : Added game section (list) to app_data as well as added section in the data for Riddle game.
- Added geme data creation
+Unfortunately found major bug where 2 users played the game at the same time.  
+The files got overwritten and therefore I was forced to implement sessions to separate the users.
+
+- Added session
+- Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
+- Added log_out view
+- Removed unecessary files
