@@ -41,6 +41,9 @@ def profile(user_name, riddle_profile_name):
 
 
 def get_profile_data(user_name):
+	"""
+	Return frofile data 
+	"""
 	all_profiles = read_txt('data/profiles/all-profiles.txt')
 	for profile in all_profiles:
 		if profile.strip('\n') == user_name:
@@ -50,10 +53,11 @@ def get_profile_data(user_name):
 
 def create_profile_data(user_name):
 	profile = get_profile_data(user_name)
+	# CHeck if profile already exist
 	if profile:
 		return jsonify(user_name)
 	else:
-		## Profile data
+		## If not create new Profile
 		profile_created = datetime.now().strftime("%H:%M:%S")
 		profiles = {}
 		profiles[f'{user_name}'] = []

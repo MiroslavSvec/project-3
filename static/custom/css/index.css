@@ -24,21 +24,23 @@ hr {
 
 /* Login */
 
-.navbar-brand p {
-	color: #ffffff;
+.index_background {
+	background: url('/static/custom/images/main-background.jpg') no-repeat center;	
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
 }
 
-.index_background,
+.content-wrapper {
+	margin-left: 0px;
+	background: transparent;
+}
+
 .btn,
 .form-control:focus,
 .btn-primary,
 .btn-success {
-	background-color: #343a40;
-}
-
-
-lol {
-	background-image: url("../files/images/1.jpg") ;
-	height: 500px;
 	
+	background-color: #343a40;
 }

@@ -1,83 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "base.html" %}
+{% block css %}
+<link href="{{ url_for('static', filename='custom/css/index.css') }}" rel="stylesheet">
+{% endblock css %}
+{% block navbar %}
+  
+{% endblock navbar %}
+{% block main_content %}
+<div class="container">
+	<div class="card card-login mx-auto mt-5">
+		<div class="card-header">Create Account / Login</div>
+		<div class="card">
+			<div class="card-body">
+				<form>
+					<div class="form-group">
+						<label for="username">Enter your user name please</label>
+						<input name="username" type="text" class="form-control" placeholder="User name" required>
 
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<title>{{page_title}}</title>
-	<!-- Bootstrap core CSS-->
-	<link href="{{ url_for('static', filename='vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
-	<!-- Custom fonts for this template-->
-	<link href="{{ url_for('static', filename='vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
-	<!-- Custom styles for this template-->
-	<link href="{{ url_for('static', filename='vendor/css/sb-admin.css') }}" rel="stylesheet">
-	<!-- Styles-->
-	<link href="{{ url_for('static', filename='custom/css/styles.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static', filename='custom/css/index.css') }}" rel="stylesheet">
-	<link href="{{ url_for('static', filename='custom/css/screens.css') }}" rel="stylesheet">
-</head>
-
-<body class="index_background">
-	
-	<nav class="nav nav-wrapper">
-		<div class="navbar-brand">			
-			<p>So far {{members}} profiles created for testing.</p>
-		</div>
-	</nav>
-	<div class="container">		
-		<div class="card card-login mx-auto mt-5">
-			<div class="card-header">Create Account / Login</div>
-			<div class="card">
-				<div class="card-body">
-					<form>
-						<div class="form-group">
-							<label for="username">Enter your user name please</label>
-							<input name="username" type="text" class="form-control" placeholder="User name" required>
-						</div>
-						<hr>
-						<div class="form-group">
-							<label for="user_password">Password</label>
-							<input class="form-control" name="user_password" type="password" placeholder="Password" required>
-						</div>
-						<hr>
-						<!-- <div class="form-group">
-								<div class="form-check">
-									<label class="form-check-label">
-										<input class="form-check-input" type="checkbox"> Remember Password</label>
-								</div>
-							</div> -->
-						<button onclick="return create_profile()" class="btn btn-primary btn-block">Create account</button>
-						<button onclick="return check_login_details();" class="btn btn-success btn-block">Login</button>
-					</form>
-				</div>
+					</div>
+					<hr>
+					<div class="form-group">
+						<label for="user_password">Password</label>
+						<input class="form-control" name="user_password" type="password" placeholder="Password" required>
+					</div>
+					<hr>
+					<p>So far {{members}} profiles created for testing.</p>
+					<button onclick="return create_profile()" class="btn btn-primary btn-block">Create account</button>
+					<button onclick="return check_login_details();" class="btn btn-success btn-block">Login</button>
+				</form>
 			</div>
 		</div>
-	<!-- Alerts Box  -->
-	<div id="alerts" class="card text-center">
-		<header class="card-header">
-			<div class="text-left">
-			</div>
-		</header>
-		<div class="card-body">
-				<p id="message-box"></p>
-		</div>
 	</div>
-	</div>
-	<!-- Bootstrap core JavaScript-->
-	<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
-	<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-	<!-- Core plugin JavaScript-->
-	<script src="{{ url_for('static', filename='vendor/jquery-easing/jquery.easing.min.js') }}"></script>
-	<!-- Custom scripts for all pages-->
-	<script src="{{ url_for('static', filename='vendor/js/sb-admin.min.js') }}"></script>
-	<!-- Main JS-->
-	<script src="{{ url_for('static', filename='custom/js/main.js') }}"></script>
-	<script>
-
-	</script>
-</body>
-
-</html>
+</div>
+{% endblock main_content %}
+{% block footer %}
+  
+{% endblock footer %}
