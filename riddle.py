@@ -130,8 +130,8 @@ def riddle_game(user_name, riddle_profile_name, data):
         profile["game"][0]["wrong_answers"] += 1
         if profile["game"][0]["tries"] > 0 and profile["game"][0]["mods"] == "limited":
             profile["game"][0]["tries"] -= 1
-        if profile["game"][0]["tries"] == 0:
-            profile = end_game(user_name, riddle_profile_name, profile)
+            if profile["game"][0]["tries"] == 0:
+                profile = end_game(user_name, riddle_profile_name, profile)
 
         helper.write_to_json(helper.profile(
             user_name, riddle_profile_name), "w", profile)
