@@ -1,11 +1,17 @@
- {% extends "base.html" %} {% block css %}
+ {% extends "base.html" %} 
+ 
+ {% block css %}
+<link href="{{ url_for('static', filename='custom/css/riddle.css') }}" rel="stylesheet"> 
+{% endblock css %} 
 
-<link href="{{ url_for('static', filename='custom/css/riddle.css') }}" rel="stylesheet"> {% endblock css %} {% block navbar_brand %}
+{% block navbar_brand %}
 <a class="navbar-brand" href="/{{user_name}}">
 	<span id="user_name">{{user_name}}</span> :
 	<span id="riddle_profile">{{riddle_profile}}</span>
 </a>
-{% endblock navbar_brand %} {% block riddle_g_nav %}
+{% endblock navbar_brand %} 
+
+{% block riddle_g_nav %}
 <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
 	<h5 id="remaining-questions"></h5>
 
@@ -32,7 +38,9 @@
 
 </li>
 {% endif %}
-{% endblock riddle_g_nav %} {% block main_content %}
+{% endblock riddle_g_nav %} 
+
+{% block main_content %}
 
 
 <div id="riddle-game" class="card mt-1 text-center">
@@ -41,7 +49,7 @@
 	</div>
 	<div class="card-deck">
 		<div class="card">
-			<div id="alerts" class=" card text-center">
+			<div id="alerts" class="card text-center">
 				<div id="result"></div>
 			</div>
 			<div class="card-header">
@@ -66,9 +74,15 @@
 	</div>
 </div>
 
-{% endblock main_content %} {% block scripts %}
+{% endblock main_content %} 
+
+{% block alert_box %}{% endblock alert_box %}
+
+{% block scripts %}
 <script>
 	$(document).ready(function () {
 		show_riddle_game();
 	})
-</script> {% endblock scripts %}
+</script> 
+
+{% endblock scripts %}

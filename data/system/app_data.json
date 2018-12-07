@@ -1,1 +1,10 @@
-{"1.1": [{"version": 1.1, "members": 2186, "setting": [], "games": [{"riddle_game": {"all_players": 0, "player_names": []}}]}]}
+{
+	"1.1": [
+		{
+			"version": 1.1,
+			"members": 2187,
+			"setting": [],
+			"games": [{ "riddle_game": { "all_players": 0, "player_names": [] } }]
+		}
+	]
+}

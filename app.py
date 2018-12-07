@@ -122,18 +122,11 @@ def parse_answer(user_name, riddle_profile):
 
 @app.route('/<user_name>/statistics', methods=["GET"])
 def show_statistics(user_name):
-    riddle_profiles = helper.read_txt(
-        f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
     user_profile = helper.read_json(
         f"data/profiles/{user_name}/{user_name}.json")
-    user_profile = user_profile[f"{user_name}"][0]["finished_riddles"]
-    finished_games = helper.read_txt(
-        f"data/profiles/{user_name}/riddle_game/finished_riddles.txt")
+    finished_games = user_profile[f"{user_name}"][0]["finished_riddles"]
     print(finished_games)
     return render_template("statistics.html",
-                           user_name=user_name,
-                           user_profile=user_profile,
-                           riddle_profiles=riddle_profiles,
                            finished_games=finished_games,
                            page_title="Statistics")
 

@@ -41,7 +41,8 @@ form a,
 	border: 1px solid red;
 }
 
-#alerts {
+#alerts,
+#game-alerts {
     position: absolute;
     z-index: 100;
     width: 100%;

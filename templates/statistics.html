@@ -1,59 +1,136 @@
-{% extends "base.html" %} {% block main_content %}
+{% extends "base.html" %} 
 
+{% block css %}
+<link href="{{ url_for('static', filename='custom/css/riddle.css') }}" rel="stylesheet">
+{% endblock css %}
 
-
-	<div class="card-deck">
-		<div class="card mt-5">
-			<div class="card-header text-center font-weight-bold">Profiles
-				<hr>
-				<form>
-					<div class="form-group">
-						<select name="categories">
-							{% if finished_games %}
-							 {% for profile in finished_games %}
-							<option value="{{profile}}">{{profile}}</option>
-							{% endfor %}
-							{% else %}
-							<option value="no_profile">No profiles to show</option>
-							{% endif %}
-						</select>
-					</div>
-				</form>
-			</div>
-			
-			<div class="card-body text-center">
-				{% if finished_games %} 
-					<h6>{{user_profile.player_name}}</h6>
-					<hr>
-					<h3 class="${css_class}">Score: {{user_profile.score}}</h3>
-					<p class="card-text">Which is
-						<span class="${css_class}">${{message}}</span>
-					</p>
-				{% else %}
-					<h3> Play the game?</h3>
-					<br>
-					<a href="/{{user_name}}/riddle-g-setting" class="btn btn-success">Play the game</a>				
-				{% endif %}
-				<div class="card-body" id="result"></div>
-			</div>
-			<div class="card-footer"></div>
-		</div>
-		<div class="card mt-5">
-			<div class="card-header text-center font-weight-bold">Chat</div>
-			<div class="card-body d-flex align-items-center justify-content-center">
-				
-			</div>
-			<div class="card-footer"></div>
-		</div>
-		<div id="alerts" class="card text-center">
-			<header class="card-header">
-				<div class="text-left">
-				</div>
-			</header>
+{% block main_content %}
+<!-- User statics -->
+<div class="row">
+	<div class="col-md-10 offset-md-1">		
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fa fa-table"></i>
+				Your score</div>
 			<div class="card-body">
-				<p id="message-box"></p>
+				{% if finished_games %}
+				{% for profile in finished_games %}
+				<div class="table-responsive">
+					<table class="table table-bordered" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Profile name</th>
+								<th>Correct</th>
+								<th>Wrong</th>
+								<th>Skipped</th>
+								<th>Deleted</th>
+								<th>Mod</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Profile name</th>
+								<th>Correct</th>
+								<th>Wrong</th>
+								<th>Skipped</th>
+								<th>Deleted</th>
+								<th>Mod</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr>
+								<td>{{ profile.player_name }}</td>
+								<td>{{ profile.right_answers }}</td>
+								<td>{{ profile.wrong_answers }}</td>
+								<td>{{ profile.skipped_questions }}</td>
+								<td>{{ profile.deleted_questions }}</td>
+
+								{% if profile.mods == 'endless' %}
+								<td class="text-green">{{ profile.mods }}</td>
+								{% else %}
+								<td class="text-red">{{ profile.mods }}</td>
+								{% endif %}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				{% endfor %}
+				{% else %}
+				<h3> Play the game?</h3>
+				<br>
+				<a href="/{{user_name}}/riddle-g-setting" class="btn btn-success">Play the game</a>
+				{% endif %}
 			</div>
 		</div>
 	</div>
+</div>
+<!-- Top 10 -->
+<div class="row">
+	<div class="col-md-10 offset-md-1">
+		<div class="card mb-3">
+			<div class="card-header">
+				<i class="fa fa-table"></i>
+				Top 10</div>
+			<div class="card-body">
+				{% if finished_games %}
+				{% for profile in finished_games %}
+				<div class="table-responsive">
+					<table class="table table-bordered" width="100%" cellspacing="0">
+						<thead>
+							<tr>
+								<th>Profile name</th>
+								<th>Correct</th>
+								<th>Wrong</th>
+								<th>Skipped</th>
+								<th>Deleted</th>
+								<th>Mod</th>
+							</tr>
+						</thead>
+						<tfoot>
+							<tr>
+								<th>Profile name</th>
+								<th>Correct</th>
+								<th>Wrong</th>
+								<th>Skipped</th>
+								<th>Deleted</th>
+								<th>Mod</th>
+							</tr>
+						</tfoot>
+						<tbody>
+							<tr>
+								<td>{{ profile.player_name }}</td>
+								<td>{{ profile.right_answers }}</td>
+								<td>{{ profile.wrong_answers }}</td>
+								<td>{{ profile.skipped_questions }}</td>
+								<td>{{ profile.deleted_questions }}</td>
+
+								{% if profile.mods == 'endless' %}
+								<td class="text-green">{{ profile.mods }}</td>
+								{% else %}
+								<td class="text-red">{{ profile.mods }}</td>
+								{% endif %}
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				{% endfor %}
+				{% else %}
+				{% endif %}
+			</div>
+		</div>
+	</div>
+</div>
 
 {% endblock main_content %}
+
+{% block alert_box %}{% endblock alert_box %}
+
+{% block scripts %}
+<script>
+	$(document).ready(function () {
+		let riddle_profile_name
+		show_statistics(riddle_profile_name);
+	})
+</script>
+
+{% endblock scripts %}

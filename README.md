@@ -77,3 +77,8 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 - Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
 - Added log_out view
 - Removed unnecessary files
+
+### v1.1
+
+- Fixed error with double `alerts` id in `riddle-game.html`.
+- Redesigned statistic page base on existing template the theme.

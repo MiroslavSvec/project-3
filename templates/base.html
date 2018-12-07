@@ -77,7 +77,6 @@
 			</ul>
 		</div>
 	</nav>
-
 	{% endblock navbar %}
 
 	<!--Main Content-->
@@ -88,6 +87,7 @@
 			{% endblock main_content %}		
 		</div>
 	</div>
+	
 	<!-- Footer -->
 	{% block footer %}
 	<footer class="sticky-footer">
@@ -120,6 +120,8 @@
 			</div>
 		</div>
 	</div>
+	
+	{% block alert_box %}
 	<!-- Alerts Box  -->
 	<div id="alerts" class="card text-center">
 		<header class="card-header">
@@ -130,6 +132,7 @@
 			<p id="message-box"></p>
 		</div>
 	</div>
+	{% endblock alert_box %}
 	<!-- Bootstrap core JavaScript-->
 	<script src="{{ url_for('static', filename='vendor/jquery/jquery.min.js') }}"></script>
 	<script src="{{ url_for('static', filename='vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>

@@ -392,3 +392,14 @@ function riddle_end() {
 	window.location.replace(`/${user}/statistics`);
 }
 
+/* 
+Statistics
+*/
+
+$("select[name='finished_games']").on('change', function () {
+	show_statistics(this.value);
+});
+
+function show_statistics(riddle_profile_name) {
+	$("#alerts").fadeIn(500);
+}
