@@ -68,7 +68,7 @@ The files got overwritten and therefore I was forced to implement sessions to se
 
 The main reason:
 
-Found major bug when user answered question wrongly. Unfortunately, I discovered the bug while playing with a friend ant the same time so I misplaced it as bug related to multiplayer.
+Found major bug when user answered question wrongly. Unfortunately, I discovered the bug while playing with a friend at the same time so I misplaced it as bug related to multiplayer.
 
 Whenever user answered wrongly the game ended `helper.py` line 133. As due to indentation this if stamen was always true on endless mode as the tries were always 0.
 

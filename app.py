@@ -49,7 +49,7 @@ def logout():
 
 """ Riddles Game  Setting """
 
-
+# BUG 500 when user trying to create profile with same name as finished profile
 @app.route('/<user_name>/riddle-g-setting')
 def riddle_setting(user_name):
     riddle_profiles = helper.read_txt(

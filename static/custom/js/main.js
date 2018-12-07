@@ -281,34 +281,6 @@ function delete_question() {
 }
 
 
-function riddle_end() {
-	let user = $("#user_name").text();
-	window.location.replace(`/${user}/statistics`);
-}
-/*
-Templates
-*/
-
-function confirm_messages(
-	first_message,
-	css_class,
-	action,
-	btn_function,
-	color,
-	last_message
-) {
-	$("#result").html(`
-		<div class="card-body">
-			<h3>${first_message}</h3>
-			<h3 class="${css_class}">${action}</h3>
-			<p class="card-text">${last_message}</p>
-			<button type="submit" onclick="${btn_function}()" class="btn btn-success">Yes</button>
-			<button type="submit" onclick="hide_alerts()" class="btn btn-${color}">No</button>
-			<br>
-		</div>`);
-	$("#alerts").slideDown(500);
-}
-
 function riddle_nav(d) {
 	$("#question").html(d.question);
 	$("#remaining-questions").html(
@@ -356,12 +328,35 @@ function riddle_messages(
 	}
 }
 
+function confirm_messages(
+	first_message,
+	css_class,
+	action,
+	btn_function,
+	color,
+	last_message
+) {
+	$("#result").html(`
+		<div class="card-body">
+			<h3>${first_message}</h3>
+			<h3 class="${css_class}">${action}</h3>
+			<p class="card-text">${last_message}</p>
+			<button type="submit" onclick="${btn_function}()" class="btn btn-success">Yes</button>
+			<button type="submit" onclick="hide_alerts()" class="btn btn-${color}">No</button>
+			<br>
+		</div>`);
+	$("#alerts").slideDown(500);
+}
+
+
+/* 
+Game Score
+*/
 function riddle_score(data) {
 	let questions_in_total = data.questions_in_total - data.deleted_questions;
 	let score = data.right_answers;
-	/* bug with deleted_questions when total questions = 0 */
 	if (questions_in_total == 0) {
-		riddle_end_message("text-red", score, "Bad :P");
+		riddle_end_message("text-red", score, "Very Bad :P");
 	} else if (score == questions_in_total) {
 		riddle_end_message("text-green", score, "Amazing :)");
 	} else if (score > questions_in_total / 2) {
@@ -388,5 +383,12 @@ function riddle_end_message(css_class, score, message) {
 		</div>`);
 }
 
+/* 
+End game and redirect to statistics
+*/
 
+function riddle_end() {
+	let user = $("#user_name").text();
+	window.location.replace(`/${user}/statistics`);
+}
 
