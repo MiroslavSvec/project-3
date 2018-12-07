@@ -56,15 +56,24 @@ Postman
 ## Changelog
 
 Scraped redirection to login page as I do not think that is good user experiences.
-If user enters user name wich already exist (as he does not have to know about it)
-will use JS to handle the form check and and then redirect via Python
+If user enters user name which already exist (as he does not have to know about it)
+will use JS to handle the form check and then redirect via Python
 
 #### v1.0
+
+Not true:
 
 Unfortunately found major bug where 2 users played the game at the same time.  
 The files got overwritten and therefore I was forced to implement sessions to separate the users.
 
+The main reason:
+
+Found major bug when user answered question wrongly. Unfortunately, I discovered the bug while playing with a friend ant the same time so I misplaced it as bug related to multiplayer.
+
+Whenever user answered wrongly the game ended `helper.py` line 133. As due to indentation this if stamen was always true on endless mode as the tries were always 0.
+
+- Fixed bug with ending the game when user answer wrongly
 - Added session
 - Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
 - Added log_out view
-- Removed unecessary files
+- Removed unnecessary files
