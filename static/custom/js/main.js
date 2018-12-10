@@ -94,7 +94,6 @@ function create_riddle_game(form_data) {
 		this.mods = form_data.mods.value;
 		this.tries = form_data.tries.value;
 	}
-	console.log(riddle_game_data);
 	if (riddle_game_data.mods == "limited" && riddle_game_data.tries == 0) {
 		alerts_box(
 			"You must selecet how many tries you whish to have with this mode!",
@@ -110,7 +109,7 @@ function create_riddle_game(form_data) {
 					alerts_box(
 						"Profile " +
 							`<span class="text-red">${data}</span>` +
-							" already exist...<br>Please choose unique name",
+							" already exist or you finished the game under the profile already...<br>Please choose unique game profile name",
 						5000
 					);
 				} else {
@@ -352,21 +351,23 @@ function confirm_messages(
 /* 
 Game Score
 */
+
+
 function riddle_score(data) {
-	let questions_in_total = data.questions_in_total - data.deleted_questions;
-	let score = data.right_answers;
-	if (questions_in_total == 0) {
-		riddle_end_message("text-red", score, "Very Bad :P");
-	} else if (score == questions_in_total) {
-		riddle_end_message("text-green", score, "Amazing :)");
-	} else if (score > questions_in_total / 2) {
-		riddle_end_message("text-green", score, "Great :) ");
-	} else if (score == questions_in_total / 2) {
-		riddle_end_message("text-yellow", score, "Good :)");
-	} else if (score > questions_in_total / 2 / 2) {
-		riddle_end_message("text-yellow", score, "So so :P");
+	let right_answers = data.right_answers;
+	if (data.questions_in_total - data.deleted_questions == 0) {
+		riddle_end_message("text-red", right_answers, "You deleted all questions :P");
+	} else if (right_answers == questions_in_total) {
+		riddle_end_message("text-green", right_answers, "You answered correctly every single question which is amazing :)"
+		);
+	} else if (right_answers > parseInt(questions_in_total / 2)) {
+		riddle_end_message("text-green", right_answers, "Which is Great :) ");
+	} else if (right_answers == parseInt(questions_in_total / 2)) {
+		riddle_end_message("text-yellow", right_answers, "Which is Good :)");
+	} else if (right_answers > parseInt(questions_in_total / 2 / 2)) {
+		riddle_end_message("text-yellow", right_answers, "Which is So so :P");
 	} else {
-		riddle_end_message("text-red", score, "Bad :P");
+		riddle_end_message("text-red", right_answers, "Which is Bad :P");
 	}
 	$("#alerts").slideDown(500);
 }
@@ -377,7 +378,7 @@ function riddle_end_message(css_class, score, message) {
 			<h3 class="${css_class}">Congratulation</h3>
 			<h6>your score is</h6>
 			<h3 class="${css_class}">${score}</h3>
-			<p class="card-text">Which is <span class="${css_class}">${message}</span></p>
+			<p class="card-text ${css_class}">${message}</p>
 			<a onclick="riddle_end()" class="btn btn-default"><span class="text-green">Statistics</span></a>
 			<br>
 		</div>`);

@@ -52,8 +52,7 @@ Visual Studio Python debuger
 
 Postman
 
-
-## Changelog
+### Changelog
 
 Scraped redirection to login page as I do not think that is good user experiences.
 If user enters user name which already exist (as he does not have to know about it)
@@ -61,14 +60,10 @@ will use JS to handle the form check and then redirect via Python
 
 #### v1.0
 
-Not true:
+<strike>Unfortunately found major bug where 2 users played the game at the same time.  
+The files got overwritten and therefore I was forced to implement sessions to separate the users.</strike>
 
-Unfortunately found major bug where 2 users played the game at the same time.  
-The files got overwritten and therefore I was forced to implement sessions to separate the users.
-
-The main reason:
-
-Found major bug when user answered question wrongly. Unfortunately, I discovered the bug while playing with a friend at the same time so I misplaced it as bug related to multiplayer.
+Unfortunately, I discovered the bug while playing with a friend at the same time so I misplaced it as bug related to multiplayer.
 
 Whenever user answered wrongly the game ended `helper.py` line 133. As due to indentation this if stamen was always true on endless mode as the tries were always 0.
 
@@ -80,5 +75,15 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 
 ### v1.1
 
-- Fixed error with double `alerts` id in `riddle-game.html`.
-- Redesigned statistic page base on existing template the theme.
+- Redesigned statistic page base on existing theme for the template.
+- Added [statistics.json](/data/riddle-game/statistics.json) for storing all finished games
+
+#### Fixed
+
+- [riddle-g-setting.html](/templates/riddle-g-setting.html)
+  - 500 error when user tried to create profile under user name with finished game
+- [riddle-game.html](/templates/riddle-game.html)
+	- error with double `alerts` id.
+- [statistics.html](/templates/statistics.html)
+	- game_profile links not showing in `nav`.
+	- broken link to game setting in `nav`.

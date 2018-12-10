@@ -5,60 +5,69 @@
 {% endblock css %}
 
 {% block main_content %}
+<h1 class="py-5 text-center">Statistics</h1>
 <!-- User statics -->
 <div class="row">
 	<div class="col-md-10 offset-md-1">		
 		<div class="card mb-3">
 			<div class="card-header">
 				<i class="fa fa-table"></i>
-				Your score</div>
+				Score for user {{ user_name | title }}</div>
 			<div class="card-body">
 				{% if finished_games %}
-				{% for profile in finished_games %}
 				<div class="table-responsive">
 					<table class="table table-bordered" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>Profile name</th>
-								<th>Correct</th>
-								<th>Wrong</th>
-								<th>Skipped</th>
-								<th>Deleted</th>
+								<th>User / Profile</th>
+								<th>Questions</th>
+								<th class="text-green">Correct</th>
+								<th class="text-red">Wrong</th>
+								<th class="text-yellow">Skipped</th>
+								<th class="text-red">Deleted</th>
+								<th>Categories</th>
 								<th>Mod</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Profile name</th>
-								<th>Correct</th>
-								<th>Wrong</th>
-								<th>Skipped</th>
-								<th>Deleted</th>
+								<th>User / Profile</th>
+								<th>Questions</th>
+								<th class="text-green">Correct</th>
+								<th class="text-red">Wrong</th>
+								<th class="text-yellow">Skipped</th>
+								<th class="text-red">Deleted</th>
+								<th>Categories</th>
 								<th>Mod</th>
 							</tr>
 						</tfoot>
 						<tbody>
+							{% for profile in statistics %}
 							<tr>
-								<td>{{ profile.player_name }}</td>
+								<td>{{ profile.id | title }} / {{ profile.player_name | title }}</td>
+								<td>{{ profile.questions_in_total }}</td>
 								<td>{{ profile.right_answers }}</td>
 								<td>{{ profile.wrong_answers }}</td>
 								<td>{{ profile.skipped_questions }}</td>
 								<td>{{ profile.deleted_questions }}</td>
-
+								<td>{{ profile.categories | title }}</td>
+				
 								{% if profile.mods == 'endless' %}
-								<td class="text-green">{{ profile.mods }}</td>
+								<td class="text-green">{{ profile.mods | title }}</td>
 								{% else %}
-								<td class="text-red">{{ profile.mods }}</td>
+								<td class="text-red">{{ profile.mods | title }}</td>
 								{% endif %}
 							</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
-				{% endfor %}
 				{% else %}
-				<h3> Play the game?</h3>
+				<h3 class="text-center"> No score to show</h3>
 				<br>
-				<a href="/{{user_name}}/riddle-g-setting" class="btn btn-success">Play the game</a>
+				<div class="row justify-content-center">
+					<a href="/{{user_name}}/riddle-g-setting" class="btn btn-success">Play the game</a>					
+				</div>
 				{% endif %}
 			</div>
 		</div>
@@ -72,49 +81,56 @@
 				<i class="fa fa-table"></i>
 				Top 10</div>
 			<div class="card-body">
-				{% if finished_games %}
-				{% for profile in finished_games %}
+				{% if statistics %}
 				<div class="table-responsive">
 					<table class="table table-bordered" width="100%" cellspacing="0">
 						<thead>
 							<tr>
-								<th>Profile name</th>
-								<th>Correct</th>
-								<th>Wrong</th>
-								<th>Skipped</th>
-								<th>Deleted</th>
+								<th>User / Profile</th>								
+								<th>Questions</th>
+								<th class="text-green">Correct</th>
+								<th class="text-red">Wrong</th>
+								<th class="text-yellow">Skipped</th>
+								<th class="text-red">Deleted</th>
+								<th>Categories</th>
 								<th>Mod</th>
 							</tr>
 						</thead>
 						<tfoot>
 							<tr>
-								<th>Profile name</th>
-								<th>Correct</th>
-								<th>Wrong</th>
-								<th>Skipped</th>
-								<th>Deleted</th>
+								<th>User / Profile</th>
+								<th>Questions</th>
+								<th class="text-green">Correct</th>
+								<th class="text-red">Wrong</th>
+								<th class="text-yellow">Skipped</th>
+								<th class="text-red">Deleted</th>
+								<th>Categories</th>
 								<th>Mod</th>
 							</tr>
 						</tfoot>
 						<tbody>
+							{% for profile in statistics %}
 							<tr>
-								<td>{{ profile.player_name }}</td>
+								<td>{{ profile.id | title }} / {{ profile.player_name | title }}</td>
+								<td>{{ profile.questions_in_total }}</td>
 								<td>{{ profile.right_answers }}</td>
 								<td>{{ profile.wrong_answers }}</td>
 								<td>{{ profile.skipped_questions }}</td>
 								<td>{{ profile.deleted_questions }}</td>
+								<td>{{ profile.categories | title }}</td>
 
 								{% if profile.mods == 'endless' %}
-								<td class="text-green">{{ profile.mods }}</td>
+								<td class="text-green">{{ profile.mods | title }}</td>
 								{% else %}
-								<td class="text-red">{{ profile.mods }}</td>
+								<td class="text-red">{{ profile.mods | title }}</td>
 								{% endif %}
 							</tr>
+							{% endfor %}
 						</tbody>
 					</table>
 				</div>
-				{% endfor %}
 				{% else %}
+				<h3 class="text-center"> No statistics to show</h3>
 				{% endif %}
 			</div>
 		</div>

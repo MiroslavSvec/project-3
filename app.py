@@ -66,7 +66,9 @@ def parse_setting(user_name):
     profiles = helper.read_txt(
         f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
     profile = data["riddle_game_data"]["riddle_profile_name"] + "\n"
-    if profile in profiles:
+    finished_games = helper.read_txt(
+        f"data/profiles/{user_name}/riddle_game/finished_riddles.txt")
+    if profile in profiles or profile in finished_games:
         return jsonify(profile)
     # Create new game
     riddle.create_riddle_game(data)
@@ -78,8 +80,7 @@ def parse_setting(user_name):
 
 @app.route('/<user_name>/<riddle_profile>/riddle-game', methods=["GET"])
 def get_results(user_name, riddle_profile):
-    riddle_profiles = helper.read_txt(
-        f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+    riddle_profiles = helper.read_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
     profile = helper.read_json(helper.profile(user_name, riddle_profile))
     profile = profile["game"][0]
     if profile["mods"] == "limited":
@@ -125,9 +126,14 @@ def show_statistics(user_name):
     user_profile = helper.read_json(
         f"data/profiles/{user_name}/{user_name}.json")
     finished_games = user_profile[f"{user_name}"][0]["finished_riddles"]
-    print(finished_games)
+    riddle_profiles = helper.read_txt(
+        f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+    statistics = helper.read_json("data/riddle-game/statistics.json")
     return render_template("statistics.html",
                            finished_games=finished_games,
+                           riddle_profiles=riddle_profiles,
+                           user_name=user_name,
+                           statistics=statistics['profiles'],
                            page_title="Statistics")
 
 
@@ -143,7 +149,10 @@ def get_app_data():
 if __name__ == '__main__':
     app.run(host=os.getenv('IP'),
             port=os.getenv('PORT'),
-            debug=True)
+            debug=os.environ.get("DEVELOPMENT"))
+
+
+
 """ Need to disable buttons on clicking as rappidly clicks send multiple requests """
 """ Create 404 page and 500 error """
 """ Stats """

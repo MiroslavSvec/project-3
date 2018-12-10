@@ -178,9 +178,10 @@ def delete_question(user_name, riddle_profile_name):
 
 
 def end_game(user_name, riddle_profile_name, profile):
-    user_profile = helper.read_json(
-        f"data/profiles/{user_name}/{user_name}.json")
+    user_profile = helper.read_json(f"data/profiles/{user_name}/{user_name}.json")
+	# Delete remaining questions first
     profile["game"][0]["question"] = ""
+	# Save data to user profile
     user_profile[f"{user_name}"][0]["finished_riddles"].append(
         profile["game"][0])
     helper.write_to_json(
@@ -201,6 +202,10 @@ def end_game(user_name, riddle_profile_name, profile):
     else:
         helper.write_to_txt(
             f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt", "w", new_profiles)
+	# Append finished game to statistics
+    statistics = helper.read_json("data/riddle-game/statistics.json")
+    statistics['profiles'].append(profile["game"][0])
+    helper.write_to_json("data/riddle-game/statistics.json", "w", statistics)
     return profile
 
 
