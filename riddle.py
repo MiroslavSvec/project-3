@@ -56,6 +56,7 @@ def create_game_profile(data, user_name, riddle_profile_name):
          'game_started': f'{game_created}',
          'categories': f"{data['riddle_game_data']['categories']}",
          'mods': f"{data['riddle_game_data']['mods']}",
+         'tries_in_total': int(f"{data['riddle_game_data']['tries']}"),
          'tries': int(f"{data['riddle_game_data']['tries']}"),
          'question': [],
          'answer': [],

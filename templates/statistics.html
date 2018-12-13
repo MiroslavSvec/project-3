@@ -27,6 +27,8 @@
 								<th class="text-red">Deleted</th>
 								<th>Categories</th>
 								<th>Mod</th>
+								<th>Tries Left</th>
+								<th>Started with</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -39,10 +41,12 @@
 								<th class="text-red">Deleted</th>
 								<th>Categories</th>
 								<th>Mod</th>
+								<th>Tries Left</th>
+								<th>Started with</th>
 							</tr>
 						</tfoot>
 						<tbody>
-							{% for profile in statistics %}
+							{% for profile in finished_games %}
 							<tr>
 								<td>{{ profile.id | title }} / {{ profile.player_name | title }}</td>
 								<td>{{ profile.questions_in_total }}</td>
@@ -54,8 +58,12 @@
 				
 								{% if profile.mods == 'endless' %}
 								<td class="text-green">{{ profile.mods | title }}</td>
+								<td>N/A</td>
+								<td>N/A</td>
 								{% else %}
 								<td class="text-red">{{ profile.mods | title }}</td>
+								<td>{{ profile.tries }}</td>
+								<td>{{ profile.tries_in_total }}</td>
 								{% endif %}
 							</tr>
 							{% endfor %}
@@ -94,6 +102,8 @@
 								<th class="text-red">Deleted</th>
 								<th>Categories</th>
 								<th>Mod</th>
+								<th>Tries Left</th>
+								<th>Started with</th>
 							</tr>
 						</thead>
 						<tfoot>
@@ -106,6 +116,8 @@
 								<th class="text-red">Deleted</th>
 								<th>Categories</th>
 								<th>Mod</th>
+								<th>Tries Left</th>
+								<th>Started with</th>
 							</tr>
 						</tfoot>
 						<tbody>
@@ -121,8 +133,12 @@
 
 								{% if profile.mods == 'endless' %}
 								<td class="text-green">{{ profile.mods | title }}</td>
+								<td>N/A</td>
+								<td>N/A</td>
 								{% else %}
 								<td class="text-red">{{ profile.mods | title }}</td>
+								<td>{{ profile.tries }}</td>
+								<td>{{ profile.tries_in_total }}</td>
 								{% endif %}
 							</tr>
 							{% endfor %}

@@ -354,20 +354,21 @@ Game Score
 
 
 function riddle_score(data) {
+	let questions_in_total = data.questions_in_total;
 	let right_answers = data.right_answers;
-	if (data.questions_in_total - data.deleted_questions == 0) {
+	let score = right_answers - data.deleted_questions;
+	if (questions_in_total - data.deleted_questions == 0) {
 		riddle_end_message("text-red", right_answers, "You deleted all questions :P");
-	} else if (right_answers == questions_in_total) {
-		riddle_end_message("text-green", right_answers, "You answered correctly every single question which is amazing :)"
-		);
-	} else if (right_answers > parseInt(questions_in_total / 2)) {
-		riddle_end_message("text-green", right_answers, "Which is Great :) ");
-	} else if (right_answers == parseInt(questions_in_total / 2)) {
-		riddle_end_message("text-yellow", right_answers, "Which is Good :)");
-	} else if (right_answers > parseInt(questions_in_total / 2 / 2)) {
-		riddle_end_message("text-yellow", right_answers, "Which is So so :P");
+	} else if (score == questions_in_total) {
+		riddle_end_message("text-green", score, "You answered correctly every single question which is amazing :)");
+	} else if (score > parseInt(questions_in_total / 2)) {
+		riddle_end_message("text-green", score, "Which is Great :) ");
+	} else if (score == parseInt(questions_in_total / 2)) {
+		riddle_end_message("text-yellow", score, "Which is Good :)");
+	} else if (score > parseInt(questions_in_total / 2 / 2)) {
+		riddle_end_message("text-yellow", score, "Which is So so :P");
 	} else {
-		riddle_end_message("text-red", right_answers, "Which is Bad :P");
+		riddle_end_message("text-red", score, "Which is Bad :P");
 	}
 	$("#alerts").slideDown(500);
 }

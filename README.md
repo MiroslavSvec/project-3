@@ -58,7 +58,7 @@ Scraped redirection to login page as I do not think that is good user experience
 If user enters user name which already exist (as he does not have to know about it)
 will use JS to handle the form check and then redirect via Python
 
-#### v1.0
+### v1.0
 
 <strike>Unfortunately found major bug where 2 users played the game at the same time.  
 The files got overwritten and therefore I was forced to implement sessions to separate the users.</strike>
@@ -77,6 +77,8 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 
 - Redesigned statistic page base on existing theme for the template.
 - Added [statistics.json](/data/riddle-game/statistics.json) for storing all finished games
+- Added functionality to sort the profiles in [statistics.json](/data/riddle-game/statistics.json) based on the `correct_answers`
+- Redesigned score system  
 
 #### Fixed
 

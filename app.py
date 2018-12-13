@@ -129,11 +129,13 @@ def show_statistics(user_name):
     riddle_profiles = helper.read_txt(
         f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
     statistics = helper.read_json("data/riddle-game/statistics.json")
+    statistics = sorted(statistics['profiles'],
+                        key=lambda k: k['right_answers'], reverse=True)
     return render_template("statistics.html",
                            finished_games=finished_games,
                            riddle_profiles=riddle_profiles,
                            user_name=user_name,
-                           statistics=statistics['profiles'],
+                           statistics=statistics,
                            page_title="Statistics")
 
 
