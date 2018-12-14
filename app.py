@@ -49,11 +49,17 @@ def logout():
 
 """ Riddles Game  Setting """
 
-# BUG 500 when user trying to create profile with same name as finished profile
+
 @app.route('/<user_name>/riddle-g-setting')
 def riddle_setting(user_name):
-    riddle_profiles = helper.read_txt(
-        f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+    if 'user' in session:
+        if user_name == session['user']['user_name']:
+            riddle_profiles = helper.read_txt(
+                f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+        else:
+            return redirect(url_for('index'))
+    else:
+        return redirect(url_for('index'))
     return render_template("riddle-g-setting.html",
                            user_name=user_name, riddle_profiles=riddle_profiles, page_title="Riddle Game Setting")
 
@@ -80,23 +86,29 @@ def parse_setting(user_name):
 
 @app.route('/<user_name>/<riddle_profile>/riddle-game', methods=["GET"])
 def get_results(user_name, riddle_profile):
-    riddle_profiles = helper.read_txt(f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
-    profile = helper.read_json(helper.profile(user_name, riddle_profile))
-    profile = profile["game"][0]
-    if profile["mods"] == "limited":
-        return render_template("riddle-game.html",
-                               user_name=user_name,
-                               riddle_profiles=riddle_profiles,
-                               riddle_profile=riddle_profile,
-                               tries=int(profile["tries"]),
-                               page_title="Riddle Game")
-    # Render riddle-game template by default
-    return render_template("riddle-game.html",
-                           user_name=user_name,
-                           riddle_profiles=riddle_profiles,
-                           riddle_profile=riddle_profile,
-                           tries=int(0),
-                           page_title="Riddle Game")
+    if 'user' in session:
+        if user_name == session['user']['user_name']:
+            riddle_profiles = helper.read_txt(
+                f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+            profile = helper.read_json(
+                helper.profile(user_name, riddle_profile))
+            profile = profile["game"][0]
+            if profile["mods"] == "limited":
+                return render_template("riddle-game.html",
+                                       user_name=user_name,
+                                       riddle_profiles=riddle_profiles,
+                                       riddle_profile=riddle_profile,
+                                       tries=int(profile["tries"]),
+                                       page_title="Riddle Game")
+            else:
+                # Render riddle-game template by default
+                return render_template("riddle-game.html",
+                                       user_name=user_name,
+                                       riddle_profiles=riddle_profiles,
+                                       riddle_profile=riddle_profile,
+                                       tries=int(0),
+                                       page_title="Riddle Game")
+    return redirect(url_for('index'))
 
 # JSON POST to play the game
 
@@ -138,6 +150,21 @@ def show_statistics(user_name):
                            statistics=statistics,
                            page_title="Statistics")
 
+
+""" Errors """
+
+# 404
+@app.errorhandler(404)
+def page_not_found(e):
+    return render_template('404.html'), 404
+
+# 500
+
+
+@app.errorhandler(500)
+def internal_server_error(e):
+    helper.write_to_txt("data/system/error-log.txt", "a", f"{e}" + '\n')
+    return render_template('500.html'), 500
 
 """ App data """
 

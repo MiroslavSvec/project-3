@@ -89,3 +89,15 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 - [statistics.html](/templates/statistics.html)
 	- game_profile links not showing in `nav`.
 	- broken link to game setting in `nav`.
+
+
+### v1.2
+
+- Added [404.html](/templates/404.html)
+- Added [500.html](/templates/500.html)
+- Added [error-log.txt](/data/system/error-log.txt) to store errors
+
+#### Fixed
+
+- [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
+  - added statment to preven users to access other users data and games

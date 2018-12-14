@@ -56,6 +56,25 @@
 			"wrong_answers": 2,
 			"skipped_questions": 0,
 			"deleted_questions": 0
+		},
+		{
+			"id": "Zuzka",
+			"player_name": "my riddle game",
+			"game_started": "12:43:04",
+			"categories": "mixed",
+			"mods": "limited",
+			"tries_in_total": 1,
+			"tries": 0,
+			"question": "",
+			"answer": [],
+			"result": "Wrong",
+			"score": 0,
+			"questions_in_total": 18,
+			"remaining_questions": 18,
+			"right_answers": 0,
+			"wrong_answers": 1,
+			"skipped_questions": 0,
+			"deleted_questions": 0
 		}
 	]
 }

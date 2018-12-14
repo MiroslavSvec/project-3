@@ -1,0 +1,15 @@
+{% extends "base.html" %} 
+
+{% block navbar %} {% endblock navbar %} 
+
+{% block main_content %}
+<div class="row">
+	<div class="col-md-8 text-center py-5">
+		<h1 class="py-3 font-weight-bold text-danger">500</h1>
+		<h2 class="py-5">Internal server error</h2>
+		<p>Unfortunately there was an error on the server</p>
+		<br />
+		<p><a class="text-green" href="{{ url_for('index') }}">Go somewhere nice :)</a></p>
+	</div>
+</div>
+{% endblock main_content %}
