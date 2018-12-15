@@ -101,3 +101,7 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 
 - [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
   - added statment to preven users to access other users data and games
+
+### v1.3
+
+- Redesigned `side-nav` score and added more styles to it

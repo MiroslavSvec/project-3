@@ -183,14 +183,7 @@ if __name__ == '__main__':
 
 
 """ Need to disable buttons on clicking as rappidly clicks send multiple requests """
-""" Create 404 page and 500 error """
-""" Stats """
-""" Add confirmation messages when clicking / submiting in the game """
 """ Hide number of tries when endless mode is selected"""
 """ Hide skip question button if it is the last question """
 """ Come up with some sort of search engine to get more questions injected from web """
-""" Limit wrong answers """
-""" View Friends """
-""" Chat / Password / Send Invitaiton / """
-""" Clear chat history """
 """ Inject graphs to mini statistics in riddle-game.html """

@@ -12,32 +12,30 @@
 {% endblock navbar_brand %} 
 
 {% block riddle_g_nav %}
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-	<h5 id="remaining-questions"></h5>
 
+<li class="py-3 nav-tabs nav-link text-center">
+	<i class="fa fa-database fa-2x"></i> <p id="remaining-questions"></p>
 </li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
-	<h5 id="right-answers"></h5>
+<li class="py-3 nav-tabs nav-link text-center">
+	<i class="fa fa-check fa-2x text-green"></i> <p id="right-answers" ></p>
+</li>
+<li class="py-3 nav-tabs nav-link text-center">
+	<i class="fa fa-times fa-2x text-danger"></i>
+	<p id="wrong-answers"></p>
+</li>
+<li class="py-3 nav-tabs nav-link text-center">
+	<i class="fa fa-fast-forward fa-2x text-warning"></i> <p id="skipped-questions"></p>
+</li>
+<li class="py-3 nav-tabs nav-link text-center">
+	<i class="fa fa-trash fa-2x"></i> <p id="deleted-questions"></p>
+</li>
 
-</li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
-	<h5 id="wrong-answers"></h5>
-
-</li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Menu Levels">
-	<h5 id="skipped-questions"></h5>
-
-</li>
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-	<h5 id="deleted-questions"></h5>
-
-</li>
 {% if tries > 0 %}
-<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Dashboard">
-	<h5 id="tries"></h5>
-
+<li class="py-3 nav-tabs nav-link text-center">
+	<i class="fa fa-exclamation-triangle fa-2x"></i> <p id="tries"></p>
 </li>
 {% endif %}
+
 {% endblock riddle_g_nav %} 
 
 {% block main_content %}
