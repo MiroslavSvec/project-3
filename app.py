@@ -147,7 +147,7 @@ def show_statistics(user_name):
                            finished_games=finished_games,
                            riddle_profiles=riddle_profiles,
                            user_name=user_name,
-                           statistics=statistics,
+                           statistics=statistics[:10],
                            page_title="Statistics")
 
 

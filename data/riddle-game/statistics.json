@@ -75,6 +75,25 @@
 			"wrong_answers": 1,
 			"skipped_questions": 0,
 			"deleted_questions": 0
+		},
+		{
+			"id": "admin",
+			"player_name": "miro",
+			"game_started": "10:15:45",
+			"categories": "mixed",
+			"mods": "endless",
+			"tries_in_total": 0,
+			"tries": 0,
+			"question": "",
+			"answer": [],
+			"result": "",
+			"score": 0,
+			"questions_in_total": 18,
+			"remaining_questions": 0,
+			"right_answers": 0,
+			"wrong_answers": 0,
+			"skipped_questions": 0,
+			"deleted_questions": 18
 		}
 	]
 }

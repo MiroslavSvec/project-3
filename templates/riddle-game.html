@@ -2,6 +2,7 @@
  
  {% block css %}
 <link href="{{ url_for('static', filename='custom/css/riddle.css') }}" rel="stylesheet"> 
+
 {% endblock css %} 
 
 {% block navbar_brand %}
@@ -12,62 +13,58 @@
 {% endblock navbar_brand %} 
 
 {% block riddle_g_nav %}
-
-<li class="py-3 nav-tabs nav-link text-center">
+<li class="nav-link text-center">
 	<i class="fa fa-database fa-2x"></i> <p id="remaining-questions"></p>
 </li>
-<li class="py-3 nav-tabs nav-link text-center">
+<li class="nav-link text-center">
 	<i class="fa fa-check fa-2x text-green"></i> <p id="right-answers" ></p>
 </li>
-<li class="py-3 nav-tabs nav-link text-center">
+<li class="nav-link text-center">
 	<i class="fa fa-times fa-2x text-danger"></i>
 	<p id="wrong-answers"></p>
 </li>
-<li class="py-3 nav-tabs nav-link text-center">
+<li class="nav-link text-center">
 	<i class="fa fa-fast-forward fa-2x text-warning"></i> <p id="skipped-questions"></p>
 </li>
-<li class="py-3 nav-tabs nav-link text-center">
+<li class="nav-link text-center">
 	<i class="fa fa-trash fa-2x"></i> <p id="deleted-questions"></p>
 </li>
 
 {% if tries > 0 %}
-<li class="py-3 nav-tabs nav-link text-center">
-	<i class="fa fa-exclamation-triangle fa-2x"></i> <p id="tries"></p>
+<li class="nav-link text-center">
+	<i class="fa fa-exclamation-triangle fa-2x text-danger"></i> <p id="tries"></p>
 </li>
-{% endif %}
 
+{% endif %}
 {% endblock riddle_g_nav %} 
 
 {% block main_content %}
 
 
-<div id="riddle-game" class="card mt-1 text-center">
-	<div class="card-header mb-3">
-		<h2>Riddle game</h2>
-	</div>
-	<div class="card-deck">
-		<div class="card">
-			<div id="alerts" class="card text-center">
-				<div id="result"></div>
-			</div>
-			<div class="card-header">
-				<p id="question">{{question}}</p>
-			</div>
-			<form onsubmit="return riddle_game_answer(this)">
-				<div class="form-group-sm">
-					<input name="answer" type="text" class="form-control text-center" placeholder="Your answer?" required>
+<div class="row justify-content-center mt-5">
+	<div class="container">
+		<div id="riddle-game" class="card mt-5 text-center">
+			<div class="card">
+				<div id="alerts" class="card text-center">
+					<div id="result"></div>
 				</div>
-				<button type="submit" class="btn btn-success">Submit Answer</button>
-				<br>
-				<a onclick="confirm_messages('This question will be', 'text-yellow', 'appended to end of all questions', 'skip_question', 'warning','Are you sure?')"
-				 class="btn btn-warning">Skip Question</a>
-				<a onclick="confirm_messages('This question will be', 'text-red', ' removed from the game', 'delete_question', 'danger', 'Are you sure?')"
-				 class="btn btn-danger">Delete Question</a>
-			</form>
-		</div>
-		<div class="card text-center">
-			<div class="card-header text-center font-weight-bold">Chat</div>
-			<div id=""></div>
+				<p id="question" class="font-weight-bold">{{question}}</p>
+				<hr>
+				<form onsubmit="return riddle_game_answer(this)" class="container">
+					<div class="row justify-content-center">
+						<input name="answer" type="text" class="col-md-6 my-5 form-control text-center" placeholder="Your answer?" required>
+					</div>
+					<div class="row justify-content-center">
+						<button type="submit" class="btn btn-success">Submit Answer</button>
+					</div>
+					<div class="row justify-content-around">
+						<a onclick="confirm_messages('This question will be', 'text-yellow', 'appended to end of all questions', 'skip_question', 'warning','Are you sure?')"
+						class="btn btn-warning">Skip Question</a>
+						<a onclick="confirm_messages('This question will be', 'text-red', ' removed from the game', 'delete_question', 'danger', 'Are you sure?')"
+						class="btn btn-danger">Delete Question</a>
+					</div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

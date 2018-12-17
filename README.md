@@ -105,3 +105,5 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 ### v1.3
 
 - Redesigned `side-nav` score and added more styles to it
+- [riddle-game.html](/templates/riddle-game.html)
+  - Added more styles to game itself

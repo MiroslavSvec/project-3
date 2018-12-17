@@ -1,18 +1,48 @@
+/* 
+General
+*/
+
 #alerts {
 	height: 100%;
 
 	background-color: #343a40;
 }
 
-.card {
-	padding-bottom: 90px;
+/* 
+Nav
+*/
+
+@media (min-width: 992px) {
+	#mainNav .navbar-collapse .navbar-sidenav {
+		margin-top: 100px;
+	}
 }
+
+
+.navbar-dark .navbar-nav .nav-link {
+    color: rgba(255,255,255,.75);
+}
+
+/* 
+Main
+*/
+
+.card {
+	padding-bottom: 90px;	
+}
+
+.card,
+.card-header,
+input[name=answer] {
+	border: 0;
+	border-radius: 0;
+}
+
+input[name=answer] {
+	border-bottom: 1px solid;
+}
+
 .btn-default {
 	border: 2px solid #ffffff;
 }
 
-@media (min-width: 768px) {
-	#alerts {
-		right: -15px;
-	}
-}

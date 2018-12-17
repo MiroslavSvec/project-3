@@ -336,13 +336,16 @@ function confirm_messages(
 	last_message
 ) {
 	$("#result").html(`
-		<div class="card-body">
-			<h3>${first_message}</h3>
-			<h3 class="${css_class}">${action}</h3>
-			<p class="card-text">${last_message}</p>
-			<button type="submit" onclick="${btn_function}()" class="btn btn-success">Yes</button>
-			<button type="submit" onclick="hide_alerts()" class="btn btn-${color}">No</button>
-			<br>
+		<div class="card-body container">
+			<h3 class="pt-5">${first_message}</h3>
+			<h3 class="py-5 ${css_class}">${action}</h3>
+			<div class="row justify-content-center">
+				<p class="pb-5 card-text">${last_message}</p>
+			</div>
+			<div class="row justify-content-around">
+				<button type="submit" onclick="${btn_function}()" class="btn btn-success">Yes</button>
+				<button type="submit" onclick="hide_alerts()" class="btn btn-${color}">No</button>
+			</div>
 		</div>`);
 	$("#alerts").slideDown(500);
 }

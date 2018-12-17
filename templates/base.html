@@ -65,15 +65,17 @@
 						<span class="nav-link-text">Statistics</span>
 					</a>
 				</li>
-				{% block riddle_g_nav %}
-				
-				{% endblock riddle_g_nav %}
-			</ul>
-			<ul class="navbar-nav ml-auto">
 				<li class="nav-item">
 					<a class="nav-link" data-toggle="modal" data-target="#exampleModal">
 						<i class="fa fa-fw fa-sign-out"></i>Logout</a>
 				</li>
+			</ul>
+			
+			<ul class="navbar-nav ml-auto">
+				{% block riddle_g_nav %}
+				
+				{% endblock riddle_g_nav %}
+				
 			</ul>
 		</div>
 	</nav>
