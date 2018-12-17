@@ -35,3 +35,7 @@
 {% block footer %}
   
 {% endblock footer %}
+
+{% block scripts %}
+	<script src="{{ url_for('static', filename='custom/js/index.js') }}"></script>  
+{% endblock scripts %}

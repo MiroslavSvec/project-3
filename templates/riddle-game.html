@@ -48,7 +48,7 @@
 				<div id="alerts" class="card text-center">
 					<div id="result"></div>
 				</div>
-				<p id="question" class="font-weight-bold">{{question}}</p>
+				<p id="question" class="font-weight-bold"></p>
 				<hr>
 				<form onsubmit="return riddle_game_answer(this)" class="container">
 					<div class="row justify-content-center">
@@ -58,10 +58,10 @@
 						<button type="submit" class="btn btn-success">Submit Answer</button>
 					</div>
 					<div class="row justify-content-around">
-						<a onclick="confirm_messages('This question will be', 'text-yellow', 'appended to end of all questions', 'skip_question', 'warning','Are you sure?')"
-						class="btn btn-warning">Skip Question</a>
-						<a onclick="confirm_messages('This question will be', 'text-red', ' removed from the game', 'delete_question', 'danger', 'Are you sure?')"
-						class="btn btn-danger">Delete Question</a>
+						<button onclick="confirm_messages('This question will be', 'text-yellow', 'appended to end of all questions', 'skip_question', 'warning','Are you sure?')"
+						 class="btn btn-warning">Skip Question</button>	
+						<button onclick="confirm_messages('This question will be', 'text-red', ' removed from the game', 'delete_question', 'danger', 'Are you sure?')"
+						class="btn btn-danger">Delete Question</button>
 					</div>
 				</form>
 			</div>
@@ -69,15 +69,12 @@
 	</div>
 </div>
 
+
+
 {% endblock main_content %} 
 
 {% block alert_box %}{% endblock alert_box %}
 
 {% block scripts %}
-<script>
-	$(document).ready(function () {
-		show_riddle_game();
-	})
-</script> 
-
+<script src="{{ url_for('static', filename='custom/js/riddle-game.js') }}"></script>
 {% endblock scripts %}

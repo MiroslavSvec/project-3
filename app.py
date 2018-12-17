@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 @app.route('/')
 def index():
     app_data = helper.read_json('data/system/app_data.json')
-    app_data = app_data['1.1'][0]["members"] - 1984
+    app_data = app_data['1.3'][0]["members"] - 1984
     # Render index.html by default
     return render_template("index.html", members=app_data)
 
@@ -183,7 +183,6 @@ if __name__ == '__main__':
 
 
 """ Need to disable buttons on clicking as rappidly clicks send multiple requests """
-""" Hide number of tries when endless mode is selected"""
 """ Hide skip question button if it is the last question """
 """ Come up with some sort of search engine to get more questions injected from web """
 """ Inject graphs to mini statistics in riddle-game.html """

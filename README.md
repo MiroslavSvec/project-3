@@ -65,7 +65,7 @@ The files got overwritten and therefore I was forced to implement sessions to se
 
 Unfortunately, I discovered the bug while playing with a friend at the same time so I misplaced it as bug related to multiplayer.
 
-Whenever user answered wrongly the game ended `helper.py` line 133. As due to indentation this if stamen was always true on endless mode as the tries were always 0.
+Whenever user answered wrongly the game ended `helper.py` line 133. As due to indentation this if statement was always true on endless mode as the tries were always 0.
 
 - Fixed bug with ending the game when user answer wrongly
 - Added session
@@ -105,5 +105,8 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 ### v1.3
 
 - Redesigned `side-nav` score and added more styles to it
+- Separated JS to different files
 - [riddle-game.html](/templates/riddle-game.html)
   - Added more styles to game itself
+- - [riddle-g-setting.html](/templates/riddle-g-setting.html)
+  - Number of tries are hiden if endless mode is selected

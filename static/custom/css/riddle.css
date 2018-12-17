@@ -42,7 +42,8 @@ input[name=answer] {
 	border-bottom: 1px solid;
 }
 
-.btn-default {
-	border: 2px solid #ffffff;
+.btn-warning:not(:disabled):not(.disabled),
+.btn:not(:disabled):not(.disabled):active {
+	color: #ffffff;
 }
 
