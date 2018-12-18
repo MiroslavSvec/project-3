@@ -16,7 +16,7 @@ app.config['SECRET_KEY'] = os.environ.get("SECRET_KEY")
 @app.route('/')
 def index():
     app_data = helper.read_json('data/system/app_data.json')
-    app_data = app_data['1.3'][0]["members"] - 1984
+    app_data = app_data['1.4'][0]["members"]
     # Render index.html by default
     return render_template("index.html", members=app_data, page_title="Riddle Game")
 
