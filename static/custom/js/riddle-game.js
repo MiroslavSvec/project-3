@@ -187,7 +187,7 @@ function riddle_messages(
 	button_name
 ) {
 	$("#result").html(`
-		<div class="card-body">
+		<div class="card-body py-5">
 			<h3>Your answer: ${answer}</h3>
 			<h6>is</h6>
 			<h3 class="${css_class}">${results}</h3>

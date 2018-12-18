@@ -110,12 +110,13 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
   - Added more styles to game itself
   - Added JS validation to answer input field
   - Confirmation buttons are now disabled on click to prevent user to send multiple requests to server
-- - [riddle-g-setting.html](/templates/riddle-g-setting.html)
+- [riddle-g-setting.html](/templates/riddle-g-setting.html)
   - Number of tries are hiden if endless mode is selected
 
 #### Fixed
 
-- - [riddle-game.html](/templates/riddle-game.html)
+- Moved alerts to the top  as  sometimes  prevent user to click on buttons
+- [riddle-game.html](/templates/riddle-game.html)
   - Delete and Skip buttons where submiting the form
 - [statistics.html](/templates/statistics.html)
   - added sessions to prevent users to view other users profiles
