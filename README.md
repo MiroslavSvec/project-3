@@ -80,7 +80,7 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 - Added functionality to sort the profiles in [statistics.json](/data/riddle-game/statistics.json) based on the `correct_answers`
 - Redesigned score system  
 
-#### Fixed
+#### Fixes in v1.1
 
 - [riddle-g-setting.html](/templates/riddle-g-setting.html)
   - 500 error when user tried to create profile under user name with finished game
@@ -97,7 +97,7 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 - Added [500.html](/templates/500.html)
 - Added [error-log.txt](/data/system/error-log.txt) to store errors
 
-#### Fixed
+#### Fixes in v1.2
 
 - [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
   - added statment to preven users to access other users data and games
@@ -112,10 +112,11 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
   - Confirmation buttons are now disabled on click to prevent user to send multiple requests to server
 - [riddle-g-setting.html](/templates/riddle-g-setting.html)
   - Number of tries are hiden if endless mode is selected
+  - Added more styles to profile creation form
 
-#### Fixed
+#### Fixes in v1.3
 
-- Moved alerts to the top  as  sometimes  prevent user to click on buttons
+- Moved alerts to the top  as  sometimes  prevent user to click buttons
 - [riddle-game.html](/templates/riddle-game.html)
   - Delete and Skip buttons where submiting the form
 - [statistics.html](/templates/statistics.html)
