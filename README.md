@@ -121,3 +121,9 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
   - Delete and Skip buttons where submiting the form
 - [statistics.html](/templates/statistics.html)
   - added sessions to prevent users to view other users profiles
+
+### v1.4
+
+- Validated each page
+  - many CSS errors and warnings due to the Boostrap 4 bundle. There should be no errors with using cdn, however I kep it as it came with the theme
+- Removed uneccessary files
