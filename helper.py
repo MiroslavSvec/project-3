@@ -73,8 +73,8 @@ def create_profile_data(user_name):
                     "a", f"{user_name}" + '\n')		
 		## App data
 		app_data = read_json('data/system/app_data.json')
-		members_count = app_data['1.1'][0]["members"]
-		app_data['1.1'][0]["members"] = members_count + 1
+		members_count = app_data['1.3'][0]["members"]
+		app_data['1.3'][0]["members"] = members_count + 1
 		write_to_json("data/system/app_data.json", "w", app_data)
 		## Create game folder
 		os.makedirs(f"data/profiles/{user_name}/riddle_game")

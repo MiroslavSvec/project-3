@@ -185,4 +185,3 @@ if __name__ == '__main__':
 """ Need to disable buttons on clicking as rappidly clicks send multiple requests """
 """ Hide skip question button if it is the last question """
 """ Come up with some sort of search engine to get more questions injected from web """
-""" Inject graphs to mini statistics in riddle-game.html """

@@ -8,24 +8,19 @@ $(document).ready(function () {
 
 // Riddle Game
 
-function Data(id, data) {
-	this.id = id;
-	this.data = data;
-}
-
 function show_riddle_game() {
 	let user = $("#user_name").text();
 	let riddle_profile = $("#riddle_profile").text();
 
-	$.get(`/postjson/${user}/${riddle_profile}/riddle-game`, function (data) {
-		console.log(data);
+	$.get(`/postjson/${user}/${riddle_profile}/riddle-game`, function (data) {	
 		let riddle_game_data = data.game[0];
+		$("#question").html(riddle_game_data.question);
 		if (riddle_game_data.remaining_questions == 0) {
 			riddle_score(riddle_game_data);
 			riddle_nav(riddle_game_data)
 			setTimeout(function () {
 				riddle_end();
-			}, 10000)
+			}, 5000)
 		} else {
 			riddle_nav(riddle_game_data)
 		}
@@ -37,6 +32,32 @@ function show_riddle_game() {
 		console.log(error);
 	});
 	$("#riddle-game").fadeIn(5000);
+}
+
+function riddle_nav(d) {
+	$("#remaining-questions").html(
+		"Questions left: " + d.remaining_questions
+	);
+	$("#right-answers").html(
+		"Correct answers: " + d.right_answers
+	);
+	$("#wrong-answers").html(
+		"Wrong answers: " + d.wrong_answers
+	);
+	$("#skipped-questions").html(
+		"Skipped questions: " + d.skipped_questions
+	);
+	$("#deleted-questions").html(
+		"Deleted questions: " + d.deleted_questions
+	);
+	if (d.tries > 0) {
+		$("#tries").html("Tries left: " + d.tries);
+	}
+}
+
+function Data(id, data) {
+	this.id = id;
+	this.data = data;
 }
 
 function riddle_game_answer(form) {
@@ -158,27 +179,6 @@ function delete_question() {
 }
 
 
-function riddle_nav(d) {
-	$("#question").html(d.question);
-	$("#remaining-questions").html(
-		"Questions left: " + d.remaining_questions
-	);
-	$("#right-answers").html(
-		"Correct answers: " + d.right_answers
-	);
-	$("#wrong-answers").html(
-		"Wrong answers: " + d.wrong_answers
-	);
-	$("#skipped-questions").html(
-		"Skipped questions: " + d.skipped_questions
-	);
-	$("#deleted-questions").html(
-		"Deleted questions: " + d.deleted_questions
-	);
-	if (d.tries > 0) {
-		$("#tries").html("Tries left: " + d.tries);
-	}
-}
 function riddle_messages(
 	answer,
 	results,
