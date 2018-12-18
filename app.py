@@ -23,9 +23,11 @@ def index():
 
 """ Create profile """
 
+
 @app.route('/<user_name>/create_profile', methods=["POST"])
 def create_profile(user_name):
 	return helper.create_profile_data(user_name)
+
 
 """ Log in """
 
@@ -40,12 +42,15 @@ def log_in(user_name):
     else:
         return jsonify("no profile")
 
+
 """ Log out """
+
 
 @app.route('/logout')
 def logout():
     session.pop('user')
     return redirect(url_for('index'))
+
 
 """ Riddles Game  Setting """
 
@@ -135,20 +140,23 @@ def parse_answer(user_name, riddle_profile):
 
 @app.route('/<user_name>/statistics', methods=["GET"])
 def show_statistics(user_name):
-    user_profile = helper.read_json(
-        f"data/profiles/{user_name}/{user_name}.json")
-    finished_games = user_profile[f"{user_name}"][0]["finished_riddles"]
-    riddle_profiles = helper.read_txt(
-        f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
-    statistics = helper.read_json("data/riddle-game/statistics.json")
-    statistics = sorted(statistics['profiles'],
-                        key=lambda k: k['right_answers'], reverse=True)
-    return render_template("statistics.html",
-                           finished_games=finished_games,
-                           riddle_profiles=riddle_profiles,
-                           user_name=user_name,
-                           statistics=statistics[:10],
-                           page_title="Statistics")
+    if 'user' in session:
+        if user_name == session['user']['user_name']:
+            user_profile = helper.read_json(
+                f"data/profiles/{user_name}/{user_name}.json")
+            finished_games = user_profile[f"{user_name}"][0]["finished_riddles"]
+            riddle_profiles = helper.read_txt(
+                f"data/profiles/{user_name}/riddle_game/riddle_profiles.txt")
+            statistics = helper.read_json("data/riddle-game/statistics.json")
+            statistics = sorted(statistics['profiles'],
+                                key=lambda k: k['right_answers'], reverse=True)
+            return render_template("statistics.html",
+                                   finished_games=finished_games,
+                                   riddle_profiles=riddle_profiles,
+                                   user_name=user_name,
+                                   statistics=statistics[:10],
+                                   page_title="Statistics")
+    return redirect(url_for('index'))
 
 
 """ Errors """
@@ -181,7 +189,5 @@ if __name__ == '__main__':
             debug=os.environ.get("DEVELOPMENT"))
 
 
-
-""" Need to disable buttons on clicking as rappidly clicks send multiple requests """
 """ Hide skip question button if it is the last question """
 """ Come up with some sort of search engine to get more questions injected from web """

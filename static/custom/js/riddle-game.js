@@ -24,8 +24,6 @@ function show_riddle_game() {
 		} else {
 			riddle_nav(riddle_game_data)
 		}
-
-		console.log(riddle_game_data);
 	}).fail(function (xhr, status, error) {
 		console.log(xhr);
 		console.log(status);
@@ -61,65 +59,67 @@ function Data(id, data) {
 }
 
 function riddle_game_answer(form) {
-	let user = $("#user_name").text();
-	let riddle_profile = $("#riddle_profile").text();
-	let answer = new Data("answer", form.answer.value);
-	console.log(answer);
+	if (valid_form()) {
+		let user = $("#user_name").text();
+		let riddle_profile = $("#riddle_profile").text();
+		let answer = new Data("answer", form.answer.value);
+		$("#alerts").slideDown(500);
+		setTimeout(function () {
+			$(form).trigger("reset");
+		}, 500);
 
-	$("#alerts").slideDown(500);
-	setTimeout(function () {
-		$(form).trigger("reset");
-	}, 500);
-
-	$.post(
-		`/postjson/${user}/${riddle_profile}/riddle-game`,
-		JSON.stringify(answer),
-		function (data) {
-			let riddle_game_data = data.game[0];
-			if (riddle_game_data.result == "Correct") {
-				if (riddle_game_data.remaining_questions == 0) {
+		$.post(
+			`/postjson/${user}/${riddle_profile}/riddle-game`,
+			JSON.stringify(answer),
+			function (data) {
+				let riddle_game_data = data.game[0];
+				if (riddle_game_data.result == "Correct") {
+					if (riddle_game_data.remaining_questions == 0) {
+						riddle_score(riddle_game_data);
+					} else {
+						riddle_messages(
+							answer.data,
+							"Correct",
+							"text-green",
+							"Next question?",
+							"hide_alerts",
+							"Next question"
+						);
+					}
+				} else if (
+					riddle_game_data.mods == "limited" &&
+					riddle_game_data.tries == 0
+				) {
 					riddle_score(riddle_game_data);
+					setTimeout(function () {
+						riddle_end()
+					}, 10000)
 				} else {
 					riddle_messages(
 						answer.data,
-						"Correct",
-						"text-green",
-						"Next question?",
+						"Wrong",
+						"text-red",
+						"Would you like to try again?",
 						"hide_alerts",
-						"Next question"
+						"Try again"
 					);
 				}
-			} else if (
-				riddle_game_data.mods == "limited" &&
-				riddle_game_data.tries == 0
-			) {
-				riddle_score(riddle_game_data);
 				setTimeout(function () {
-					riddle_end()
-				}, 10000)
-			} else {
-				riddle_messages(
-					answer.data,
-					"Wrong",
-					"text-red",
-					"Would you like to try again?",
-					"hide_alerts",
-					"Try again"
-				);
+					show_riddle_game();
+				}, 500);
 			}
-			setTimeout(function () {
-				show_riddle_game();
-			}, 500);
-		}
-	).fail(function (xhr, status, error) {
-		console.log(xhr);
-		console.log(status);
-		console.log(error);
-	});
+		).fail(function (xhr, status, error) {
+			console.log(xhr);
+			console.log(status);
+			console.log(error);
+		});
+	}
+	
 	return false;
 }
 
 function skip_question() {
+	$("#result button").attr("disabled", "disabled");
 	let user = $("#user_name").text();
 	let riddle_profile = $("#riddle_profile").text();
 	let post_data = new Data("skip_question", "");
@@ -143,7 +143,6 @@ function skip_question() {
 					$("#alerts").slideUp(500);
 				}, 500);
 			}
-			console.log(riddle_game_data);
 		}
 	).fail(function (xhr, status, error) {
 		console.log(xhr);
@@ -152,6 +151,7 @@ function skip_question() {
 	});
 }
 function delete_question() {
+	$("#result button").attr("disabled", "disabled");
 	let user = $("#user_name").text();
 	let riddle_profile = $("#riddle_profile").text();
 	let post_data = new Data("delete_question", "");
@@ -160,7 +160,6 @@ function delete_question() {
 		JSON.stringify(post_data),
 		function (data) {
 			let riddle_game_data = data.game[0];
-			console.log(riddle_game_data);
 			if (riddle_game_data.remaining_questions == 0) {
 				riddle_score(riddle_game_data);
 				show_riddle_game();
