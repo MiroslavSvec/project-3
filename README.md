@@ -52,6 +52,28 @@ Visual Studio Python debuger
 
 Postman
 
+
+- [JSHint](https://jshint.com/) (Report of all custom JS functions)
+  - **Metrics**
+    - There are 41 functions in this file.
+
+    - Function with the largest signature take 6 arguments, while the median is 1.
+
+    - Largest function has 11 statements in it, while the median is 3.
+
+    - The most complex function has a cyclomatic complexity value of 6 while the median is 1.
+  
+  - **Seven unused variables** (as the below functions are called form templates)
+    - create_profile
+    - check_login_details
+    - hide_alerts
+    - create_riddle_game
+    - riddle_game_answer
+    - skip_question
+    - delete_question
+  
+
+
 ### Changelog
 
 Scraped redirection to login page as I do not think that is good user experiences.

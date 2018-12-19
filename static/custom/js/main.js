@@ -24,7 +24,7 @@ function valid_form() {
 	let form_values = $("form input");
 	for (var i = 0; i < form_values.length; i++) {
 		if (form_values[i].value == null || form_values[i].value == "") {
-			message = "Please fill all fields ...";
+			let message = "Please fill all fields ...";
 			alerts_box(message, 5000);
 			return false;
 		}
