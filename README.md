@@ -1,16 +1,14 @@
 # **Riddle Game**
 
-<hr />
-
 Hello there,  
 and welcome to my third [Code Institute (CI)](https://courses.codeinstitute.net/) school project.  
 In this project I should be able to show that I can work with Jinja, Python and Flask (a python framework) as well as create responsive design which works on commonly used devices.
 
 I decided to follow the given example from CI for this project.
 
-### CI Brief
+## **CI Brief**
 
-- CREATE A 'RIDDLE-ME-THIS' GUESSING GAME
+- **CREATE A 'RIDDLE-ME-THIS' GUESSING GAME**
   - Build a web application game that asks players to guess the answer to a pictorial or text-based riddle.
   - The player is presented with an image or text that contains the riddle. Players enter their answer into a text area and submit their answer using a form.
   - If a player guesses correctly, they are redirected to the next riddle.
@@ -18,24 +16,20 @@ I decided to follow the given example from CI for this project.
   - Multiple players can play an instance of the game at the same time, each in their own browser. Users are identified by a unique username but note that no authentication features such as a password are required for this project.
   - Create a leader board that ranks top scores for all (at least recent) users.
 
-- CREATE YOUR OWN PROJECT
+- **CREATE YOUR OWN PROJECT**
   - If you choose to create your project outside the brief, the scope should be similar to that of the example brief above. If you want some ideas, please ask your mentor for advice and direction.
 
 ## **Table of Contents**
-
-<hr />
 
 - [***UX***](#UX)
   - [General Design](#General%Design)
   - [Requirements](#Requirements)
   - [Wireframes](#Wireframes)
 - [***Features***](#Features)
-  - [Existing features](#Existing%20features)
-  - [Features left to implement](#Features%20left%20to%20implement)
+  - [Existing features](#Existing-features)
+  - [Features left to implement](#Features-left-to-implement)
 
 ## **UX**
-
-<hr />
 
 ### **General Design**
 
@@ -45,7 +39,7 @@ Functionality | 6
 User experiences | 6
 CSS | 3
 
-The project general idea is for entertainment purpose only
+**The project general idea is for entertainment purpose only**
 
 - create an application which feels good for the user
   - achieve this using more JS with user inputs instead of Python
@@ -54,17 +48,17 @@ The project general idea is for entertainment purpose only
 
 ### **Requirements**
 
-- Welcome page
+- **Welcome page**
   - create account / log-in
-- Any other page
+- **Any other page**
   - show riddle profiles
   - link to statistics page
   - friends list (optional)
   - chat window (optional)
-- Game setting page
+- **Game setting page**
   - Brief how to play the game
   - Let user create a profile
-- Riddle game page
+- **Riddle game page**
   - Show riddle to user
   - Show game score
   - User actions
@@ -72,11 +66,11 @@ The project general idea is for entertainment purpose only
     - skip question
     - delete question
     - give user appropriate feedback depends on result from the action
-- Statistics page
+- **Statistics page**
   - show score for user
   - show overall or top 10 score
-- Database
-  - At time I started this project I knew very little above Flask session or Heroku file system.  Therefore I choose to create app which works with files such as `.txt` `.json`.
+- **Database**
+  - *At time I started this project I knew very little above Flask session or Heroku file system.  Therefore I choose to create app which works with files such as `.txt` `.json`.*
     - create separate files for each user / profile
     - user should be able to access only his own data
 
@@ -84,33 +78,33 @@ The project general idea is for entertainment purpose only
 
 Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/) which can be find [here](https://github.com/MiroslavSvec/project-3/blob/master/assets/mockup.pdf).  
 
-[**To top**](#Table%20of%20Contents)
+[**To top**](#Table-of-Contents)
 
 ## **Features**
 
 <hr />  
 
-### Existing features
+### **Existing features**
 
-- [index.html](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
+- [**index.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
   - Create Account / Login form
     - allow user to create an account
     - allow user to log-in to existing account
     - "Easter egg" show user how many accounts has been created to test the app
-- [riddle-g-setting.html](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-g-setting.html)
+- [**riddle-g-setting.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-g-setting.html)
 
-### Features left to implement
+### **Features left to implement**
 
-- [index.html](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
+- [**index.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
   - Create Account / Login form
     - check user password (not required for this project)
-- Database
+- **Database**
   - allow users to delete profiles
-    - I gave this functionality less importance as there is not too many questions and mods varieties.
+    - I gave this functionality less importance as there is not too many questions and / or mods varieties.
   - delete profile after the game finish
     - profile data are no longer used after the game finish, so they should be removed from the server
 
-[**To top**](#Table%20of%20Contents)
+[**To top**](#Table-of-Contents)
 
 ## **Bugs and Testing**
 
