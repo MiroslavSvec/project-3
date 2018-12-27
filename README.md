@@ -22,12 +22,14 @@ I decided to follow the given example from CI for this project.
 ## **Table of Contents**
 
 - [***UX***](#UX)
-  - [General Design](#General%Design)
+  - [General Design](#General-Design)
   - [Requirements](#Requirements)
   - [Wireframes](#Wireframes)
+  - [Template](#Template)
 - [***Features***](#Features)
   - [Existing features](#Existing-features)
   - [Features left to implement](#Features-left-to-implement)
+- [***Credits***](#Credits)
 
 ## **UX**
 
@@ -37,9 +39,9 @@ Design | Importance
 --- | ---
 Functionality | 6
 User experiences | 6
-CSS | 3
+HTML / CSS | 3
 
-**The project general idea is for entertainment purpose only**
+**The project general idea is for entertainment purpose only.**
 
 - create an application which feels good for the user
   - achieve this using more JS with user inputs instead of Python
@@ -67,22 +69,31 @@ CSS | 3
     - delete question
     - give user appropriate feedback depends on result from the action
 - **Statistics page**
-  - show score for user
+  - show score for user and his profiles
   - show overall or top 10 score
 - **Database**
-  - *At time I started this project I knew very little above Flask session or Heroku file system.  Therefore I choose to create app which works with files such as `.txt` `.json`.*
+  - *At time I started this project I knew very little about Flask session or Heroku file system.  Therefore I choose to create app which works with files such as `.txt` and `.json`.*
     - create separate files for each user / profile
     - user should be able to access only his own data
 
 ### **Wireframes**
 
-Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/) which can be find [here](https://github.com/MiroslavSvec/project-3/blob/master/assets/mockup.pdf).  
+Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/) which can be find [here](https://github.com/MiroslavSvec/project-3/blob/master/assets/mockup.pdf). 
+
+### **Template**
+
+As this was my first Python project I decided to fully focus on Python and Flask. Therefore I wanted to speed up the development and try to find a template/s which I could use for this project.
+
+At the end I was able to find [this](https://blackrockdigital.github.io/startbootstrap-sb-admin/index.html) template which suits my project almost perfectly. I choose the above template mainly because of the `side-nav` and the chat window in main `nav`.
+
+Also with the above template and friends list I wanted to create a small social page with more minigames then just the Riddle game.  
+This is why the game profile list starts with "Games" instead of "Riddles".
+
+*Please read the [***Credits***](#Credits) section to see what I kept and changed.*
 
 [**To top**](#Table-of-Contents)
 
 ## **Features**
-
-<hr />  
 
 ### **Existing features**
 
@@ -90,7 +101,19 @@ Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/
   - Create Account / Login form
     - allow user to create an account
     - allow user to log-in to existing account
-    - "Easter egg" show user how many accounts has been created to test the app
+    - "Easter egg" show user how many user accounts has been created to test the app
+- **Any other page**
+  - `nav`
+    - `navbar-sidenav`
+      - show user name of current user logged in
+      - **Games**
+        - **Riddles**
+          - "New Game" allow user to access Riddle game setting and start new game
+          - show game profiles (if exists) for logged user
+      - **Statistics**
+        - allow user to access statistics page
+      - **Log-out**
+        - allow user to log out from current session (via modal)
 - [**riddle-g-setting.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-g-setting.html)
 
 ### **Features left to implement**
@@ -98,6 +121,11 @@ Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/
 - [**index.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
   - Create Account / Login form
     - check user password (not required for this project)
+- **Any other page**
+  - `nav`
+    - `navbar-sidenav`
+      - show users friend list (if any)
+      - let the user search for other users and add them to their friend list
 - **Database**
   - allow users to delete profiles
     - I gave this functionality less importance as there is not too many questions and / or mods varieties.
@@ -107,8 +135,6 @@ Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/
 [**To top**](#Table-of-Contents)
 
 ## **Bugs and Testing**
-
-<hr />
 
 @app.route('/')
 err 500 passing data but can’t write them when used "USER" and "user" already exist
@@ -158,11 +184,8 @@ Postman
     - riddle_game_answer
     - skip_question
     - delete_question
-  
 
 ## **Changelog**
-
-<hr />
 
 Scraped redirection to login page as I do not think that is good user experiences.
 If user enters user name which already exist (as he does not have to know about it)
@@ -195,10 +218,10 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 - [riddle-g-setting.html](/templates/riddle-g-setting.html)
   - 500 error when user tried to create profile under user name with finished game
 - [riddle-game.html](/templates/riddle-game.html)
-    - error with double `alerts` id.
+  - error with double `alerts` id.
 - [statistics.html](/templates/statistics.html)
-    - game profile links not showing in `nav`.
-    - broken link to game setting in `nav`.
+  - game profile links not showing in `nav`.
+  - broken link to game setting in `nav`.
 
 ### v1.2
 
@@ -237,9 +260,12 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
   - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using cdn, however I kept it as it came with the theme
 - Removed unnecessary files
 
-## **Credits**
+### v1.5
 
-<hr />
+- Writing `README.md`
+- Moved `helper.py` to separate folder
+
+## **Credits**
 
 ### Bootstrap template
 
@@ -254,4 +280,5 @@ https://github.com/inuits/hubot-scripts/blob/master/riddles.json
 General
 
 https://github.com/azeemigi/riddle-server/blob/master/modules/core/src/main/resources/riddles.json
+
 

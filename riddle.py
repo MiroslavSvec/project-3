@@ -7,7 +7,7 @@ from datetime import datetime
 from shutil import copyfile
 from flask import jsonify
 # Custom .py
-import helper
+import helper.helper as helper
 
 
 # Questions json for riddle game

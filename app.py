@@ -5,7 +5,7 @@ from random import shuffle
 from flask import Flask, session, redirect, url_for, request, render_template, jsonify
 
 # Custom .py
-import helper
+import helper.helper as helper
 import riddle
 
 app = Flask(__name__)
