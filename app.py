@@ -6,7 +6,7 @@ from flask import Flask, session, redirect, url_for, request, render_template, j
 
 # Custom .py
 import helper.helper as helper
-import riddle
+import riddles.riddle as riddle
 
 app = Flask(__name__)
 

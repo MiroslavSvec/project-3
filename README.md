@@ -6,6 +6,8 @@ In this project I should be able to show that I can work with Jinja, Python and 
 
 I decided to follow the given example from CI for this project.
 
+<hr />
+
 ## **CI Brief**
 
 - **CREATE A 'RIDDLE-ME-THIS' GUESSING GAME**
@@ -30,6 +32,8 @@ I decided to follow the given example from CI for this project.
   - [Existing features](#Existing-features)
   - [Features left to implement](#Features-left-to-implement)
 - [***Credits***](#Credits)
+
+<hr />
 
 ## **UX**
 
@@ -93,18 +97,20 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 [**To top**](#Table-of-Contents)
 
+<hr />
+
 ## **Features**
 
 ### **Existing features**
 
 - [**index.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
-  - Create Account / Login form
+  - **Create Account / Login form**
     - allow user to create an account
     - allow user to log-in to existing account
     - "Easter egg" show user how many user accounts has been created to test the app
 - **Any other page**
-  - `nav`
-    - `navbar-sidenav`
+  - **Navigation**
+    - **Side Navbar**
       - show user name of current user logged in
       - **Games**
         - **Riddles**
@@ -115,6 +121,61 @@ This is why the game profile list starts with "Games" instead of "Riddles".
       - **Log-out**
         - allow user to log out from current session (via modal)
 - [**riddle-g-setting.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-g-setting.html)
+  - **Game rules**
+    - brief the user about game rules and how to play the Riddle game
+  - **Please choose how to play**
+    - allow user to create new Riddle game profile
+      - **"Profile name"**
+        - *as mentioned above I did not want to limit the user or forced him to create new account for every new game.  
+        Therefore the user can have as many Riddle game profiles as he wish as long as the profile name is unique.*
+      - **Question Category**
+        - allow user to choose from 3 Question categories
+          - [All questions](https://github.com/MiroslavSvec/project-3/blob/master/data/riddle-game/all.json)
+          - [General](https://github.com/MiroslavSvec/project-3/blob/master/data/riddle-game/general.json)
+          - [Mixed](https://github.com/MiroslavSvec/project-3/blob/master/data/riddle-game/mixed.json)
+      - **Game Mods**
+        - allow user to choose from 2 different Riddle game modes
+          - **Endless**
+            - user can answer wrongly as many times as he wishes  
+            *Wrong answers are recorded; however, they have no impact on overall score.*
+          - **Limited**
+            - user has limited tries (wrong answers) depends on the number of tries he choose
+            *The game will end if tries are equal to 0 and this mod is selected*
+- [**riddle-game.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-game.html)
+  - **Navigation**
+    - **Top Navbar**
+      - allow user to see current score of the game
+        - **Questions left** - show number of questions left to answer
+        - **Tries left** - show number of tries left (if limited mod is selected)
+        - **Correct answers** - show number of correct questions answered
+        - **Wrong answers** - show number of wrongly answered question
+        - **Skipped questions** - show number of skipped questions
+        - **Deleted questions** - show number of deleted questions
+    - **Side Navbar**
+      - show Riddle profile name
+  - **Main**
+    - show current question with user actions
+    - **User actions**
+      - **Submit answer**
+        - allow user to submit his answer to current question depends on the input field in `form`
+      - **Skip Question**
+        - allow user to skip current question. The skipped question will be appended to end of the list and can be answered again. Also, last question cannot be skipped. If the user does not know the correct answer to the last question, he must delete the question to finish the game.
+      - **Delete Question**
+        - allow user to delete question from the game if he does not know the answer. The question will be permanently deleted from the game and cannot be answered again. Also, this will affect the overall score of the user profile.
+    - **Game end**
+      - *Whenever there are no questions left to answer the game will ends. The score will be calculated and displayed to user. After 10 seconds the user will be automatically transferred to "Statistic" page.*
+- [**statistics.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/statistics.html)
+  - **Score for current user logged in**
+    - allow user to see his score for each (finished) game profile (if any)
+    - if there are not any finished game profiles user can access New game setting instead
+  - **Top 10**
+    - allow user to see the "Top 10" table of Riddle game profiles sorted by amount of **correctly answered** questions.
+- [**helper.py**](https://github.com/MiroslavSvec/project-3/blob/master/helper/helper.py)
+  - *As the project works constantly with reading / writing to `.txt` and `. json` files I decided to create a separate `helper.py` with general functions for reading and writing those files.*  
+  *However, this makes the code hard to read sometimes as I am constantly passing functions to function.*  
+  *Maybe better approach will be to assign those functions to variables for better readability as suggested by my mentor.*
+- [**riddle.py**](https://github.com/MiroslavSvec/project-3/blob/master/riddles/riddle.py)
+  - *I decided to create separate file for the game itself as I did not want to keep it in main app as well as this supposed to be a small social page with many additional games as mentioned before.*
 
 ### **Features left to implement**
 
@@ -122,17 +183,32 @@ This is why the game profile list starts with "Games" instead of "Riddles".
   - Create Account / Login form
     - check user password (not required for this project)
 - **Any other page**
-  - `nav`
-    - `navbar-sidenav`
+  - **Navigation**
+    - **Top Navbar**
+      - **Chat window**
+        - allow user to view new / old messages from other users
+        - allow user to write a message to another user
+    - **Side Navbar**
       - show users friend list (if any)
       - let the user search for other users and add them to their friend list
+- [**riddle-game.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-game.html)
+  - **Skip Question**
+    - create functionality where skipped questions will affect the overall score
+    - remove "Skip question" button if this is the last question to answer
+- [**statistics.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/statistics.html)
+  - The overall score which is displayed at the end of the game has no actual effect in the "Statistics" page. The table is sorted by most answered questions which can be misleading as the overall score can be different. This should be changed and let the app to sort the game profiles based on the score. However, this will require some work:
+  - send another request to server via JS to update the user profile score at the end of the game
+  - let Python to calculate and update the profile score at the end and just send the final figure back to front end (better approach)
 - **Database**
   - allow users to delete profiles
     - I gave this functionality less importance as there is not too many questions and / or mods varieties.
   - delete profile after the game finish
     - profile data are no longer used after the game finish, so they should be removed from the server
 
+
 [**To top**](#Table-of-Contents)
+
+<hr />
 
 ## **Bugs and Testing**
 
@@ -184,6 +260,8 @@ Postman
     - riddle_game_answer
     - skip_question
     - delete_question
+
+<hr />
 
 ## **Changelog**
 
@@ -264,6 +342,9 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
 
 - Writing `README.md`
 - Moved `helper.py` to separate folder
+- Moved `riddle.py` to separate folder
+
+<hr />
 
 ## **Credits**
 
