@@ -35,7 +35,7 @@ def create_profile(user_name):
 @app.route('/<user_name>/log_in', methods=["GET"])
 def log_in(user_name):
     profiles = helper.read_txt("data/profiles/all-profiles.txt")
-    profile = user_name + "\n"
+    profile = user_name.lower() + "\n"
     if profile in profiles:
         session['user'] = {'user_name': user_name}
         return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))

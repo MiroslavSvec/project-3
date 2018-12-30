@@ -1,3 +1,42 @@
+
+## **Table of Contents**
+
+- [**Riddle Game**](#riddle-game)
+	- [**CI Brief**](#ci-brief)
+	- [**UX**](#ux)
+		- [General Design](#general-design)
+		- [Requirements](#requirements)
+		- [Wireframes](#wireframes)
+		- [Template](#template)
+	- [**Features**](#features)
+		- [Existing features](#existing-features)
+		- [Features left to implement](#features-left-to-implement)
+		- [What could be done better?](#what-could-be-done-better)
+	- [**Technologies used**](#technologies-used)
+		- [Front End](#front-end)
+		- [Back End](#back-end)
+	- [**Testing and improvments**](#testing-and-improvments)
+		- [Tools used for testing](#tools-used-for-testing)
+		- [Fixes](#fixes)
+			- [v1.0](#v10)
+			- [v1.1](#v11)
+			- [v1.2](#v12)
+			- [v1.3](#v13)
+			- [v1.5](#v15)
+		- [Changelog](#changelog)
+			- [v1.0](#v10-1)
+			- [v1.1](#v11-1)
+			- [v1.2](#v12-1)
+			- [v1.3](#v13-1)
+			- [v1.4](#v14)
+			- [v1.5](#v15-1)
+	- [**Deployment**](#deployment)
+	- [**Credits**](#credits)
+		- [Bootstrap template](#bootstrap-template)
+		- [Databases](#databases)
+
+<hr />
+
 # **Riddle Game**
 
 Hello there,  
@@ -21,23 +60,11 @@ I decided to follow the given example from CI for this project.
 - **CREATE YOUR OWN PROJECT**
   - If you choose to create your project outside the brief, the scope should be similar to that of the example brief above. If you want some ideas, please ask your mentor for advice and direction.
 
-## **Table of Contents**
-
-- [***UX***](#UX)
-  - [General Design](#General-Design)
-  - [Requirements](#Requirements)
-  - [Wireframes](#Wireframes)
-  - [Template](#Template)
-- [***Features***](#Features)
-  - [Existing features](#Existing-features)
-  - [Features left to implement](#Features-left-to-implement)
-- [***Credits***](#Credits)
-
 <hr />
 
 ## **UX**
 
-### **General Design**
+### General Design
 
 Design | Importance
 --- | ---
@@ -52,7 +79,7 @@ HTML / CSS | 3
   - create responsive design for the project or use a template
 - do not limit the user (1 user can have as many game profiles as he wishes)
 
-### **Requirements**
+### Requirements
 
 - **Welcome page**
   - create account / log-in
@@ -80,11 +107,11 @@ HTML / CSS | 3
     - create separate files for each user / profile
     - user should be able to access only his own data
 
-### **Wireframes**
+### Wireframes
 
 Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/) which can be find [here](https://github.com/MiroslavSvec/project-3/blob/master/assets/mockup.pdf). 
 
-### **Template**
+### Template
 
 As this was my first Python project I decided to fully focus on Python and Flask. Therefore I wanted to speed up the development and try to find a template/s which I could use for this project.
 
@@ -101,7 +128,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 ## **Features**
 
-### **Existing features**
+### Existing features
 
 - [**index.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
   - **Create Account / Login form**
@@ -139,7 +166,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
             - user can answer wrongly as many times as he wishes  
             *Wrong answers are recorded; however, they have no impact on overall score.*
           - **Limited**
-            - user has limited tries (wrong answers) depends on the number of tries he choose
+            - user has limited tries (wrong answers) depends on the number of tries he choose  
             *The game will end if tries are equal to 0 and this mod is selected*
 - [**riddle-game.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-game.html)
   - **Navigation**
@@ -177,7 +204,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 - [**riddle.py**](https://github.com/MiroslavSvec/project-3/blob/master/riddles/riddle.py)
   - *I decided to create separate file for the game itself as I did not want to keep it in main app as well as this supposed to be a small social page with many additional games as mentioned before.*
 
-### **Features left to implement**
+### Features left to implement
 
 - [**index.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/index.html)
   - Create Account / Login form
@@ -196,102 +223,122 @@ This is why the game profile list starts with "Games" instead of "Riddles".
     - create functionality where skipped questions will affect the overall score
     - remove "Skip question" button if this is the last question to answer
 - [**statistics.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/statistics.html)
-  - The overall score which is displayed at the end of the game has no actual effect in the "Statistics" page. The table is sorted by most answered questions which can be misleading as the overall score can be different. This should be changed and let the app to sort the game profiles based on the score. However, this will require some work:
-  - send another request to server via JS to update the user profile score at the end of the game
-  - let Python to calculate and update the profile score at the end and just send the final figure back to front end (better approach)
+  - The overall score which is displayed at the end of the game has no actual affect in the "Statistics" page. The table is sorted by most answered questions which can be misleading as the overall score can be different. This should be changed and let the app to sort the game profiles based on the score. However, this will require some work:
+    - send another request to server via JS to update the user profile score at the end of the game
+    - let Python to calculate and update the profile score at the end of the game and just send the final figure back to front end (better approach)
 - **Database**
   - allow users to delete profiles
     - I gave this functionality less importance as there is not too many questions and / or mods varieties.
-  - delete profile after the game finish
+  - automatically delete current game profile after the game finish
     - profile data are no longer used after the game finish, so they should be removed from the server
+  
+### What could be done better?
 
+- **Error handling**
+  - right now minimum to none  
+  *At least I should put all the read / write functions to `try` blocks and check if the file exists and / or the application is able to make actions to those files. If not raise a 500 error and give the user appropriate feedback.*
+- **Readability of Python code**
+  - *As mentioned before many times I am passing functions to function which can make the code hard to read and understand sometimes.*
+  - *Instead of the current approach I could assign all the read functions to variables and just pass those variables to a function for better readability. Also with this approach I will not need to reaped myself over and over again as I do now.*
+- **Code comments**
+  - *Unfortunately not enough comments in both JS and Python and / or the code is commented very badly.*
 
 [**To top**](#Table-of-Contents)
 
 <hr />
 
-## **Bugs and Testing**
+## **Technologies used**
 
-@app.route('/')
-err 500 passing data but can’t write them when used "USER" and "user" already exist
-another internal err when folder with data missing but user exist in all-users.txt
+### Front End
 
-Need to update localStorage when swapping between profiles --- LS no longer in use
-Need to redirect if riddle game data already exists --- Fixed with if statement on load
-Need to add all long links under variables --- Added
+- [Bootstrap 4.0.0](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+  - The project uses **Bootstrap** to speed up the development.
+- [Font Awesome 4.7.0](https://fontawesome.com/)
+  - The project uses **Font Awesome** for icons.
+- [jQuery v3.3.1](https://blog.jquery.com/2018/01/20/jquery-3-3-1-fixed-dependencies-in-release-tag/)
+  - The project uses **jQuery** for better user experiences as well as sending requests to server.
+    - [jQuery Easing](https://cdnjs.com/libraries/jquery-easing) - used for "back to top button"
 
-Check values of the profile --- Added
+### Back End
 
-Check if profile already exist --- Added
+- [Flask 1.0.2](http://flask.pocoo.org/docs/1.0/) a micro web Python framework
+  - **Flask** was used to build the application as well as to speed up the development process.
 
-Fix bug when all-profiles.txt exist without data (redirect) -- Fixed with checking if the len(profiles) is > 0
-
-Fix "View all messages" in window button (bad redirecting)
-
-Fix bug with injecting nav links (multiple click adds to link) --- Fixed
-
-Fix Chat window working in profile page only --- Fixed
-
-Fix bug with game profiles not showing while playing the game --- Fixed
-
-Fix "index out of range" while loading statistics without finished game --- Fixed (removed last index call which was misleading)
-
-### Tools used for testing
-
-Visual Studio Python debugger
-
-Postman
-
-- [JSHint](https://jshint.com/) (Report of all custom JS functions)
-  - **Metrics**
-    - There are 41 functions in this file.
-
-    - Function with the largest signature take 6 arguments, while the median is 1.
-
-    - Largest function has 11 statements in it, while the median is 3.
-
-    - The most complex function has a cyclomatic complexity value of 6 while the median is 1.
-  
-  - **Seven unused variables** (as the below functions are called form templates)
-    - create_profile
-    - check_login_details
-    - hide_alerts
-    - create_riddle_game
-    - riddle_game_answer
-    - skip_question
-    - delete_question
+[**To top**](#Table-of-Contents)
 
 <hr />
 
-## **Changelog**
+## **Testing and improvments**
 
-Scraped redirection to login page as I do not think that is good user experiences.
-If user enters user name which already exist (as he does not have to know about it)
-will use JS to handle the form check and then redirect via Python
+### Tools used for testing
 
-### v1.0
+- Front End
+  - [W3C Markup Validation Service](https://validator.w3.org/) (All pages)
+    - Document checking completed. No errors or warnings to show.
 
-<strike>Unfortunately found major bug where 2 users played the game at the same time.  
-The files got overwritten and therefore I was forced to implement sessions to separate the users. </strike>
+  - [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) (All pages)  
+    *Below errors and warnings has not been resolve yet. They all come from the Bootsrap theme.*
+    - Sorry! We found the following errors (29)
+    - Warnings (1003)
 
-Unfortunately, I discovered the bug while playing with a friend at the same time, so I misplaced it as bug related to multiplayer.
+  - [JSHint](https://jshint.com/) (Report of all custom JS functions)
+    - **Metrics**
+      - There are 41 functions in this file.
 
-Whenever user answered wrongly the game ended `helper.py` line 133. As due to indentation this if statement was always true on endless mode as the tries were always 0.
+      - Function with the largest signature take 6 arguments, while the median is 1.
 
-- Fixed bug with ending the game when user answer wrongly
-- Added session
-- Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
-- Added logout view
-- Removed unnecessary files
+      - Largest function has 11 statements in it, while the median is 3.
 
-### v1.1
+      - The most complex function has a cyclomatic complexity value of 6 while the median is 1.
+    - **Seven unused variables** (as the below functions are called form templates)
+      - create_profile
+      - check_login_details
+      - hide_alerts
+      - create_riddle_game
+      - riddle_game_answer
+      - skip_question
+      - delete_question
+- Back End
+  - [Jupyter Notebook](https://jupyter.org/index.html)
+    - *Most of the functions has been pre-writed and tested in **Jupyter Notebook**.*
 
-- Redesigned statistic page base on existing theme for the template.
-- Added [statistics.json](/data/riddle-game/statistics.json) for storing all finished games
-- Added functionality to sort the profiles in [statistics.json](/data/riddle-game/statistics.json) based on the `correct_answers`
-- Redesigned score system  
+  - [Visual Studio Python debugger](https://code.visualstudio.com/docs/python/debugging)
+    - *Mostly used after **Jupyter Noteboook** testing.* 
 
-#### Fixes in v1.1
+  - [Postman](https://www.getpostman.com/)
+    - To send fake requests to server  
+    *I was very new to **Postman** at the time I started to build this application and therefore **Postman** wasn't used as much as the two above.*
+
+### Fixes
+
+#### v1.0
+
+- Found major bug `helper.py` line 133
+  - whenever user answered wrongly the game ended. As due to indentation this if statement was always true on endless mode as the tries were always 0.  
+  *Unfortunately, I discovered the bug while playing with a friend at the same time, so I misplaced it as bug related to multiplayer and decided to add Flask sessions.*  
+  *After debugging the code in Visual Studio I found the core of the problem.*
+
+- <strike>Need to update localStorage when swapping between profiles</strike>
+  - localStorage no longer in use
+  
+- Need to redirect if riddle game data already exists
+  - Fixed with if statement on load
+
+- Check values of the profile
+
+- Check if profile already exist
+
+- Fix bug when all-profiles.txt exist without data (redirect)
+  - Fixed with checking if the len(profiles) is > 0
+
+- Fixed bug with injecting nav links (multiple click adds to link)
+
+- Fixed bug with game profiles not showing while playing the game
+
+- Fix "index out of range" while loading statistics without finished game
+  - Fixed (removed last index call which was misleading)
+
+#### v1.1
 
 - [riddle-g-setting.html](/templates/riddle-g-setting.html)
   - 500 error when user tried to create profile under user name with finished game
@@ -301,18 +348,49 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
   - game profile links not showing in `nav`.
   - broken link to game setting in `nav`.
 
-### v1.2
+
+#### v1.2
+
+- [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
+  - added statement to prevent users to access other user’s data and games
+
+#### v1.3
+
+- Moved alerts to the top as sometimes prevent user to click buttons
+- [riddle-game.html](/templates/riddle-game.html)
+  - Delete and Skip buttons where submitting the form
+- [statistics.html](/templates/statistics.html)
+  - added sessions to prevent users to view other users’ profiles
+
+#### v1.5
+
+- [index.html](/templates/index.html)
+  - error 500 passing data but can’t write them when used "USER" and "user"
+
+### Changelog
+
+#### v1.0
+
+- Added session
+- Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
+- Added logout view
+- Removed unnecessary files
+
+#### v1.1
+
+- Redesigned statistic page base on existing theme for the template.
+- Added [statistics.json](/data/riddle-game/statistics.json) for storing all finished games
+- Added functionality to sort the profiles in [statistics.json](/data/riddle-game/statistics.json) based on the `correct_answers`
+- Redesigned score system  
+
+
+#### v1.2
 
 - Added [404.html](/templates/404.html)
 - Added [500.html](/templates/500.html)
 - Added [error-log.txt](/data/system/error-log.txt) to store errors
 
-#### Fixes in v1.2
-
-- [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
-  - added statement to prevent users to access other user’s data and games
-
-### v1.3
+#### v1.3
 
 - Redesigned `side-nav` score and added more styles to it
 - Separated JS to different files
@@ -324,25 +402,28 @@ Whenever user answered wrongly the game ended `helper.py` line 133. As due to in
   - Number of tries are hidden if endless mode is selected
   - Added more styles to profile creation form
 
-#### Fixes in v1.3
-
-- Moved alerts to the top as sometimes prevent user to click buttons
-- [riddle-game.html](/templates/riddle-game.html)
-  - Delete and Skip buttons where submitting the form
-- [statistics.html](/templates/statistics.html)
-  - added sessions to prevent users to view other users’ profiles
-
-### v1.4
+#### v1.4
 
 - Validated each page
   - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using cdn, however I kept it as it came with the theme
 - Removed unnecessary files
 
-### v1.5
+#### v1.5
 
 - Writing `README.md`
 - Moved `helper.py` to separate folder
 - Moved `riddle.py` to separate folder
+
+[**To top**](#Table-of-Contents)
+
+<hr />
+
+## **Deployment**
+
+- [Python 3.6.3](https://www.python.org/downloads/release/python-363/)
+  - Used to build the application.
+
+[**To top**](#Table-of-Contents)
 
 <hr />
 
