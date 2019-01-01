@@ -15,21 +15,16 @@
 	- [**Technologies used**](#technologies-used)
 		- [Front End](#front-end)
 		- [Back End](#back-end)
-	- [**Testing and improvments**](#testing-and-improvments)
+	- [**Testing**](#testing)
 		- [Tools used for testing](#tools-used-for-testing)
-		- [Fixes](#fixes)
-			- [v1.0](#v10)
-			- [v1.1](#v11)
-			- [v1.2](#v12)
-			- [v1.3](#v13)
-			- [v1.5](#v15)
-		- [Changelog](#changelog)
-			- [v1.0](#v10-1)
-			- [v1.1](#v11-1)
-			- [v1.2](#v12-1)
-			- [v1.3](#v13-1)
-			- [v1.4](#v14)
-			- [v1.5](#v15-1)
+	- [**Changelog and Fixes**](#changelog-and-fixes)
+		- [Before v1.0](#before-v10)
+		- [v1.0](#v10)
+		- [v1.1](#v11)
+		- [v1.2](#v12)
+		- [v1.3](#v13)
+		- [v1.4](#v14)
+		- [v1.5](#v15)
 	- [**Deployment**](#deployment)
 	- [**Credits**](#credits)
 		- [Bootstrap template](#bootstrap-template)
@@ -268,11 +263,11 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 <hr />
 
-## **Testing and improvments**
+## **Testing**
 
 ### Tools used for testing
 
-- Front End
+- **Front End**
   - [W3C Markup Validation Service](https://validator.w3.org/) (All pages)
     - Document checking completed. No errors or warnings to show.
 
@@ -298,121 +293,134 @@ This is why the game profile list starts with "Games" instead of "Riddles".
       - riddle_game_answer
       - skip_question
       - delete_question
-- Back End
+- **Back End**
   - [Jupyter Notebook](https://jupyter.org/index.html)
     - *Most of the functions has been pre-writed and tested in **Jupyter Notebook**.*
 
   - [Visual Studio Python debugger](https://code.visualstudio.com/docs/python/debugging)
-    - *Mostly used after **Jupyter Noteboook** testing.* 
+    - *Mostly used after **Jupyter Noteboook** testing.*
 
   - [Postman](https://www.getpostman.com/)
     - To send fake requests to server  
     *I was very new to **Postman** at the time I started to build this application and therefore **Postman** wasn't used as much as the two above.*
 
-### Fixes
+[**To top**](#Table-of-Contents)
 
-#### v1.0
+<hr />
 
-- Found major bug `helper.py` line 133
-  - whenever user answered wrongly the game ended. As due to indentation this if statement was always true on endless mode as the tries were always 0.  
-  *Unfortunately, I discovered the bug while playing with a friend at the same time, so I misplaced it as bug related to multiplayer and decided to add Flask sessions.*  
-  *After debugging the code in Visual Studio I found the core of the problem.*
+## **Changelog and Fixes**
 
-- <strike>Need to update localStorage when swapping between profiles</strike>
-  - localStorage no longer in use
-  
-- Need to redirect if riddle game data already exists
-  - Fixed with if statement on load
+*[Git](https://git-scm.com/) has been used for version control.*
 
-- Check values of the profile
+- There are 7 different branches:
 
-- Check if profile already exist
+  - [master branch](https://github.com/MiroslavSvec/project-3/tree/master) *Used in production. The application is built from this branch on **Heroku***
 
-- Fix bug when all-profiles.txt exist without data (redirect)
-  - Fixed with checking if the len(profiles) is > 0
+  - *6 other branches has been created for development purpose only. Where each branch represent different version of the application.*
 
-- Fixed bug with injecting nav links (multiple click adds to link)
+### Before v1.0
 
-- Fixed bug with game profiles not showing while playing the game
+**Not a branch!**
 
-- Fix "index out of range" while loading statistics without finished game
-  - Fixed (removed last index call which was misleading)
+*Represent main development process before I started to use different branches for each version.*
 
-#### v1.1
+- **Changelog**  
+  *Unfortunately this version of the application was never really documented, however the applications as well as 99% of features was built in this version.* 
+- **Fixes**
+  - <strike>Need to update localStorage when swapping between profiles</strike>
+    - localStorage no longer in use
 
-- [riddle-g-setting.html](/templates/riddle-g-setting.html)
-  - 500 error when user tried to create profile under user name with finished game
-- [riddle-game.html](/templates/riddle-game.html)
-  - error with double `alerts` id.
-- [statistics.html](/templates/statistics.html)
-  - game profile links not showing in `nav`.
-  - broken link to game setting in `nav`.
+  - Need to redirect if riddle game data already exists
+    - Fixed with if statement on load
 
+  - Check values of the profile
 
-#### v1.2
+  - Check if profile already exist
 
-- [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
+  - Fix bug when all-profiles.txt exist without data (redirect)
+    - Fixed with checking if the len(profiles) is > 0
+
+  - Fixed bug with injecting nav links (multiple click adds to link)
+
+  - Fixed bug with game profiles not showing while playing the game
+
+  - Fix "index out of range" while loading statistics without finished game
+    - Fixed (removed last index call which was misleading) 
+
+### v1.0
+
+- **Changelog**
+  - Added session
+  - Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
+  - Added logout view
+  - Removed unnecessary files
+- **Fixes**
+  - Found major bug `helper.py` line 133
+    - whenever user answered wrongly the game ended. As due to indentation this if statement was always true on endless mode as the tries were always 0.  
+    *Unfortunately, I discovered the bug while playing with a friend at the same time, so I misplaced it as bug related to multiplayer and decided to add Flask sessions.*  
+    *After debugging the code in Visual Studio I found the core of the problem.*  
+
+### v1.1
+
+- **Changelog**
+  - Redesigned statistic page base on existing theme for the template.
+  - Added [statistics.json](/data/riddle-game/statistics.json) for storing all finished games
+  - Added functionality to sort the profiles in [statistics.json](/data/riddle-game/statistics.json) based on the `correct_answers`
+  - Redesigned score system
+- **Fixes**  
+  - [riddle-g-setting.html](/templates/riddle-g-setting.html)
+    - 500 error when user tried to create profile under user name with finished game
+  - [riddle-game.html](/templates/riddle-game.html)
+    - error with double `alerts` id.
+  - [statistics.html](/templates/statistics.html)
+    - game profile links not showing in `nav`.
+    - broken link to game setting in `nav`.
+
+### v1.2
+
+- **Changelog**
+  - Added [404.html](/templates/404.html)
+  - Added [500.html](/templates/500.html)
+  - Added [error-log.txt](/data/system/error-log.txt) to store errors
+- **Fixes**
+  - [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
   - added statement to prevent users to access other user’s data and games
 
-#### v1.3
+### v1.3
 
-- Moved alerts to the top as sometimes prevent user to click buttons
-- [riddle-game.html](/templates/riddle-game.html)
-  - Delete and Skip buttons where submitting the form
-- [statistics.html](/templates/statistics.html)
-  - added sessions to prevent users to view other users’ profiles
+- **Changelog**
+  - Redesigned `side-nav` score and added more styles to it
+  - Separated JS to different files
+  - [riddle-game.html](/templates/riddle-game.html)
+    - Added more styles to game itself
+    - Added JS validation to answer input field
+    - Confirmation buttons are now disabled on click to prevent user to send multiple requests to server
+  - [riddle-g-setting.html](/templates/riddle-g-setting.html)
+    - Number of tries are hidden if endless mode is selected
+    - Added more styles to profile creation form
+- **Fixes**
+  - Moved alerts to the top as sometimes prevent user to click buttons
+  - [riddle-game.html](/templates/riddle-game.html)
+    - Delete and Skip buttons where submitting the form
+  - [statistics.html](/templates/statistics.html)
+    - added sessions to prevent users to view other users’ profiles
 
-#### v1.5
+### v1.4
 
-- [index.html](/templates/index.html)
+- **Changelog**
+  - Validated each page
+    - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using cdn, however I kept it as it came with the theme
+  - Removed unnecessary files 
+
+### v1.5
+
+- **Changelog**
+  - Writing `README.md`
+  - Moved `helper.py` to separate folder
+  - Moved `riddle.py` to separate folder
+- **Fixes** 
+  - [index.html](/templates/index.html)
   - error 500 passing data but can’t write them when used "USER" and "user"
-
-### Changelog
-
-#### v1.0
-
-- Added session
-- Changed view names `get()` and `post()` to `log_in()` and `create_profile()`.
-- Added logout view
-- Removed unnecessary files
-
-#### v1.1
-
-- Redesigned statistic page base on existing theme for the template.
-- Added [statistics.json](/data/riddle-game/statistics.json) for storing all finished games
-- Added functionality to sort the profiles in [statistics.json](/data/riddle-game/statistics.json) based on the `correct_answers`
-- Redesigned score system  
-
-
-#### v1.2
-
-- Added [404.html](/templates/404.html)
-- Added [500.html](/templates/500.html)
-- Added [error-log.txt](/data/system/error-log.txt) to store errors
-
-#### v1.3
-
-- Redesigned `side-nav` score and added more styles to it
-- Separated JS to different files
-- [riddle-game.html](/templates/riddle-game.html)
-  - Added more styles to game itself
-  - Added JS validation to answer input field
-  - Confirmation buttons are now disabled on click to prevent user to send multiple requests to server
-- [riddle-g-setting.html](/templates/riddle-g-setting.html)
-  - Number of tries are hidden if endless mode is selected
-  - Added more styles to profile creation form
-
-#### v1.4
-
-- Validated each page
-  - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using cdn, however I kept it as it came with the theme
-- Removed unnecessary files
-
-#### v1.5
-
-- Writing `README.md`
-- Moved `helper.py` to separate folder
-- Moved `riddle.py` to separate folder
 
 [**To top**](#Table-of-Contents)
 
@@ -442,5 +450,3 @@ https://github.com/inuits/hubot-scripts/blob/master/riddles.json
 General
 
 https://github.com/azeemigi/riddle-server/blob/master/modules/core/src/main/resources/riddles.json
-
-
