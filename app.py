@@ -163,7 +163,8 @@ def show_statistics(user_name):
 
 # 404
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found(e):	
+    helper.write_to_txt("data/system/error-log.txt", "a", f"{e}" + '\n')
     return render_template('404.html'), 404
 
 # 500

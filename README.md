@@ -11,7 +11,6 @@
 	- [**Features**](#features)
 		- [Existing features](#existing-features)
 		- [Features left to implement](#features-left-to-implement)
-		- [What could be done better?](#what-could-be-done-better)
 	- [**Technologies used**](#technologies-used)
 		- [Front End](#front-end)
 		- [Back End](#back-end)
@@ -26,8 +25,10 @@
 		- [v1.4](#v14)
 		- [v1.5](#v15)
 	- [**Deployment**](#deployment)
+	- [**How to run the project locally?**](#how-to-run-the-project-locally)
+	- [**What could be done better?**](#what-could-be-done-better)
 	- [**Credits**](#credits)
-		- [Bootstrap template](#bootstrap-template)
+		- [[Bootstrap template]](#bootstrap-template)
 		- [Databases](#databases)
 
 <hr />
@@ -227,17 +228,6 @@ This is why the game profile list starts with "Games" instead of "Riddles".
   - automatically delete current game profile after the game finish
     - profile data are no longer used after the game finish, so they should be removed from the server
   
-### What could be done better?
-
-- **Error handling**
-  - right now minimum to none  
-  *At least I should put all the read / write functions to `try` blocks and check if the file exists and / or the application is able to make actions to those files. If not raise a 500 error and give the user appropriate feedback.*
-- **Readability of Python code**
-  - *As mentioned before many times I am passing functions to function which can make the code hard to read and understand sometimes.*
-  - *Instead of the current approach I could assign all the read functions to variables and just pass those variables to a function for better readability. Also with this approach I will not need to reaped myself over and over again as I do now.*
-- **Code comments**
-  - *Unfortunately not enough comments in both JS and Python and / or the code is commented very badly.*
-
 [**To top**](#Table-of-Contents)
 
 <hr />
@@ -314,7 +304,8 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 - There are 7 different branches:
 
-  - [master branch](https://github.com/MiroslavSvec/project-3/tree/master) *Used in production. The application is built from this branch on **Heroku***
+  - [master branch](https://github.com/MiroslavSvec/project-3/tree/master) Used in production.  
+    - *The application is built from this branch on **Heroku***
 
   - *6 other branches has been created for development purpose only. Where each branch represent different version of the application.*
 
@@ -347,7 +338,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
   - Fix "index out of range" while loading statistics without finished game
     - Fixed (removed last index call which was misleading) 
 
-### v1.0
+### [v1.0](https://github.com/MiroslavSvec/project-3/tree/v1.0)
 
 - **Changelog**
   - Added session
@@ -360,7 +351,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
     *Unfortunately, I discovered the bug while playing with a friend at the same time, so I misplaced it as bug related to multiplayer and decided to add Flask sessions.*  
     *After debugging the code in Visual Studio I found the core of the problem.*  
 
-### v1.1
+### [v1.1](https://github.com/MiroslavSvec/project-3/tree/v1.1)
 
 - **Changelog**
   - Redesigned statistic page base on existing theme for the template.
@@ -376,7 +367,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
     - game profile links not showing in `nav`.
     - broken link to game setting in `nav`.
 
-### v1.2
+### [v1.2](https://github.com/MiroslavSvec/project-3/tree/1.2)
 
 - **Changelog**
   - Added [404.html](/templates/404.html)
@@ -386,7 +377,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
   - [riddle-g-setting.html](/templates/riddle-g-setting.html) and [riddle-game.html](/templates/riddle-game.html)
   - added statement to prevent users to access other user’s data and games
 
-### v1.3
+### [v1.3](https://github.com/MiroslavSvec/project-3/tree/v1.3)
 
 - **Changelog**
   - Redesigned `side-nav` score and added more styles to it
@@ -405,20 +396,20 @@ This is why the game profile list starts with "Games" instead of "Riddles".
   - [statistics.html](/templates/statistics.html)
     - added sessions to prevent users to view other users’ profiles
 
-### v1.4
+### [v1.4](https://github.com/MiroslavSvec/project-3/tree/v1.4)
 
 - **Changelog**
   - Validated each page
     - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using cdn, however I kept it as it came with the theme
   - Removed unnecessary files 
 
-### v1.5
+### [v1.5](https://github.com/MiroslavSvec/project-3/tree/v1.5)
 
 - **Changelog**
   - Writing `README.md`
   - Moved `helper.py` to separate folder
   - Moved `riddle.py` to separate folder
-- **Fixes** 
+- **Fixes**
   - [index.html](/templates/index.html)
   - error 500 passing data but can’t write them when used "USER" and "user"
 
@@ -428,8 +419,71 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 ## **Deployment**
 
-- [Python 3.6.3](https://www.python.org/downloads/release/python-363/)
-  - Used to build the application.
+- [Python 3.6.3](https://www.python.org/downloads/release/python-363/) and [Flask 1.0.2](http://flask.pocoo.org/docs/1.0/) was used to build the application.
+  - created [requirements.txt](https://github.com/MiroslavSvec/project-3/blob/master/requirements.txt) that **Heroku** knows which packages are required for the application to run and install them.
+  - created [Procfile](https://github.com/MiroslavSvec/project-3/blob/master/Procfile) that **Heroku**  knows what kind of application is this.
+
+- [Heroku](https://www.heroku.com/home)  
+*Free cloud hosting platform which simplify the deployment process.*
+
+  - **Settings**
+    - Added **Config Vars**
+      - IP `0.0.0.0`
+      - PORT `5000`
+      - SECRET_KEY
+    - **Deploy**
+      - Connected the app to **GitHub** project
+      - Enabled automatic deploys from  master branch
+      - Deployed the branch manually
+        - **Last Build log**
+          - Python app detected
+          - Installing requirements with pip
+          - Discovering process types
+            - Procfile declares types -> web
+          - Compressing... 
+            - Done: 45.1M
+          - Launching...
+            - Released v27 https://project-3-riddle-game.herokuapp.com/ deployed to Heroku
+
+[**To top**](#Table-of-Contents)
+
+<hr />
+
+## **How to run the project locally?**
+
+1. Download and install [Python 3](https://www.python.org/downloads/)
+2. Clone or download the project  
+*Please note that if you downloaded the project manually you must unpack it after*
+3. Open your **Command line (CLI)** inside the project root or navigate to it
+4. [Create virtual environment (venv)](https://docs.python.org/3/tutorial/venv.html) (optional)
+   - Activate venv `source venv/bin/activate` where "venv" is the name of your virtual environment
+5. Install required packages via **CLI**
+   - `pip install -r requirements.txt`
+6. Set **venv** variables
+   - IP `0.0.0.0`
+   - PORT `5000`
+   - SECRET_KEY `my_secret_key`
+   - DEVELOPMENT (optional)
+7. Run the application
+   - `python app.py`
+8. The application should now run on your `localhost:5000`
+
+[**To top**](#Table-of-Contents)
+
+<hr />
+
+## **What could be done better?**
+
+- **Error handling**
+  - right now minimum to none  
+  *At least I should put all the read / write functions to `try` blocks and check if the file exists and / or the application is able to make actions to those files. If not raise a 500 error and give the user appropriate feedback.*
+- **Readability of Python code**
+  - *As mentioned before many times I am passing functions to function which can make the code hard to read and understand sometimes.*
+  - *Instead of the current approach I could assign all the read functions to variables and just pass those variables to a function for better readability. Also with this approach I will not need to reaped myself over and over again as I do now.*
+- **Code comments**
+  - *Unfortunately not enough comments in both JS and Python and / or the code is commented very badly.*
+- **Test the application on different versions of Python**
+  - *Unfortuantely the application was tested only on **Python 3.6.3***
 
 [**To top**](#Table-of-Contents)
 
@@ -437,7 +491,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 ## **Credits**
 
-### Bootstrap template
+### [Bootstrap template]
 
 https://blackrockdigital.github.io/startbootstrap-sb-admin/index.html
 
