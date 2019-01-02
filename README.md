@@ -256,6 +256,26 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 ## **Testing**
 
+The project has been tested on commonly used devices and browsers such as:
+
+- Desktop PC
+  - Chrome 70 (fully compatible)
+  - Opera 57 (fully compatible)
+  - Firefox 63 (fully compatible)
+  - Internet Explorer 11 (not compatible)
+    - the application cannot pass the create account or log-in on `index.html`
+  - Microsoft Edge 42 (fully compatible)
+
+- Tablets
+  - Nexus 7 - Chrome 69 (fully compatible)
+  - iPad air - Safari (not compatible)
+    - due to `onclick` events not firing up
+
+- Mobiles
+  - Samsung Galaxy - Chrome 69/70 (fully compatible)
+  - Samsung Galaxy - Samsung Internet 8.2 (fully compatible)
+  - iPhone - Safari (fully compatible)
+
 ### Tools used for testing
 
 - **Front End**
