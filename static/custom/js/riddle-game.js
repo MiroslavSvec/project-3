@@ -3,7 +3,7 @@
 
 $(document).ready(function () {
 	show_riddle_game();
-})
+});
 
 
 // Riddle Game
@@ -17,12 +17,12 @@ function show_riddle_game() {
 		$("#question").html(riddle_game_data.question);
 		if (riddle_game_data.remaining_questions == 0) {
 			riddle_score(riddle_game_data);
-			riddle_nav(riddle_game_data)
+			riddle_nav(riddle_game_data);
 			setTimeout(function () {
 				riddle_end();
-			}, 5000)
+			}, 5000);
 		} else {
-			riddle_nav(riddle_game_data)
+			riddle_nav(riddle_game_data);
 		}
 	}).fail(function (xhr, status, error) {
 		console.log(xhr);
@@ -92,8 +92,8 @@ function riddle_game_answer(form) {
 				) {
 					riddle_score(riddle_game_data);
 					setTimeout(function () {
-						riddle_end()
-					}, 10000)
+						riddle_end();
+					}, 10000);
 				} else {
 					riddle_messages(
 						answer.data,

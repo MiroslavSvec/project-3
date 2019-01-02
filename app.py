@@ -5,8 +5,8 @@ from random import shuffle
 from flask import Flask, session, redirect, url_for, request, render_template, jsonify
 
 # Custom .py
-import helper
-import riddle
+import helper.helper as helper
+import riddles.riddle as riddle
 
 app = Flask(__name__)
 
@@ -35,7 +35,7 @@ def create_profile(user_name):
 @app.route('/<user_name>/log_in', methods=["GET"])
 def log_in(user_name):
     profiles = helper.read_txt("data/profiles/all-profiles.txt")
-    profile = user_name + "\n"
+    profile = user_name.lower() + "\n"
     if profile in profiles:
         session['user'] = {'user_name': user_name}
         return jsonify(helper.read_json(f"data/profiles/{user_name}/{user_name}.json"))
@@ -163,7 +163,8 @@ def show_statistics(user_name):
 
 # 404
 @app.errorhandler(404)
-def page_not_found(e):
+def page_not_found(e):	
+    helper.write_to_txt("data/system/error-log.txt", "a", f"{e}" + '\n')
     return render_template('404.html'), 404
 
 # 500

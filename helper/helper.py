@@ -52,10 +52,11 @@ def get_profile_data(user_name):
 
 
 def create_profile_data(user_name):
+	user_name = user_name.lower()
 	profile = get_profile_data(user_name)
 	# Check if profile already exist
 	if profile:
-		return jsonify(user_name)
+ 		return jsonify(user_name)
 	else:
 		## If not create new Profile
 		profile_created = datetime.now().strftime("%H:%M:%S")

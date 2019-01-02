@@ -1,7 +1,7 @@
 
 $('select[name=mods]').change(function () {
 	$('#tries').slideToggle(500);
-})
+});
 
 
 /*

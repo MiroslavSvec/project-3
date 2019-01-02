@@ -24,14 +24,6 @@ hr {
 
 /* Login */
 
-.bg-dark {
-	background: url('/static/custom/images/main-background.jpg') no-repeat center;	
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}
-
 .content-wrapper {
 	margin-left: 0px;
 	background: transparent;

@@ -60,12 +60,3 @@ form a,
 #message-box {
     font-size: 0.85em;
 }
-
-
-/*
-Riddle Game
-*/
-
-#riddle-game {
-    display: none;
-}
