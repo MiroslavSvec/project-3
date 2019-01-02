@@ -28,8 +28,9 @@
 	- [**How to run the project locally?**](#how-to-run-the-project-locally)
 	- [**What could be done better?**](#what-could-be-done-better)
 	- [**Credits**](#credits)
-		- [[Bootstrap template]](#bootstrap-template)
-		- [Databases](#databases)
+		- [Special thanks to](#special-thanks-to)
+		- [Questions](#questions)
+		- [Bootstrap template](#bootstrap-template)
 
 <hr />
 
@@ -109,7 +110,7 @@ Base on the above I created basic mock-up using [Balsamiq](https://balsamiq.com/
 
 ### Template
 
-As this was my first Python project I decided to fully focus on Python and Flask. Therefore I wanted to speed up the development and try to find a template/s which I could use for this project.
+As this was my first Python project I decided to fully focus on Python and Flask. Therefore, I wanted to speed up the development and try to find a template/s which I could use for this project.
 
 At the end I was able to find [this](https://blackrockdigital.github.io/startbootstrap-sb-admin/index.html) template which suits my project almost perfectly. I choose the above template mainly because of the `side-nav` and the chat window in main `nav`.
 
@@ -262,7 +263,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
     - Document checking completed. No errors or warnings to show.
 
   - [W3C CSS Validation Service](https://jigsaw.w3.org/css-validator/) (All pages)  
-    *Below errors and warnings has not been resolve yet. They all come from the Bootsrap theme.*
+    *Below errors and warnings has not been resolved yet. They all come from the Bootstrap theme.*
     - Sorry! We found the following errors (29)
     - Warnings (1003)
 
@@ -285,10 +286,10 @@ This is why the game profile list starts with "Games" instead of "Riddles".
       - delete_question
 - **Back End**
   - [Jupyter Notebook](https://jupyter.org/index.html)
-    - *Most of the functions has been pre-writed and tested in **Jupyter Notebook**.*
+    - *Most of the functions has been pre-written and tested in **Jupyter Notebook**.*
 
   - [Visual Studio Python debugger](https://code.visualstudio.com/docs/python/debugging)
-    - *Mostly used after **Jupyter Noteboook** testing.*
+    - *Mostly used after **Jupyter Notebook** testing.*
 
   - [Postman](https://www.getpostman.com/)
     - To send fake requests to server  
@@ -316,7 +317,8 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 *Represent main development process before I started to use different branches for each version.*
 
 - **Changelog**  
-  *Unfortunately this version of the application was never really documented, however the applications as well as 99% of features was built in this version.* 
+  *Unfortunately this version of the application was never really documented, however the applications as well as 99% of features was built in this version.  
+  Commit `0c0f5b896f4cc48285cf52dfb50c37cd3566103c` is the last commit of this version.*
 - **Fixes**
   - <strike>Need to update localStorage when swapping between profiles</strike>
     - localStorage no longer in use
@@ -400,7 +402,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 - **Changelog**
   - Validated each page
-    - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using cdn, however I kept it as it came with the theme
+    - many CSS errors and warnings due to the Bootstrap 4 bundle. There should be no errors with using CDN, however I kept it as it came with the theme
   - Removed unnecessary files 
 
 ### [v1.5](https://github.com/MiroslavSvec/project-3/tree/v1.5)
@@ -409,6 +411,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
   - Writing `README.md`
   - Moved `helper.py` to separate folder
   - Moved `riddle.py` to separate folder
+  - Removed background image from `index.html` for better readbility
 - **Fixes**
   - [index.html](/templates/index.html)
   - error 500 passing data but can’t write them when used "USER" and "user"
@@ -483,7 +486,7 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 - **Code comments**
   - *Unfortunately not enough comments in both JS and Python and / or the code is commented very badly.*
 - **Test the application on different versions of Python**
-  - *Unfortuantely the application was tested only on **Python 3.6.3***
+  - *Unfortunately the application was tested only on **Python 3.6.3***
 
 [**To top**](#Table-of-Contents)
 
@@ -491,16 +494,26 @@ This is why the game profile list starts with "Games" instead of "Riddles".
 
 ## **Credits**
 
-### [Bootstrap template]
+### Special thanks to
 
-https://blackrockdigital.github.io/startbootstrap-sb-admin/index.html
+- **everyone for finding few minutes to test the project!**
 
-### Databases
+  *All of you gave me constructive feedback which made the project better 😊*
 
-Mixed
+### Questions
 
-https://github.com/inuits/hubot-scripts/blob/master/riddles.json
+- [Mixed](https://github.com/inuits/hubot-scripts/blob/master/riddles.json)
+- [General](https://github.com/azeemigi/riddle-server/blob/master/modules/core/src/main/resources/riddles.json)
 
-General
+### [Bootstrap template](https://blackrockdigital.github.io/startbootstrap-sb-admin/index.html)
 
-https://github.com/azeemigi/riddle-server/blob/master/modules/core/src/main/resources/riddles.json
+*As this template suits almost perfectly for my project the overall layout and styles has been kept for [base.html](https://github.com/MiroslavSvec/project-3/blob/master/templates/base.html). I heavily striped the theme down and changed to work with **Flask** and **Jinja2***
+- `nav`
+  - kept the skeleton only and redesigned it to suits to the project
+  - in [**riddle-game.html**](https://github.com/MiroslavSvec/project-3/blob/master/templates/riddle-game.html) added live score for the user
+- `footer`
+  - kept the skeleton only
+- **modals**
+  - kept the skeleton only
+
+[**To top**](#Table-of-Contents)
