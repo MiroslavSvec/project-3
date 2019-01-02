@@ -466,7 +466,7 @@ The project has been tested on commonly used devices and browsers such as:
           - Compressing... 
             - Done: 45.1M
           - Launching...
-            - Released v27 https://project-3-riddle-game.herokuapp.com/ deployed to Heroku
+            - Released v30 https://project-3-riddle-game.herokuapp.com/ deployed to Heroku
 
 [**To top**](#Table-of-Contents)
 
